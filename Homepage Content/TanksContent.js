@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, FlatList, StyleSheet } from 'react-native';
-import { TanksColors } from './Colors';
-import { ItemComponent, PlusComponent } from './ItemComponent';
+import { TanksColors } from '../Colors';
+import { ItemComponent, PlusComponent } from '../ItemComponent';
 
 export const TanksContent = () => {
   const data = [

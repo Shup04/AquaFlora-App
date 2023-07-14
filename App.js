@@ -8,10 +8,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import GridList from './GridList';
 import { Colors, TanksColors } from './Colors';
 
-import { FishContent } from './FishContent';
-import { TanksContent } from './TanksContent';
-import { PlantsContent } from './PlantsContent';
-import { RemindersContent } from './RemindersContent';
+import { FishContent } from './Homepage Content/FishContent';
+import { TanksContent } from './Homepage Content/TanksContent';
+import { PlantsContent } from './Homepage Content/PlantsContent';
+import { RemindersContent } from './Homepage Content/RemindersContent';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -58,13 +58,13 @@ const HomeScreen = ({navigation}) => {
   const renderContent = () => {
     switch (activeTab) {
       case 'Fish':
-        return <FishContent />;
+        //return <FishContent />;
       case 'Tanks':
         return <TanksContent />;
       case 'Plants':
-        return <PlantsContent />;
+        //return <PlantsContent />;
       case 'Reminders':
-        return <RemindersContent />;
+        //rreturn <RemindersContent />;
       default:
         return null;
     }
