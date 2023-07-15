@@ -2,10 +2,18 @@ import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { TanksColors } from './Colors';
 
-export const ItemComponent = ({ item }) => {
+export const ItemComponent = ({ item, navigation }) => {
+
+  const handlePress = () => {
+    navigation.navigate("Tank");
+  };
+
   return (
     <View style={styles.buttonContainer}>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity 
+        style={styles.button}
+        onPress={handlePress}
+      >
         <Image 
           style={styles.image}
           source={require('./assets/TankPhotos/whole.jpg')}

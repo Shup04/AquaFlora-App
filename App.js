@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { ImageBackground, Button, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import ButtonComponent from './ButtonComponent';
+import TankButton from './TankButton';
+import profileButton from './ProfileButton';
 import BezierChart from './BezierChart';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -55,16 +57,16 @@ const HomeScreen = ({navigation}) => {
     setActiveTab(tabName);
   };
 
-  const renderContent = () => {
+  const renderContent = ({navigation}) => {
     switch (activeTab) {
       case 'Fish':
         //return <FishContent />;
       case 'Tanks':
-        return <TanksContent />;
+        return <TanksContent navigation={navigation} />;
       case 'Plants':
         //return <PlantsContent />;
       case 'Reminders':
-        //rreturn <RemindersContent />;
+        //return <RemindersContent />;
       default:
         return null;
     }
@@ -157,7 +159,7 @@ const HomeScreen = ({navigation}) => {
         title='Search'
         style={styles.searchBar}
         />*/}
-      {renderContent()}
+      {renderContent( navigation={navigation} )}
     </View>
   );
   /*

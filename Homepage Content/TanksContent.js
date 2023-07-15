@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, FlatList, StyleSheet } from 'react-native
 import { TanksColors } from '../Colors';
 import { ItemComponent, PlusComponent } from '../ItemComponent';
 
-export const TanksContent = () => {
+export const TanksContent = ( {navigation} ) => {
   const data = [
     { id: 1, isLast: false, title: 'NanoCube', subtitle: 'Size: 5G' },
     { id: 2, isLast: false, title: 'NanoBowl', subtitle: 'Size: 1G' },
@@ -20,7 +20,7 @@ export const TanksContent = () => {
       );
     }
     return (
-      <ItemComponent item ={item} />
+      <ItemComponent item ={item} navigation={navigation} />
     );
   };
 
