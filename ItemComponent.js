@@ -2,10 +2,18 @@ import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { TanksColors } from './Colors';
 
+import realm from './Realm';
+
 export const ItemComponent = ({ item, navigation }) => {
 
   const handlePress = () => {
-    navigation.navigate("Tank");
+    realm.write(() => {
+      realm.create('Person', { name: 'John Doe', age: 30 });
+    });
+    const people = realm.objects('Person');
+    console.log(people);
+    realm.close();
+    
   };
 
   return (
