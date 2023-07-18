@@ -51,7 +51,7 @@ const MyStack = () => {
 
 const HomeScreen = ({navigation}) => {
 
-  const [activeTab, setActiveTab] = useState('Fish');
+  const [activeTab, setActiveTab] = useState('Tanks');
 
   const handleTabChange = (tabName) => {
     setActiveTab(tabName);
@@ -60,13 +60,13 @@ const HomeScreen = ({navigation}) => {
   const renderContent = ({navigation}) => {
     switch (activeTab) {
       case 'Fish':
-        //return <FishContent />;
+        return <FishContent />;
       case 'Tanks':
         return <TanksContent navigation={navigation} />;
       case 'Plants':
-        //return <PlantsContent />;
+        return <PlantsContent />;
       case 'Reminders':
-        //return <RemindersContent />;
+        return <RemindersContent />;
       default:
         return null;
     }
