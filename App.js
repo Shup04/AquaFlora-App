@@ -73,7 +73,7 @@ const HomeScreen = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <View style={styles.flexHoz}>
         <ButtonComponent
           //onPress={() => showList(1)}
