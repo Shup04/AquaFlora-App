@@ -1,19 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { TanksColors } from './Colors';
+import Popup from './Popup';
 
+import Modal from 'react-native-modal';
 import realm from './Realm';
 
 export const ItemComponent = ({ item, navigation }) => {
 
   const handlePress = () => {
-    realm.write(() => {
-      realm.create('Person', { name: 'John Doe', age: 30 });
-    });
-    const people = realm.objects('Person');
-    console.log(people);
-    realm.close();
-    
+    navigation.navigate('Tank')
   };
 
   return (
@@ -36,15 +32,22 @@ export const ItemComponent = ({ item, navigation }) => {
 };
 
 export const PlusComponent = () => {
+
+  const [isModalVisible, setModalVisible] = useState(false);
+
   return (
-    <View style={styles.buttonContainer}>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.plusButtonText}>+</Text>
-      </TouchableOpacity>
-    </View>
-    
+  <View style={styles.buttonContainer}>
+    <TouchableOpacity 
+      style={styles.button}
+      onPress={() => setModalVisible(true)}
+    >
+      <Text style={styles.plusButtonText}>+</Text>
+    </TouchableOpacity>
+    <Popup isModalVisible={isModalVisible} setModalVisible={setModalVisible} />
+  </View>
   );
 };
+
 const styles = StyleSheet.create({
   buttonContainer: {
     width: '50%',

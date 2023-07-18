@@ -9,6 +9,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import GridList from './GridList';
 import { Colors, TanksColors } from './Colors';
+import Modal from 'react-native-modal';
 
 import { FishContent } from './Homepage Content/FishContent';
 import { TanksContent } from './Homepage Content/TanksContent';
@@ -160,6 +161,7 @@ const HomeScreen = ({navigation}) => {
         style={styles.searchBar}
         />*/}
       {renderContent( navigation={navigation} )}
+      
     </View>
   );
   /*

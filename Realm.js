@@ -1,14 +1,15 @@
 import Realm from 'realm'
 
-class Person extends Realm.Object {}
-Person.schema = {
-  name: 'Person',
+class Tank extends Realm.Object {}
+Tank.schema = {
+  name: 'Tank',
   properties: {
     name: 'string',
-    age: 'int',
+    size: 'int',
+    desc: 'string',
   },
 };
 
-const realm = new Realm({ schema: [Person] });
+const realm = new Realm({ schema: [Tank] });
 
 export default realm;
