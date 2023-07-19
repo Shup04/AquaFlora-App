@@ -20,8 +20,6 @@ import { RemindersContent } from './Homepage Content/RemindersContent';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Stack = createNativeStackNavigator();
-const image = {uri: 'https://reactjs.org/logo-og.png'};
-
 const MyStack = () => {
   return (
     <NavigationContainer>
@@ -63,7 +61,8 @@ const HomeScreen = ({navigation}) => {
     switch (activeTab) {
       case 'Fish':
         return <FishContent />;
-      case 'Tanks':        return <TanksContent navigation={navigation}  />;
+      case 'Tanks':        
+        return <TanksContent navigation={navigation}  />;
       case 'Plants':
         return <PlantsContent />;
       case 'Reminders':
