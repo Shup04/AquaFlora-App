@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, FlatList, StyleSheet } from 'react-native
 import { TanksColors } from '../Colors';
 import { ItemComponent, PlusComponent } from '../ItemComponent';
 
-export const TanksContent = ( {navigation } ) => {
+export const TanksContent = ( {navigation, setModalVisible } ) => {
   const data = [
     { id: 1, isLast: false, title: 'NanoCube', subtitle: 'Size: 5G' },
     { id: 2, isLast: false, title: 'NanoBowl', subtitle: 'Size: 1G' },
@@ -16,7 +16,7 @@ export const TanksContent = ( {navigation } ) => {
   const renderItem = ({ item }) => {
     if (item.isLast) {
       return (
-        <PlusComponent/>
+        <PlusComponent setModalVisible={setModalVisible}/>
       );
     }
     return (

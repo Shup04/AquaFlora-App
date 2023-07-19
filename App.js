@@ -1,15 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { ImageBackground, Button, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import ButtonComponent from './ButtonComponent';
-import TankButton from './TankButton';
-import profileButton from './ProfileButton';
-import BezierChart from './BezierChart';
+import ButtonComponent from './Components/ButtonComponent';
+import TankButton from './Components/TankButton';
+import profileButton from './Components/ProfileButton';
+import BezierChart from './Components/BezierChart';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import GridList from './GridList';
+import GridList from './Components/GridList';
 import { Colors, TanksColors } from './Colors';
 import Modal from 'react-native-modal';
+import Popup from './Popup';
 
 import { FishContent } from './Homepage Content/FishContent';
 import { TanksContent } from './Homepage Content/TanksContent';
@@ -62,8 +63,7 @@ const HomeScreen = ({navigation}) => {
     switch (activeTab) {
       case 'Fish':
         return <FishContent />;
-      case 'Tanks':
-        return <TanksContent navigation={navigation} />;
+      case 'Tanks':        return <TanksContent navigation={navigation}  />;
       case 'Plants':
         return <PlantsContent />;
       case 'Reminders':
@@ -72,6 +72,31 @@ const HomeScreen = ({navigation}) => {
         return null;
     }
   };
+
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [tankName, setTankName] = useState('');
+  const [tankSize, setTankSize] = useState('');
+  const [tankDesc, setTankDesc] = useState('');
+
+  const handleSaveData = async () => {
+    const realm = await Realm.open({ schema: [MySchema] });
+    realm.write(() => {
+      const newObject = realm.create('MySchema', {
+        tankDesc,
+        tankName,
+        tankSize,
+      });
+    });
+    realm.close();
+
+    // Reset input values and close the modal
+    setTankName('');
+    setTankSize('');
+    setTankDesc('');
+    setModalVisible(false);
+  };
+
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -161,7 +186,17 @@ const HomeScreen = ({navigation}) => {
         style={styles.searchBar}
         />*/}
       {renderContent( navigation={navigation} )}
-      
+      <Popup
+        isModalVisible={isModalVisible}
+        setModalVisible={setModalVisible}
+        tankName={tankName}
+        setTankName={setTankName}
+        tankSize={tankSize}
+        setTankSize={setTankSize}
+        tankDesc={tankDesc}
+        setTankDesc={setTankDesc}
+        handleSaveData={handleSaveData}
+      />
     </View>
   );
   /*

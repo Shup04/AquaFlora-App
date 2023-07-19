@@ -31,9 +31,7 @@ export const ItemComponent = ({ item, navigation }) => {
   );
 };
 
-export const PlusComponent = () => {
-
-  const [isModalVisible, setModalVisible] = useState(false);
+export const PlusComponent = ({ setModalVisible }) => {
 
   return (
   <View style={styles.buttonContainer}>
@@ -43,7 +41,6 @@ export const PlusComponent = () => {
     >
       <Text style={styles.plusButtonText}>+</Text>
     </TouchableOpacity>
-    <Popup isModalVisible={isModalVisible} setModalVisible={setModalVisible} />
   </View>
   );
 };

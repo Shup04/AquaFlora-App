@@ -15,48 +15,58 @@ const MySchema = {
 };
 
 const Popup = ({ isModalVisible, setModalVisible }) => {
-  const [input1, setInput1] = useState('');
-  const [input2, setInput2] = useState('');
+  const [tankName, setTankName] = useState('');
+  const [tankSize, setTankSize] = useState('');
+  const [tankDesc, setTankDesc] = useState('');
 
   // Function to handle the submission of data to the Realm database
   const handleSaveData = async () => {
     const realm = await Realm.open({ schema: [MySchema] });
     realm.write(() => {
       const newObject = realm.create('MySchema', {
-        id: new Date().getTime(),
-        input1,
-        input2,
+        tankDesc,
+        tankName,
+        tankSize,
       });
     });
     realm.close();
 
     // Reset input values and close the modal
-    setInput1('');
-    setInput2('');
-    setModalVisible(false);
+    setTankName('');
+    setTankSize('');
+    setTankDesc('');
+
   };
 
   return (
-    <View>
-      <Modal isVisible={isModalVisible}>
-        <View>
-          <TextInput
-            placeholder="Input 1"
-            value={input1}
-            onChangeText={text => setInput1(text)}
-          />
+    <Modal
+      isVisible={isModalVisible}
+      onBackdropPress={() => {}}
+      onBackButtonPress={() => {}}
+    >
+      <View>
+        <TextInput
+          placeholder="Enter Tank Name"
+          value={tankName}
+          onChangeText={(text) => setTankName(text)}
+        />
 
-          <TextInput
-            placeholder="Input 2"
-            value={input2}
-            onChangeText={text => setInput2(text)}
-          />
+        <TextInput
+          placeholder="Enter Tank Size"
+          value={tankSize}
+          onChangeText={(text) => setTankSize(text)}
+        />
 
-          <Button title="Save" onPress={handleSaveData} />
-          <Button title="Cancel" onPress={() => setModalVisible(false)} />
-        </View>
-      </Modal>
-    </View>
+        <TextInput
+          placeholder="Enter Tank Description"
+          value={tankDesc}
+          onChangeText={(text) => setTankDesc(text)}
+        />
+
+        <Button title="Save" onPress={handleSaveData} />
+        <Button title="Cancel" onPress={() => setModalVisible(false)} />
+      </View>
+    </Modal>
   );
 };
 
