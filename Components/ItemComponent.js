@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
-import { TanksColors } from './Colors';
-import Popup from './Popup';
+import { TanksColors } from '../Colors';
+import Popup from '../Popup';
 
 import Modal from 'react-native-modal';
-import realm from './Realm';
+import realm from '../Realm';
 
 export const ItemComponent = ({ item, navigation }) => {
 
@@ -20,7 +20,7 @@ export const ItemComponent = ({ item, navigation }) => {
       >
         <Image 
           style={styles.image}
-          source={require('./assets/TankPhotos/whole.jpg')}
+          source={require('../assets/TankPhotos/whole.jpg')}
         />
         <View style={styles.textContainer}>
           <Text style={styles.buttonTitle}>{item.title}</Text>
@@ -37,9 +37,8 @@ export const PlusComponent = ({ setModalVisible }) => {
   <View style={styles.buttonContainer}>
     <TouchableOpacity 
       style={styles.button}
-      onPress={() => setModalVisible(true)}
     >
-      <Text style={styles.plusButtonText}>+</Text>
+      <Text style={styles.plusButtonText}>++</Text>
     </TouchableOpacity>
   </View>
   );
@@ -82,4 +81,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
   },
+  plusButtonText: {
+    color: TanksColors.title,
+    fontSize: 18,
+  },  
 });

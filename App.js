@@ -16,6 +16,7 @@ import { FishContent } from './Homepage Content/FishContent';
 import { TanksContent } from './Homepage Content/TanksContent';
 import { PlantsContent } from './Homepage Content/PlantsContent';
 import { RemindersContent } from './Homepage Content/RemindersContent';
+import { TankScreen } from './Screens/TankScreen';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -185,17 +186,6 @@ const HomeScreen = ({navigation}) => {
         style={styles.searchBar}
         />*/}
       {renderContent( navigation={navigation} )}
-      <Popup
-        isModalVisible={isModalVisible}
-        setModalVisible={setModalVisible}
-        tankName={tankName}
-        setTankName={setTankName}
-        tankSize={tankSize}
-        setTankSize={setTankSize}
-        tankDesc={tankDesc}
-        setTankDesc={setTankDesc}
-        handleSaveData={handleSaveData}
-      />
     </View>
   );
   /*
@@ -238,77 +228,6 @@ const HomeScreen = ({navigation}) => {
   */
 };
 
-const TankScreen = ({navigation}) => {
-
-  const [showListFish, setShowListFish] = useState(true);
-  const [showListPlants, setShowListPlants] = useState(false);
-  const [showListReminders, setShowListReminders] = useState(false);
-
-  const showList = (listNumber) => {
-    setShowListFish(listNumber === 1);
-    setShowListPlants(listNumber === 2);
-    setShowListReminders(listNumber === 3);
-  };
-
-  return (
-    <View /*style={styles.container}*/>
-      <StatusBar hidden={true} />
-      <View style={styles.tankInfo}>
-        <View style={styles.tankImage}></View>
-        <Text style={styles.tankHeader}>Tank #1</Text>
-        <View>
-          <Text style={styles.tankSize}>Gallons: 26</Text>
-          <Text style={styles.tankStatus}>Status: Healthy</Text>
-        </View>
-      </View>
-
-      <View>
-        <BezierChart/>
-      </View>
-
-
-      <View style={styles.buttonContainer}>
-        <ButtonComponent
-          onPress={() => showList(1)}
-          title="Fish"
-          color="#4287f5"
-        />
-        <ButtonComponent
-          onPress={() => showList(2)}
-          title="Plants"
-          color="#4287f5"
-        />
-        <ButtonComponent
-          onPress={() => showList(3)}
-          title="Extra"
-          color="#4287f5"
-          borderRadius="10"
-        />
-      </View>
-
-      {showListFish && (
-        <View style={styles.listContainer}>
-          <Text>Fish List</Text>
-        </View>
-      )}
-      {showListPlants && (
-        <View style={styles.listContainer}>
-          <Text>Plant List</Text>
-        </View>
-      )}
-      {showListReminders && (
-        <View style={styles.listContainer}>
-          <Text>Reminder List</Text>
-        </View>
-      )}
-
-
-      
-    </View>
-
-    
-  );
-};
 
 const styles = StyleSheet.create({
   header: {
