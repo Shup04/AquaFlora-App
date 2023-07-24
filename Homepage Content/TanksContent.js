@@ -6,11 +6,10 @@ import { ItemComponent, PlusComponent } from '../Components/ItemComponent';
 export const TanksContent = ( {navigation } ) => {
   const data = [
     { id: 1, isLast: false, title: 'NanoCube', subtitle: 'Size: 5G' },
-    { id: 2, isLast: false, title: 'NanoBowl', subtitle: 'Size: 1G' },
-    { id: 3, isLast: false, title: 'High Planted', subtitle: 'Size: 10G' },
-    { id: 4, isLast: false, title: 'High Tech', subtitle: 'Size: 26G' },
-    { id: 5, isLast: false, title: 'Reef Tank', subtitle: 'Size: 75G' },
-    { id: 6, isLast: true },
+    { id: 2, title: 'NanoBowl', subtitle: 'Size: 1G' },
+    { id: 3, title: 'High Planted', subtitle: 'Size: 10G' },
+    { id: 4, title: 'High Tech', subtitle: 'Size: 26G' },
+    { id: 5, title: 'Reef Tank', subtitle: 'Size: 75G' },
   ];
 
   const renderItem = ({ item }) => {
@@ -29,7 +28,9 @@ export const TanksContent = ( {navigation } ) => {
     <View style={{width: '90%'}}>
       <Text style={styles.header}>My Tanks</Text>
     </View>
-      
+
+      <PlusComponent navigation={navigation}/>
+
       <FlatList
       data={data}
       renderItem={renderItem}

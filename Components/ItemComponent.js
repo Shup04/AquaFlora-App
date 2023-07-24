@@ -31,14 +31,19 @@ export const ItemComponent = ({ item, navigation }) => {
   );
 };
 
-export const PlusComponent = ({ setModalVisible }) => {
+export const PlusComponent = ({ navigation }) => {
+
+  const handlePress = () => {
+    navigation.navigate('TankCreate')
+  };
 
   return (
-  <View style={styles.buttonContainer}>
+  <View style={styles.plusButtonContainer}>
     <TouchableOpacity 
-      style={styles.button}
+      style={styles.plusButton}
+      onPress={handlePress}
     >
-      <Text style={styles.plusButtonText}>++</Text>
+      <Text style={styles.plusButtonText}>Create New Tank</Text>
     </TouchableOpacity>
   </View>
   );
@@ -51,12 +56,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
   },
+  plusButtonContainer: {
+    width: '90%',
+    height: '10%',
+    alignItems: 'center',
+    padding: 10,
+  },
   button: {
-    height: 250,
+    height: 220,
     width: '100%',
     backgroundColor: TanksColors.componentDark,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
+    borderRadius: 15,
+    shadowColor: '#A4A4A4',
+    elevation: 3,
+  },
+  plusButton: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: TanksColors.componentDark,
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 15,
     shadowColor: '#A4A4A4',
     elevation: 3,
@@ -83,6 +104,7 @@ const styles = StyleSheet.create({
   },
   plusButtonText: {
     color: TanksColors.title,
-    fontSize: 18,
+    fontSize: 20,
+    fontWeight: 'bold',
   },  
 });

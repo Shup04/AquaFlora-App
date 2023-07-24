@@ -11,14 +11,24 @@ import GridList from './Components/GridList';
 import { Colors, TanksColors } from './Colors';
 import Modal from 'react-native-modal';
 import Popup from './Popup';
+import { HeaderButton } from './Components/HeaderButton';
 
 import { FishContent } from './Homepage Content/FishContent';
 import { TanksContent } from './Homepage Content/TanksContent';
 import { PlantsContent } from './Homepage Content/PlantsContent';
 import { RemindersContent } from './Homepage Content/RemindersContent';
+
 import { TankScreen } from './Screens/TankScreen';
+import { TankCreateScreen } from './Screens/TankCreateScreen';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import DefaultPFP from './assets/MiscImages/defaultPFP.png';
+import SettingsIcon from './assets/MiscImages/settings.png';
+import DashboardIcon from './assets/MiscImages/dashboard.png';
+import TanksIcon from './assets/MiscImages/tanks.png';
+import FishIcon from './assets/MiscImages/fish.png';
+import PlantsIcon from './assets/MiscImages/plants.png';
 
 const Stack = createNativeStackNavigator();
 const MyStack = () => {
@@ -45,6 +55,11 @@ const MyStack = () => {
             }
           }} 
         />
+        <Stack.Screen
+          name="TankCreate"
+          component={TankCreateScreen}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -60,42 +75,19 @@ const HomeScreen = ({navigation}) => {
 
   const renderContent = ({navigation}) => {
     switch (activeTab) {
+      case 'Dashboard':
+        return <RemindersContent />;
       case 'Fish':
         return <FishContent />;
       case 'Tanks':        
         return <TanksContent navigation={navigation}  />;
       case 'Plants':
         return <PlantsContent />;
-      case 'Reminders':
-        return <RemindersContent />;
+      
       default:
         return null;
     }
   };
-
-  const [isModalVisible, setModalVisible] = useState(false);
-  const [tankName, setTankName] = useState('');
-  const [tankSize, setTankSize] = useState('');
-  const [tankDesc, setTankDesc] = useState('');
-
-  const handleSaveData = async () => {
-    const realm = await Realm.open({ schema: [MySchema] });
-    realm.write(() => {
-      const newObject = realm.create('MySchema', {
-        tankDesc,
-        tankName,
-        tankSize,
-      });
-    });
-    realm.close();
-
-    // Reset input values and close the modal
-    setTankName('');
-    setTankSize('');
-    setTankDesc('');
-    setModalVisible(false);
-  };
-
 
   return (
     <View style={styles.container}>
@@ -103,13 +95,17 @@ const HomeScreen = ({navigation}) => {
       <View style={styles.flexHoz}>
         <ButtonComponent
           //onPress={() => showList(1)}
-          title="pfp"
           color="#4287f5"
+          imageLink={DefaultPFP}
           style={{
             width: 60,
             height: 60,
-            marginLeft: 20,
-            backgroundColor: 'blue',
+            marginLeft: 30,
+            marginRight: 10,
+          }}
+          imageStyle={{
+            height: '90%',
+            width: '90%',
           }}
           textStyle={{
             fontSize: 20,
@@ -121,13 +117,17 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.header2}>Your tanks are all healthy.</Text>
         </View>
         <ButtonComponent
-          //onPress={() => showList(1)}
-          title="settings"
           color="#4287f5"
+          imageLink={SettingsIcon}
           style={{
-            marginLeft: 'auto',
-            marginRight: 20,
-            backgroundColor: 'blue',
+            width: 50,
+            height: 50,
+            marginLeft: 30,
+            marginRight: 10,
+          }}
+          imageStyle={{
+            height: '90%',
+            width: '90%',
           }}
           textStyle={{
             fontSize: 20,
@@ -137,49 +137,83 @@ const HomeScreen = ({navigation}) => {
       </View>
       <View style={styles.buttonContainer}>
         <ButtonComponent
-          onPress={() => handleTabChange('Fish')}
-          title="Fish"
-          color="#4287f5"
-          style={styles.headerButton}
+          imageLink={DashboardIcon}
+          title="Dashboard"
+          onPress={() => handleTabChange('Dashboard')}
+          style={{
+            width: '25%',
+            height: '100%',
+            alignItems: 'center',
+          }}
+          imageStyle={{
+            width: 40,
+            height: 40,
+          }}
           textStyle={{
-            fontSize: 20,
+            fontSize: 16,
+            fontWeight: '500',
             color: Colors.text,
-            fontWeight: 'bold',
           }}
         />
         <ButtonComponent
-          onPress={() => handleTabChange('Tanks')}
+          imageLink={TanksIcon}
           title="Tanks"
-          color="#4287f5"
-          style={styles.headerButton}
+          onPress={() => handleTabChange('Tanks')}
+          style={{
+            width: '25%',
+            height: '100%',
+            alignItems: 'center',
+          }}
+          imageStyle={{
+            width: 40,
+            height: 40,
+          }}
           textStyle={{
-            fontSize: 20,
+            fontSize: 16,
+            fontWeight: '500',
             color: Colors.text,
-            fontWeight: 'bold',
           }}
         />
         <ButtonComponent
-          onPress={() => handleTabChange('Plants')}
+          imageLink={FishIcon}
+          title="Fish"
+          onPress={() => handleTabChange('Fish')}
+          style={{
+            width: '25%',
+            height: '100%',
+            alignItems: 'center',
+          }}
+          imageStyle={{
+            width: 40,
+            height: 40,
+          }}
+          textStyle={{
+            fontSize: 16,
+            fontWeight: '500',
+            color: Colors.text,
+          }}
+        />
+        <ButtonComponent
+          imageLink={PlantsIcon}
           title="Plants"
-          color="#4287f5"
-          style={styles.headerButton}
+          onPress={() => handleTabChange('Plants')}
+          style={{
+            width: '25%',
+            height: '100%',
+            alignItems: 'center',
+          }}
+          imageStyle={{
+            width: 40,
+            height: 40,
+          }}
           textStyle={{
-            fontSize: 20,
+            fontSize: 16,
+            fontWeight: '500',
             color: Colors.text,
-            fontWeight: 'bold',
           }}
         />
-        <ButtonComponent
-          onPress={() => handleTabChange('Reminders')}
-          title="Reminders"
-          color="#4287f5"
-          style={styles.headerButton}
-          textStyle={{
-            fontSize: 20,
-            color: Colors.text,
-            fontWeight: 'bold',
-          }}
-        />
+
+
       </View>
       {/*<ButtonComponent
         title='Search'
@@ -248,7 +282,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     marginVertical: 10,
-    width: '80%',
+    width: '90%',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
