@@ -4,6 +4,7 @@ import { View, Text, StyleSheet,
 import { TanksColors } from '../Colors';
 import { BackButton } from '../Components/BackButton';
 import ImagePicker from 'react-native-image-picker';
+import realm from '../Realm';
 
 export const TankCreateScreen = ({ navigation }) => {
 
@@ -12,20 +13,13 @@ export const TankCreateScreen = ({ navigation }) => {
   const [tankDesc, setTankDesc] = React.useState('');
   const [tankImage, setTankImage] = React.useState(null);
 
-  const pickImage = () => {
-    ImagePicker.showImagePicker(
-      {
-        title: 'Select Tank Image',
-        mediaType: 'photo',
-        maxWidth: 300,
-        maxHeight: 300,
-      },
-      (response) => {
-        if (!response.didCancel && !response.error) {
-          setTankImage(response.uri);
-        }
-      }
-    );
+  const saveToRealm = () => {
+    realm.write(() => {
+      realm.create('Tank', {name: tankName, size: tankSize, desc: tankDesc});
+    });
+    setName('');
+    setAge('');
+    setAvatar(null);
   };
 
   return (
@@ -57,7 +51,10 @@ export const TankCreateScreen = ({ navigation }) => {
           style={styles.input}
         />
       </View>
-      <TouchableOpacity style={styles.uploadButton} onPress={pickImage}></TouchableOpacity>
+      
+      <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={saveToRealm} >
+        <Text style={styles.boxText}>Create</Text>
+      </TouchableOpacity>
     </View>
   </View>
   );
@@ -111,5 +108,12 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginLeft: 10,
   },
-  
+  uploadButton: {
+    width: 100,
+  },
+  createBox: {
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

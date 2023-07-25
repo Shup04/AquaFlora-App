@@ -8,7 +8,7 @@ export const Colors = {
 
 export const TanksColors = {
   headerBackground: '#191924',
-  backgroundTanks: '#3F3E48',
+  backgroundTanks: '#2C2D3f',
   textWhite: '#F1F1F1',
   searchBar: '#4C5059',
   text: '#F1F1F1',

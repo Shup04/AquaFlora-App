@@ -5,7 +5,7 @@ Tank.schema = {
   name: 'Tank',
   properties: {
     name: 'string',
-    size: 'int',
+    size: 'string',
     desc: 'string',
   },
 };

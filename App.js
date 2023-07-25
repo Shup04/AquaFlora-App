@@ -31,7 +31,7 @@ import FishIcon from './assets/MiscImages/fish.png';
 import PlantsIcon from './assets/MiscImages/plants.png';
 
 const Stack = createNativeStackNavigator();
-const MyStack = () => {
+const MyStack = ({ navigation }) => {
   return (
     <NavigationContainer>
       <Stack.Navigator 
@@ -57,6 +57,7 @@ const MyStack = () => {
         />
         <Stack.Screen
           name="TankCreate"
+          backTo="HomeScreen"
           component={TankCreateScreen}
         />
 
@@ -215,10 +216,6 @@ const HomeScreen = ({navigation}) => {
 
 
       </View>
-      {/*<ButtonComponent
-        title='Search'
-        style={styles.searchBar}
-        />*/}
       {renderContent( navigation={navigation} )}
     </View>
   );
