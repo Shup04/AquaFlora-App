@@ -17,9 +17,9 @@ export const TankCreateScreen = ({ navigation }) => {
     realm.write(() => {
       realm.create('Tank', {name: tankName, size: tankSize, desc: tankDesc});
     });
-    setName('');
-    setAge('');
-    setAvatar(null);
+    setTankName('');
+    setTankSize('');
+    setTankDesc('');
   };
 
   return (
