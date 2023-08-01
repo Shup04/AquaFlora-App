@@ -2,27 +2,40 @@ import React from 'react';
 import { View, TouchableOpacity, Text, FlatList, StyleSheet } from 'react-native';
 import { TanksColors } from '../Colors';
 import { ItemComponent, PlusComponent } from '../Components/ItemComponent';
+import realm from '../Realm';
 
 export const TanksContent = ( {navigation } ) => {
-  const data = [
-    { id: 1, isLast: false, title: 'NanoCube', subtitle: 'Size: 5G' },
-    { id: 2, title: 'NanoBowl', subtitle: 'Size: 1G' },
-    { id: 3, title: 'High Planted', subtitle: 'Size: 10G' },
-    { id: 4, title: 'High Tech', subtitle: 'Size: 26G' },
-    { id: 5, title: 'Reef Tank', subtitle: 'Size: 75G' },
-  ];
+
+  const fetchTankDataFromRealm = () => {
+    try {
+      const allTanks = realm.objects('Tank');
+      const tankArray = Array.from(allTanks); //convert realm list to array
+  
+      // Convert each tank object to the format expected by the FlatList
+      const dataFromRealm = tankArray.map((tank) => ({
+        id: tank.id,
+        title: tank.name,
+        subtitle: `Size: ${tank.size}`,
+      }));
+  
+      return dataFromRealm;
+    } catch (error) {
+      console.error('Error fetching data from Realm database:', error);
+      return [];
+    }
+  };
+  const data = fetchTankDataFromRealm();
 
   const renderItem = ({ item }) => {
-    if (item.isLast) {
-      return (
-        <PlusComponent navigation={navigation}/>
-      );
-    }
     return (
-      <ItemComponent item ={item} navigation={navigation} />
+      <ItemComponent
+        title={item.title}
+        subtitle={item.subtitle}
+        navigation={navigation} />
     );
   };
 
+  const keyExtractor = (item) => (item.id ? item.id.toString() : null);
   return (
     <>
     <View style={{width: '90%'}}>
@@ -32,11 +45,11 @@ export const TanksContent = ( {navigation } ) => {
       <PlusComponent navigation={navigation}/>
 
       <FlatList
-      data={data}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.id.toString()}
-      numColumns={2}
-      contentContainerStyle={styles.listContainer}
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor} // Assuming 'id' is the unique identifier in your Tank schema
+        numColumns={2}
+        contentContainerStyle={styles.listContainer} // Adjust styles as needed
       />
     </>
   );
@@ -52,5 +65,6 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     width: '90%',
+    minWidth: '90%',
   },
 });

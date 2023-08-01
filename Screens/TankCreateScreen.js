@@ -14,12 +14,49 @@ export const TankCreateScreen = ({ navigation }) => {
   const [tankImage, setTankImage] = React.useState(null);
 
   const saveToRealm = () => {
-    realm.write(() => {
-      realm.create('Tank', {name: tankName, size: tankSize, desc: tankDesc});
-    });
-    setTankName('');
-    setTankSize('');
-    setTankDesc('');
+    try{
+      const tankObjects = realm.objects('Tank'); //get all tanks
+      const sortedTankObjects = tankObjects.sorted('id', true); //sort tanks by id
+      const lastTank = sortedTankObjects.length > 0 ? sortedTankObjects[0] : null; //get last tank
+      const nextId = lastTank ? lastTank.id + 1 : 1; //increment last tanks id
+  
+      realm.write(() => {
+        realm.create('Tank', { id: nextId, name: tankName, size: tankSize, desc: tankDesc});
+      });
+      setTankName('');
+      setTankSize('');
+      setTankDesc('');
+    } catch (error) {
+      console.error('Error saving to Realm database:', error);
+    }
+    
+  };
+
+  const printRealm = () => {
+    try {
+      // Get all data from the 'Tank' schema
+      const allTanks = realm.objects('Tank');
+  
+      // Print the data
+      console.log('Database content:');
+      allTanks.forEach((tank) => {
+        console.log(`Name: ${tank.name}, Size: ${tank.size}, Description: ${tank.desc}`);
+      });
+    } catch (error) {
+      console.error('Error reading from Realm database:', error);
+    }
+  };
+
+  const clearRealm = () => {
+    try {
+      realm.write(() => {
+        const objectsToDelete = realm.objects('Tank');
+        realm.delete(objectsToDelete);
+      });
+      console.log(`All objects in schema '${'Tank'}' have been cleared.`);
+    } catch (error) {
+      console.error(`Error clearing schema '${'Tank'}':`, error);
+    }
   };
 
   return (
@@ -54,6 +91,14 @@ export const TankCreateScreen = ({ navigation }) => {
       
       <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={saveToRealm} >
         <Text style={styles.boxText}>Create</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={printRealm} >
+        <Text style={styles.boxText}>Print Tanks</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={clearRealm} >
+        <Text style={styles.boxText}>Clear Tanks</Text>
       </TouchableOpacity>
     </View>
   </View>

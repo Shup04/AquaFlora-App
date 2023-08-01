@@ -6,7 +6,7 @@ import Popup from '../Popup';
 import Modal from 'react-native-modal';
 import realm from '../Realm';
 
-export const ItemComponent = ({ item, navigation }) => {
+export const ItemComponent = ({ title, subtitle, navigation }) => {
 
   const handlePress = () => {
     navigation.navigate('Tank')
@@ -23,8 +23,8 @@ export const ItemComponent = ({ item, navigation }) => {
           source={require('../assets/TankPhotos/whole.jpg')}
         />
         <View style={styles.textContainer}>
-          <Text style={styles.buttonTitle}>{item.title}</Text>
-          <Text style={styles.buttonSubtitle}>{item.subtitle}</Text>
+          <Text style={styles.buttonTitle}>{title}</Text>
+          <Text style={styles.buttonSubtitle}>{subtitle}</Text>
         </View>
       </TouchableOpacity>
     </View>
