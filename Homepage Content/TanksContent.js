@@ -31,7 +31,8 @@ export const TanksContent = ( {navigation } ) => {
       <ItemComponent
         title={item.title}
         subtitle={item.subtitle}
-        navigation={navigation} />
+        navigation={navigation} 
+        item={item}/>
     );
   };
 

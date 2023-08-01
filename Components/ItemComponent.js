@@ -1,22 +1,18 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { TanksColors } from '../Colors';
-import Popup from '../Popup';
 
-import Modal from 'react-native-modal';
-import realm from '../Realm';
+export const ItemComponent = ({ item, title, subtitle, navigation }) => {
 
-export const ItemComponent = ({ title, subtitle, navigation }) => {
-
-  const handlePress = () => {
-    navigation.navigate('Tank')
+  const handlePress = (tankId) => {
+    navigation.navigate('Tank', { tankId })
   };
 
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity 
         style={styles.button}
-        onPress={handlePress}
+        onPress={() => handlePress(item.id)}
       >
         <Image 
           style={styles.image}
