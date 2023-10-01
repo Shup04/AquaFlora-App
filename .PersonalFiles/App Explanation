@@ -1,0 +1,8 @@
+The app will be for managing consumer aquariums and fish tanks.
+Users wil be able to add their aquariums, and then add fish and plants to each aquarium.
+Some features i have written down to add are (at least for the MVP):
+- Notifications to do waterchanges, maintenance, etc.
+- Parameter tracking on a graph
+- notifications of parameters become out of healthy range.
+- fish and plant database for easy adding.
+Thats just the basics, you can fill in other mandatory features if you think of them.

@@ -151,7 +151,7 @@ const HomeScreen = ({navigation}) => {
             height: 40,
           }}
           textStyle={{
-            fontSize: 16,
+            fontSize: 15,
             fontWeight: '500',
             color: Colors.text,
           }}
