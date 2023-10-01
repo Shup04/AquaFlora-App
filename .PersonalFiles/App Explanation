@@ -6,3 +6,8 @@ Some features i have written down to add are (at least for the MVP):
 - notifications of parameters become out of healthy range.
 - fish and plant database for easy adding.
 Thats just the basics, you can fill in other mandatory features if you think of them.
+
+Feature Queue (in order)
+- finish functional tank screen.
+- add push notifications creation and sending.
+- add param graph detailed screen. to add entries and view in more detail.
