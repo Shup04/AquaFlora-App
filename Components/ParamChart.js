@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { Colors } from '../Colors';
 import { LineChart } from 'react-native-gifted-charts';
 import { Dimensions } from 'react-native';
@@ -94,31 +94,35 @@ export const ParamChart = ({ }) => {
     { value:20, data: '10 Oct 2023'}
   ]
   return (
-    <LineChart
-            areaChart
-            curved
-            rotateLabel
-            data={data}
-            data2={lineData2}
-            height={200}
-            spacing={chartWidth / data.length}
-            initialSpacing={10}
-            color1="red"
-            color2="orange"
-            hideDataPoints
-            startFillColor1="red"
-            startFillColor2="orange"
-            endFillColor1="red"
-            endFillColor2="orange"
-            startOpacity={0.5}
-            endOpacity={0.1}
-            xAxisColor="white"
-            yAxisColor="white"
-            yAxisTextStyle={{color: 'white'}}
-            rulesType='solid'
-            rulesColor={"#EEEEEE55"}
-            verticalLinesColor={"#EEEEEE33"}
-            noOfSections={5}
-            />
+    <View style={{marginLeft: -50}}>
+      <LineChart
+        areaChart
+        isAnimated
+        rotateLabel
+        data={data}
+        data2={lineData2}
+        height={200}
+        spacing={chartWidth / data.length}
+        initialSpacing={10}
+        color1="red"
+        color2="orange"
+        hideDataPoints
+        startFillColor1="red"
+        startFillColor2="orange"
+        endFillColor1="red"
+        endFillColor2="orange"
+        startOpacity={0.5}
+        endOpacity={0.1}
+        xAxisColor="white"
+        yAxisColor="white"
+        yAxisTextStyle={{color: 'white'}}
+        rulesType='solid'
+        rulesColor={"#EEEEEE55"}
+        verticalLinesColor={"#EEEEEE33"}
+        maxValue={60}
+        noOfSections={6}
+      />
+    </View>
+    
   );
 };
