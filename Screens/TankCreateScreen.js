@@ -4,7 +4,7 @@ import { View, Text, StyleSheet,
 import { TanksColors } from '../Colors';
 import { BackButton } from '../Components/BackButton';
 import ImagePicker from 'react-native-image-picker';
-import realm from '../Realm';
+import realm from '../database/Realm';
 
 export const TankCreateScreen = ({ navigation }) => {
 

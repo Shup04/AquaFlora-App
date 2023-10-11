@@ -94,35 +94,39 @@ export const ParamChart = ({ }) => {
     { value:20, data: '10 Oct 2023'}
   ]
   return (
-    <View style={{marginLeft: -50}}>
-      <LineChart
-        areaChart
-        isAnimated
-        rotateLabel
-        data={data}
-        data2={lineData2}
-        height={200}
-        spacing={chartWidth / data.length}
-        initialSpacing={10}
-        color1="red"
-        color2="orange"
-        hideDataPoints
-        startFillColor1="red"
-        startFillColor2="orange"
-        endFillColor1="red"
-        endFillColor2="orange"
-        startOpacity={0.5}
-        endOpacity={0.1}
-        xAxisColor="white"
-        yAxisColor="white"
-        yAxisTextStyle={{color: 'white'}}
-        rulesType='solid'
-        rulesColor={"#EEEEEE55"}
-        verticalLinesColor={"#EEEEEE33"}
-        maxValue={60}
-        noOfSections={6}
-      />
+    <View style={{ width: chartWidth * 1.3, justifyContent: 'center', alignItems: 'center'}}>
+      
+        <LineChart
+          areaChart
+          isAnimated
+          data={data}
+          data2={lineData2}
+          height={100}
+          width={chartWidth}
+          spacing={chartWidth/data.length}
+          endSpacing={10}
+          initialSpacing={10}
+          color1="red"
+          color2="orange"
+          hideDataPoints
+          startFillColor1="red"
+          startFillColor2="orange"
+          endFillColor1="red"
+          endFillColor2="orange"
+          startOpacity={0.5}
+          endOpacity={0.1}
+          xAxisColor="white"
+          yAxisColor="white"
+          yAxisTextStyle={{color: 'white'}}
+          rulesType='solid'
+          rulesColor={"#EEEEEE55"}
+          verticalLinesColor={"#EEEEEE33"}
+          maxValue={60}
+          noOfSections={2}
+        />
+      
     </View>
+    
     
   );
 };

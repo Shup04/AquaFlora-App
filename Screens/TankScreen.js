@@ -22,14 +22,12 @@ export const TankScreen = ({ navigation, route }) => {
           width: '100%',
           height: 175,
           resizeMode: 'cover',
-          marginBottom: 30,
           backgroundColor: 'blue',
         }}
       />
-      <Text style={styles.title}>Tank ID: {tankId}</Text>
-      <View style={{ justifyContent: 'center', alignItems: 'center', width: '80%' }}>
-        <ParamChart/>
-      </View>
+      <Text style={styles.title}>Param Chart: </Text>
+      <ParamChart/>
+      <Text style={styles.title}>Reminders: </Text>
     </View>
   </View>
   );
@@ -54,9 +52,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    width: '80%',
+    width: '90%',
     color: TanksColors.text,
     fontWeight: 'bold',
+    marginTop: 20,
     marginBottom: 30,
   },
 });

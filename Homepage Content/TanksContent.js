@@ -2,7 +2,7 @@ import React from 'react';
 import { View, TouchableOpacity, Text, FlatList, StyleSheet } from 'react-native';
 import { TanksColors } from '../Colors';
 import { ItemComponent, PlusComponent } from '../Components/ItemComponent';
-import realm from '../Realm';
+import realm from '../database/Realm';
 
 export const TanksContent = ( {navigation } ) => {
 
