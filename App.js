@@ -20,6 +20,7 @@ import { RemindersContent } from './Homepage Content/RemindersContent';
 
 import { TankScreen } from './Screens/TankScreen';
 import { TankCreateScreen } from './Screens/TankCreateScreen';
+import { ReminderCreateScreen } from './Screens/ReminderCreateScreen';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -59,6 +60,11 @@ const MyStack = ({ navigation }) => {
           name="TankCreate"
           backTo="HomeScreen"
           component={TankCreateScreen}
+        />
+        <Stack.Screen
+          name="ReminderCreate"
+          backTo="TankScreen"
+          component={ReminderCreateScreen}
         />
 
       </Stack.Navigator>

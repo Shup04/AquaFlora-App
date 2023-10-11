@@ -4,6 +4,7 @@ import { TanksColors } from '../Colors';
 import { BackButton } from '../Components/BackButton';
 import { ParamChart } from '../Components/ParamChart';
 import { Dimensions } from 'react-native';
+import { PlusComponent } from '../Components/ItemComponent';
 
 const screenWidth = Dimensions.get('window').width;
 const chartWidth = screenWidth * 0.75; // 80% of screen width
@@ -28,6 +29,7 @@ export const TankScreen = ({ navigation, route }) => {
       <Text style={styles.title}>Param Chart: </Text>
       <ParamChart/>
       <Text style={styles.title}>Reminders: </Text>
+      <PlusComponent navigation={navigation} destination={"ReminderCreate"}></PlusComponent>
     </View>
   </View>
   );

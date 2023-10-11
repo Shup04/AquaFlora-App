@@ -27,10 +27,10 @@ export const ItemComponent = ({ item, title, subtitle, navigation }) => {
   );
 };
 
-export const PlusComponent = ({ navigation }) => {
+export const PlusComponent = ({ navigation, destination }) => {
 
   const handlePress = () => {
-    navigation.navigate('TankCreate')
+    navigation.navigate(destination)
   };
 
   return (

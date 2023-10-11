@@ -43,7 +43,7 @@ export const TanksContent = ( {navigation } ) => {
       <Text style={styles.header}>My Tanks</Text>
     </View>
 
-      <PlusComponent navigation={navigation}/>
+      <PlusComponent navigation={navigation} destination={'TankCreate'}/>
 
       <FlatList
         data={data}
