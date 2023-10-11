@@ -75,14 +75,15 @@ export const ReminderCreateScreen = ({ navigation }) => {
           style={styles.input}
         />
       </View>
+      {/*}
       <View style={styles.box}>
         <Text style={styles.boxText}>Start Date:</Text>
         <Button title="Set Start Date" onPress={() => setOpen1(true)} />
         <DatePicker
           modal
           open={open1}
-          date={date1}
-          onConfirm={(date1) => {
+          date={startDate}
+          onConfirm={(startDate) => {
             setOpen1(false)
             setStartDate(date1)
           }}
@@ -91,16 +92,18 @@ export const ReminderCreateScreen = ({ navigation }) => {
           }}
         />
       </View>
+      */}
       <View style={styles.box}>
         <Text style={styles.boxText}>End Date:</Text>
-        <Button title="Set End Date" onPress={() => setOpen2(true)} />
+        <Text style={styles.input}>{endDate.toString()}</Text>
+        <Button title="Set End Date" onPress={() => setOpen2(true)} style={styles.Button}/>
         <DatePicker
           modal
           open={open2}
-          date={date2}
-          onConfirm={(date2) => {
+          date={endDate}
+          onConfirm={(endDate) => {
             setOpen2(false)
-            setEndDate(date2)
+            setEndDate(endDate)
           }}
           onCancel={() => {
             setOpen2(false1)
@@ -142,6 +145,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 30,
   },
+  subTitle: {
+    fontSize: 24,
+    width: '80%',
+    color: TanksColors.text,
+    fontWeight: 'bold',
+    marginBottom: 30,
+  },
   container: {
     //backgroundColor: 'orange',
     width: '100%',
@@ -170,6 +180,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 5,
     marginLeft: 10,
+  },
+  Button: {
+    width: '80%',
+    height: '100%',
   },
   uploadButton: {
     width: 100,
