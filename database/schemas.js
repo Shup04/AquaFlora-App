@@ -2,9 +2,9 @@ export const ReminderSchema = {
   name: 'Reminder',
   properties: {
     id: 'int',
-    title: 'string',
-    date: 'date',
-    time: 'string',
+    name: 'string',
+    startDate: 'date',
+    endDate: 'date',
   },
   primaryKey: 'id',
 };

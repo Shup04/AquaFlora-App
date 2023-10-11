@@ -1,46 +1,46 @@
-import React from 'react';
-import { View, Text, StyleSheet, 
+import React, {useState} from 'react';
+import { ScrollView, View, Text, StyleSheet, Button,
   TextInput, TouchableOpacity } from 'react-native';
 import { TanksColors } from '../Colors';
 import { BackButton } from '../Components/BackButton';
 import ImagePicker from 'react-native-image-picker';
 import realm from '../database/Realm';
+import DatePicker from 'react-native-date-picker';
 
 export const ReminderCreateScreen = ({ navigation }) => {
 
-  const [tankName, setTankName] = React.useState('');
-  const [tankSize, setTankSize] = React.useState('');
-  const [tankDesc, setTankDesc] = React.useState('');
-  const [tankImage, setTankImage] = React.useState(null);
+  const [reminderName, setReminderName] = React.useState('');
+  const [startDate, setStartDate] = React.useState(new Date());
+  const [endDate, setEndDate] = React.useState(new Date());
 
   const saveToRealm = () => {
-    try{
-      const tankObjects = realm.objects('Tank'); //get all tanks
-      const sortedTankObjects = tankObjects.sorted('id', true); //sort tanks by id
-      const lastTank = sortedTankObjects.length > 0 ? sortedTankObjects[0] : null; //get last tank
-      const nextId = lastTank ? lastTank.id + 1 : 1; //increment last tanks id
+    try {
+      const reminderObjects = realm.objects('Reminder');
+      const sortedReminderObjects = reminderObjects.sorted('id', true);
+      const lastReminder = sortedReminderObjects.length > 0 ? sortedReminderObjects[0] : null;
+      const nextId = lastReminder ? lastReminder.id + 1 : 1;
   
       realm.write(() => {
-        realm.create('Tank', { id: nextId, name: tankName, size: tankSize, desc: tankDesc});
+        realm.create('Reminder', { id: nextId, name: reminderName, startDate: startDate, endDate: endDate });
       });
-      setTankName('');
-      setTankSize('');
-      setTankDesc('');
+  
+      setReminderName('');
+      setStartDate(new Date());
+      setEndDate(new Date());
     } catch (error) {
       console.error('Error saving to Realm database:', error);
     }
-    
   };
 
   const printRealm = () => {
     try {
-      // Get all data from the 'Tank' schema
-      const allTanks = realm.objects('Tank');
+      // Get all data from the 'Reminder' schema
+      const allReminders = realm.objects('Reminder');
   
       // Print the data
-      console.log('Database content:');
-      allTanks.forEach((tank) => {
-        console.log(`Name: ${tank.name}, Size: ${tank.size}, Description: ${tank.desc}`);
+      console.log('Database content for Reminders:');
+      allReminders.forEach((reminder) => {
+        console.log(`ID: ${reminder.id}, Name: ${reminder.name}, Start Date: ${reminder.startDate}, End Date: ${reminder.endDate}`);
       });
     } catch (error) {
       console.error('Error reading from Realm database:', error);
@@ -50,42 +50,61 @@ export const ReminderCreateScreen = ({ navigation }) => {
   const clearRealm = () => {
     try {
       realm.write(() => {
-        const objectsToDelete = realm.objects('Tank');
+        const objectsToDelete = realm.objects('Reminder');
         realm.delete(objectsToDelete);
       });
-      console.log(`All objects in schema '${'Tank'}' have been cleared.`);
+      console.log(`All objects in schema 'Reminder' have been cleared.`);
     } catch (error) {
-      console.error(`Error clearing schema '${'Tank'}':`, error);
+      console.error(`Error clearing schema 'Reminder':`, error);
     }
   };
+  
+  const [open1, setOpen1] = useState(false)
+  const [open2, setOpen2] = useState(false)
 
   return (
-  <View style={styles.body}>
+  <ScrollView style={styles.body}>
     <BackButton navigation={navigation} />
     <View style={styles.container}>
-      <Text style={styles.title}>Create New Tank:</Text>
+      <Text style={styles.title}>Create New Reminder:</Text>
       <View style={styles.box}>
-        <Text style={styles.boxText}>Tank Name:</Text>
+        <Text style={styles.boxText}>Name:</Text>
         <TextInput
-          value={tankName}
-          onChangeText={(tankName) => setTankName(tankName)}
+          value={reminderName}
+          onChangeText={(reminderName) => setReminderName(reminderName)}
           style={styles.input}
         />
       </View>
       <View style={styles.box}>
-        <Text style={styles.boxText}>Tank Size (gallons):</Text>
-        <TextInput
-          value={tankSize}
-          onChangeText={(tankSize) => setTankSize(tankSize)}
-          style={styles.input}
+        <Text style={styles.boxText}>Start Date:</Text>
+        <Button title="Set Start Date" onPress={() => setOpen1(true)} />
+        <DatePicker
+          modal
+          open={open1}
+          date={date1}
+          onConfirm={(date1) => {
+            setOpen1(false)
+            setStartDate(date1)
+          }}
+          onCancel={() => {
+            setOpen1(false1)
+          }}
         />
       </View>
       <View style={styles.box}>
-        <Text style={styles.boxText}>Tank Description:</Text>
-        <TextInput
-          value={tankDesc}
-          onChangeText={(tankDesc) => setTankDesc(tankDesc)}
-          style={styles.input}
+        <Text style={styles.boxText}>End Date:</Text>
+        <Button title="Set End Date" onPress={() => setOpen2(true)} />
+        <DatePicker
+          modal
+          open={open2}
+          date={date2}
+          onConfirm={(date2) => {
+            setOpen2(false)
+            setEndDate(date2)
+          }}
+          onCancel={() => {
+            setOpen2(false1)
+          }}
         />
       </View>
       
@@ -101,7 +120,7 @@ export const ReminderCreateScreen = ({ navigation }) => {
         <Text style={styles.boxText}>Clear Tanks</Text>
       </TouchableOpacity>
     </View>
-  </View>
+  </ScrollView>
   );
 }
 
@@ -111,7 +130,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     flex: 1,
-    alignItems: 'flex-start',
+    //alignItems: 'flex-start',
     backgroundColor: TanksColors.backgroundTanks,
     width: '100%',
     paddingTop: Platform.OS === 'android' ? 60 : 0,
@@ -132,7 +151,6 @@ const styles = StyleSheet.create({
   },
   box: {
     width: '80%',
-    height: 75,
     backgroundColor: TanksColors.componentDark,
     borderRadius: 15,
     shadowColor: '#A4A4A4',
