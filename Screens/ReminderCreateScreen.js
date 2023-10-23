@@ -116,11 +116,11 @@ export const ReminderCreateScreen = ({ navigation }) => {
       </TouchableOpacity>
 
       <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={printRealm} >
-        <Text style={styles.boxText}>Print Tanks</Text>
+        <Text style={styles.boxText}>Print Reminders</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={clearRealm} >
-        <Text style={styles.boxText}>Clear Tanks</Text>
+        <Text style={styles.boxText}>Clear Reminders</Text>
       </TouchableOpacity>
     </View>
   </ScrollView>

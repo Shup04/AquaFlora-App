@@ -1,10 +1,11 @@
 import React from 'react';
-import { Image, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, Image, View, Text, StyleSheet } from 'react-native';
 import { TanksColors } from '../Colors';
 import { BackButton } from '../Components/BackButton';
 import { ParamChart } from '../Components/ParamChart';
 import { Dimensions } from 'react-native';
 import { PlusComponent } from '../Components/ItemComponent';
+import { RemindersContent } from '../RemindersContent';
 
 const screenWidth = Dimensions.get('window').width;
 const chartWidth = screenWidth * 0.75; // 80% of screen width
@@ -17,20 +18,23 @@ export const TankScreen = ({ navigation, route }) => {
   <View style={styles.body}>
     <BackButton navigation={navigation}/>
     <View style={styles.container}>
-      <Image
-        source={require('../assets/TankPhotos/whole.jpg')}
-        style={{
-          width: '100%',
-          height: 175,
-          resizeMode: 'cover',
-          backgroundColor: 'blue',
-        }}
-      />
-      <Text style={styles.title}>Param Chart: </Text>
-      <ParamChart/>
-      <Text style={styles.title}>Reminders: </Text>
-      <PlusComponent navigation={navigation} destination={"ReminderCreate"}></PlusComponent>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <Image
+          source={require('../assets/TankPhotos/whole.jpg')}
+          style={{
+            width: '100%',
+            height: 175,
+            resizeMode: 'cover',
+            backgroundColor: 'blue',
+          }}
+        />
+        <Text style={styles.title}>Param Chart: </Text>
+        <ParamChart/>
+        <Text style={styles.title}>Reminders: </Text>
+        <RemindersContent navigation={navigation}></RemindersContent>
+      </ScrollView>
     </View>
+    
   </View>
   );
 }
@@ -50,7 +54,12 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '90%',
     paddingTop: 50,
+    //alignItems: 'center',
+  },
+  scrollContainer: {
+    flexGrow: 1,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
     fontSize: 30,
