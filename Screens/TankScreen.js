@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   container: {
     width: '100%',
-    height: '90%',
+    height: '100%',
     paddingTop: 50,
     //alignItems: 'center',
   },
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    height: "100%",
   },
   title: {
     fontSize: 30,

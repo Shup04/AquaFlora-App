@@ -43,7 +43,7 @@ export const RemindersContent = ( {navigation } ) => {
         data={data}
         renderItem={renderItem}
         keyExtractor={keyExtractor} // Assuming 'id' is the unique identifier in your Tank schema
-        numColumns={2}
+        numColumns={1}
         contentContainerStyle={styles.listContainer} // Adjust styles as needed
       />
     </>

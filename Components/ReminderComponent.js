@@ -18,10 +18,6 @@ export const ReminderComponent = ({ item, navigation }) => {
         style={styles.button}
         onPress={() => handlePress(item.id)}
       >
-        <Image 
-          style={styles.image}
-          source={require('../assets/TankPhotos/whole.jpg')}
-        />
         <View style={styles.textContainer}>
           <Text style={styles.buttonTitle}>{item.title}</Text>
         </View>
@@ -42,7 +38,7 @@ export const PlusComponent = ({ navigation, destination }) => {
       style={styles.plusButton}
       onPress={handlePress}
     >
-      <Text style={styles.plusButtonText}>Create New Tank</Text>
+      <Text style={styles.plusButtonText}>Create New Reminder</Text>
     </TouchableOpacity>
   </View>
   );
@@ -50,7 +46,7 @@ export const PlusComponent = ({ navigation, destination }) => {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    width: '50%',
+    width: '100%',
     //backgroundColor: 'green',
     alignItems: 'center',
     padding: 10,
@@ -62,7 +58,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   button: {
-    height: 220,
+    height: 75,
     width: '100%',
     backgroundColor: TanksColors.componentDark,
     justifyContent: 'flex-start',
@@ -87,7 +83,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   textContainer: {
-    height: '30%',
+    //height: '30%',
     justifyContent: 'center',
     marginLeft: 12,
   },
