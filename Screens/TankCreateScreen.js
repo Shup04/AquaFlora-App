@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, 
   TextInput, TouchableOpacity } from 'react-native';
 import { TanksColors } from '../Colors';
 import { BackButton } from '../Components/BackButton';
-import ImagePicker from 'react-native-image-picker';
 import realm from '../database/Realm';
+
+//permissions and image picker imports
+import { PermissionsAndroid } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 
 export const TankCreateScreen = ({ navigation }) => {
 
-  const [tankName, setTankName] = React.useState('');
+  const [tankName, setTankName] = React.useState('.');
   const [tankSize, setTankSize] = React.useState('');
   const [tankDesc, setTankDesc] = React.useState('');
   const [tankImage, setTankImage] = React.useState(null);
@@ -59,11 +62,51 @@ export const TankCreateScreen = ({ navigation }) => {
     }
   };
 
+  async function getPermissionAsync() {
+    if (Platform.OS !== 'web') {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+      }
+    }
+  }
+  
+  async function pickImage() {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+  
+      if (!result.cancelled) {
+        // Do something with the image URI
+        console.log(result.uri);
+      }
+    } catch (E) {
+      console.log(E);
+    }
+  }
+  
+  useEffect(() => {
+    (async () => {
+      // Here we ask for the media library permissions
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('We need access to your photos to make this work.');
+        }
+      }
+    })();
+  }, []);
+
   return (
   <View style={styles.body}>
     <BackButton navigation={navigation} />
     <View style={styles.container}>
       <Text style={styles.title}>Create New Tank:</Text>
+      
       <View style={styles.box}>
         <Text style={styles.boxText}>Tank Name:</Text>
         <TextInput
