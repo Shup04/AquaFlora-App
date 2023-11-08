@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { TanksColors } from '../Colors';
 
-export const ReminderComponent = ({ item, title, navigation }) => {
+export const ReminderComponent = ({ item, navigation }) => {
 
   {/*
 
@@ -23,8 +23,7 @@ export const ReminderComponent = ({ item, title, navigation }) => {
           source={require('../assets/TankPhotos/whole.jpg')}
         />
         <View style={styles.textContainer}>
-          <Text style={styles.buttonTitle}>{title}</Text>
-          <Text style={styles.buttonSubtitle}>{subtitle}</Text>
+          <Text style={styles.buttonTitle}>{item.title}</Text>
         </View>
       </TouchableOpacity>
     </View>

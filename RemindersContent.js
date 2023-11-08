@@ -3,11 +3,11 @@ import { View, TouchableOpacity, Text, FlatList, StyleSheet } from 'react-native
 import { TanksColors } from './Colors';
 import { ItemComponent, PlusComponent } from './Components/ItemComponent';
 import realm from './database/Realm';
-import { reminderComponent } from './Components/ReminderComponent';
+import { ReminderComponent } from './Components/ReminderComponent';
 
 export const RemindersContent = ( {navigation } ) => {
 
-  const fetchTankDataFromRealm = () => {
+  const fetchReminderDataFromRealm = () => {
     try {
       const allReminders = realm.objects('Reminder');
       const reminderArray = Array.from(allReminders); //convert realm list to array
@@ -24,19 +24,18 @@ export const RemindersContent = ( {navigation } ) => {
       return [];
     }
   };
-  const data = fetchTankDataFromRealm();
+  const data = fetchReminderDataFromRealm();
 
   const renderItem = ({ item }) => {
     return (
-      <ItemComponent
-        title={item.title}
-        subtitle={item.subtitle}
+      <ReminderComponent
         navigation={navigation} 
         item={item}/>
     );
   };
 
   const keyExtractor = (item) => (item.id ? item.id.toString() : null);
+
   return (
     <>
       <PlusComponent navigation={navigation} destination={"ReminderCreate"}></PlusComponent>

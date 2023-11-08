@@ -32,6 +32,8 @@ export const TankScreen = ({ navigation, route }) => {
         <ParamChart/>
         <Text style={styles.title}>Reminders: </Text>
         <RemindersContent navigation={navigation}></RemindersContent>
+
+        
       </ScrollView>
     </View>
     
