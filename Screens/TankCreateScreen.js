@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { platform } from 'react-native';
 import { View, Text, StyleSheet, 
   TextInput, TouchableOpacity } from 'react-native';
 import { TanksColors } from '../Colors';
@@ -62,44 +63,7 @@ export const TankCreateScreen = ({ navigation }) => {
     }
   };
 
-  async function getPermissionAsync() {
-    if (Platform.OS !== 'web') {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== 'granted') {
-        alert('Sorry, we need camera roll permissions to make this work!');
-      }
-    }
-  }
-  
-  async function pickImage() {
-    try {
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      });
-  
-      if (!result.cancelled) {
-        // Do something with the image URI
-        console.log(result.uri);
-      }
-    } catch (E) {
-      console.log(E);
-    }
-  }
-  
-  useEffect(() => {
-    (async () => {
-      // Here we ask for the media library permissions
-      if (Platform.OS !== 'web') {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== 'granted') {
-          alert('We need access to your photos to make this work.');
-        }
-      }
-    })();
-  }, []);
+
 
   return (
   <View style={styles.body}>
