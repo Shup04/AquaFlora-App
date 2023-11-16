@@ -13,7 +13,7 @@ export const TankCreateScreen = ({ navigation }) => {
   const [tankName, setTankName] = React.useState('.');
   const [tankSize, setTankSize] = React.useState('');
   const [tankDesc, setTankDesc] = React.useState('');
-  const [tankImage, setTankImage] = React.useState(null);
+  const [imageURI, setImageURI] = React.useState(null);
 
   const saveToRealm = () => {
     try{
@@ -23,11 +23,19 @@ export const TankCreateScreen = ({ navigation }) => {
       const nextId = lastTank ? lastTank.id + 1 : 1; //increment last tanks id
   
       realm.write(() => {
-        realm.create('Tank', { id: nextId, name: tankName, size: tankSize, desc: tankDesc});
+        realm.create('Tank', { 
+          id: nextId, 
+          name: tankName, 
+          size: tankSize, 
+          desc: tankDesc,
+          URI: imageURI,
+        });
       });
+      console.log(imageURI);
       setTankName('');
       setTankSize('');
       setTankDesc('');
+      setImageURI(null);
     } catch (error) {
       console.error('Error saving to Realm database:', error);
     }
@@ -42,7 +50,7 @@ export const TankCreateScreen = ({ navigation }) => {
       // Print the data
       console.log('Database content:');
       allTanks.forEach((tank) => {
-        console.log(`Name: ${tank.name}, Size: ${tank.size}, Description: ${tank.desc}`);
+        console.log(`Name: ${tank.name}, Size: ${tank.size}, Description: ${tank.desc}, URI: ${tank.URI}`);
       });
     } catch (error) {
       console.error('Error reading from Realm database:', error);
@@ -61,22 +69,6 @@ export const TankCreateScreen = ({ navigation }) => {
     }
   };
 
-  const saveImageUriToRealm = async (uri) => {
-    try {
-      const realm = await Realm.open({ schema: [TankSchema] });
-  
-      realm.write(() => {
-        // Assuming you have a way to identify which tank to update
-        // For example, if each tank has a unique id
-        let tank = realm.objects('Tank').filtered('id == $0', tankId)[0];
-        tank.imageUri = uri;
-      });
-  
-    } catch (error) {
-      console.error("Failed to save image URI to Realm:", error);
-    }
-  };
-
   const pickImage = async () => {
     //pick image
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -84,11 +76,15 @@ export const TankCreateScreen = ({ navigation }) => {
       allowsEditing: true,
       quality: 1,
     });
+    console.log(imageURI);
     //if user picks an image get the URI and save it to realm.
-    if (!result.canceled) {
-      //setImageUri(result.uri);
-      saveImageUriToRealm(result.uri);
+    if (!result.canceled && result.assets && result.assets.length > 0) {
+      const selectedImage = result.assets[0];
+      setImageURI(selectedImage.uri);
+      
+      //saveImageUriToRealm(result.uri);
     }
+    
   };
 
   return (
