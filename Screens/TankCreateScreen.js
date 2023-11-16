@@ -69,7 +69,7 @@ export const TankCreateScreen = ({ navigation }) => {
       quality: 1,
     });
 
-    if (!result.cancelled) {
+    if (!result.canceled) {
       setImageUri(result.uri);
       saveImageUriToRealm(result.uri);
     }
