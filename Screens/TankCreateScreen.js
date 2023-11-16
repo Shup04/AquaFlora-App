@@ -25,6 +25,7 @@ export const TankCreateScreen = ({ navigation }) => {
       console.log(imageURI);
 
       realm.write(() => {
+        
         realm.create('Tank', { 
           id: nextId, 
           name: tankName, 
