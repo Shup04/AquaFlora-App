@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import { platform } from 'react-native';
 import { View, Text, StyleSheet, 
-  TextInput, TouchableOpacity } from 'react-native';
+  TextInput, TouchableOpacity, Button } from 'react-native';
 import { TanksColors } from '../Colors';
 import { BackButton } from '../Components/BackButton';
 import realm from '../database/Realm';
 
-//permissions and image picker imports
-import { PermissionsAndroid } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 export const TankCreateScreen = ({ navigation }) => {
@@ -63,7 +61,20 @@ export const TankCreateScreen = ({ navigation }) => {
     }
   };
 
+  const pickImage = async () => {
 
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImageUri(result.uri);
+      saveImageUriToRealm(result.uri);
+    }
+    
+  };
 
   return (
   <View style={styles.body}>
@@ -71,6 +82,8 @@ export const TankCreateScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.title}>Create New Tank:</Text>
       
+      <Button title="Pick an Image" onPress={pickImage} />
+
       <View style={styles.box}>
         <Text style={styles.boxText}>Tank Name:</Text>
         <TextInput

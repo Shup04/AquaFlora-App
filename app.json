@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "testApp",
+    "name": "AquaFlora",
     "slug": "testApp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.shup.aquaFlora"
@@ -31,6 +31,14 @@
       "eas": {
         "projectId": "f829a73d-5c23-4f2b-a16d-2a78fae9aa7a"
       }
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ]
   }
 }
