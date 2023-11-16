@@ -21,7 +21,9 @@ export const TankCreateScreen = ({ navigation }) => {
       const sortedTankObjects = tankObjects.sorted('id', true); //sort tanks by id
       const lastTank = sortedTankObjects.length > 0 ? sortedTankObjects[0] : null; //get last tank
       const nextId = lastTank ? lastTank.id + 1 : 1; //increment last tanks id
-  
+      
+      console.log(imageURI);
+
       realm.write(() => {
         realm.create('Tank', { 
           id: nextId, 
@@ -31,11 +33,10 @@ export const TankCreateScreen = ({ navigation }) => {
           URI: imageURI,
         });
       });
-      console.log(imageURI);
       setTankName('');
       setTankSize('');
       setTankDesc('');
-      setImageURI(null);
+      //setImageURI(null);
     } catch (error) {
       console.error('Error saving to Realm database:', error);
     }
@@ -76,7 +77,6 @@ export const TankCreateScreen = ({ navigation }) => {
       allowsEditing: true,
       quality: 1,
     });
-    console.log(imageURI);
     //if user picks an image get the URI and save it to realm.
     if (!result.canceled && result.assets && result.assets.length > 0) {
       const selectedImage = result.assets[0];

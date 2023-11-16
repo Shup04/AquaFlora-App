@@ -16,5 +16,6 @@ export const TankSchema = {
     name: 'string',
     size: 'string',
     desc: 'string',
+    URI: 'string',
   },
 };

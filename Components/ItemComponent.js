@@ -14,7 +14,12 @@ export const ItemComponent = ({ item, title, subtitle, navigation }) => {
         style={styles.button}
         onPress={() => handlePress(item.id)}
       >
-        {item && item.URI && <Image source={{ uri: item.URI }} />}
+        <Image
+          style={styles.image}
+          source={{
+            uri: item.URI,
+          }}
+        />
         <View style={styles.textContainer}>
           <Text style={styles.buttonTitle}>{title}</Text>
           <Text style={styles.buttonSubtitle}>{subtitle}</Text>

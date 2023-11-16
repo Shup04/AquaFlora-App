@@ -32,7 +32,9 @@ export const TanksContent = ( {navigation } ) => {
         title={item.title}
         subtitle={item.subtitle}
         navigation={navigation} 
-        item={item}/>
+        item={item}
+        uri={item.URI}
+      />
     );
   };
 
