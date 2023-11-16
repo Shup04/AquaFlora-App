@@ -16,6 +16,7 @@ export const TanksContent = ( {navigation } ) => {
         id: tank.id,
         title: tank.name,
         subtitle: `Size: ${tank.size}`,
+        URI: tank.URI,
       }));
   
       return dataFromRealm;
@@ -33,7 +34,7 @@ export const TanksContent = ( {navigation } ) => {
         subtitle={item.subtitle}
         navigation={navigation} 
         item={item}
-        uri={item.URI}
+        URI={item.URI}
       />
     );
   };

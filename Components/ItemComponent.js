@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { TanksColors } from '../Colors';
 
-export const ItemComponent = ({ item, title, subtitle, navigation }) => {
+export const ItemComponent = ({ item, title, subtitle, URI, navigation }) => {
 
   const handlePress = (tankId) => {
     navigation.navigate('Tank', { tankId })
@@ -10,6 +10,7 @@ export const ItemComponent = ({ item, title, subtitle, navigation }) => {
 
   return (
     <View style={styles.buttonContainer}>
+      {console.log(URI)}
       <TouchableOpacity 
         style={styles.button}
         onPress={() => handlePress(item.id)}

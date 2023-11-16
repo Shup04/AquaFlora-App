@@ -1,3 +1,14 @@
+export const TankSchema = {
+  name: 'Tank',
+  properties: {
+    id: { type: 'int', indexed: true },
+    name: 'string',
+    size: 'string',
+    desc: 'string',
+    URI: 'string',
+  },
+};
+
 export const ReminderSchema = {
   name: 'Reminder',
   properties: {
@@ -9,13 +20,3 @@ export const ReminderSchema = {
   primaryKey: 'id',
 };
 
-export const TankSchema = {
-  name: 'Tank',
-  properties: {
-    id: { type: 'int', indexed: true },
-    name: 'string',
-    size: 'string',
-    desc: 'string',
-    URI: 'string',
-  },
-};

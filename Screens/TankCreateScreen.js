@@ -17,12 +17,12 @@ export const TankCreateScreen = ({ navigation }) => {
 
   const saveToRealm = () => {
     try{
+      console.log("Saving URI to Realm:", imageURI);
+
       const tankObjects = realm.objects('Tank'); //get all tanks
       const sortedTankObjects = tankObjects.sorted('id', true); //sort tanks by id
       const lastTank = sortedTankObjects.length > 0 ? sortedTankObjects[0] : null; //get last tank
       const nextId = lastTank ? lastTank.id + 1 : 1; //increment last tanks id
-      
-      console.log(imageURI);
 
       realm.write(() => {
         
@@ -34,6 +34,7 @@ export const TankCreateScreen = ({ navigation }) => {
           URI: imageURI,
         });
       });
+
       setTankName('');
       setTankSize('');
       setTankDesc('');
