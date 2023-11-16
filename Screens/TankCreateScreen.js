@@ -61,19 +61,34 @@ export const TankCreateScreen = ({ navigation }) => {
     }
   };
 
-  const pickImage = async () => {
+  const saveImageUriToRealm = async (uri) => {
+    try {
+      const realm = await Realm.open({ schema: [TankSchema] });
+  
+      realm.write(() => {
+        // Assuming you have a way to identify which tank to update
+        // For example, if each tank has a unique id
+        let tank = realm.objects('Tank').filtered('id == $0', tankId)[0];
+        tank.imageUri = uri;
+      });
+  
+    } catch (error) {
+      console.error("Failed to save image URI to Realm:", error);
+    }
+  };
 
+  const pickImage = async () => {
+    //pick image
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 1,
     });
-
+    //if user picks an image get the URI and save it to realm.
     if (!result.canceled) {
-      setImageUri(result.uri);
+      //setImageUri(result.uri);
       saveImageUriToRealm(result.uri);
     }
-    
   };
 
   return (

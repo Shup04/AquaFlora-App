@@ -1,19 +1,8 @@
 import Realm from 'realm'
-import { ReminderSchema } from './schemas'
-
-class Tank extends Realm.Object {}
-Tank.schema = {
-  name: 'Tank',
-  properties: {
-    id: { type: 'int', indexed: true },
-    name: 'string',
-    size: 'string',
-    desc: 'string',
-  },
-};
+import { ReminderSchema, TankSchema } from './schemas'
 
 const realm = new Realm({ 
-  schema: [Tank, ReminderSchema], 
+  schema: [TankSchema, ReminderSchema], 
   deleteRealmIfMigrationNeeded: true, 
 });
 
