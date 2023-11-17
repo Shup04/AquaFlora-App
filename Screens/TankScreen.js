@@ -20,7 +20,7 @@ export const TankScreen = ({ navigation, route }) => {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Image
-          source={require('../assets/TankPhotos/whole.jpg')}
+          source={{ uri: 'https://i.imgur.com/0y8FkZC.jpg'}}
           style={{
             width: '100%',
             height: 175,

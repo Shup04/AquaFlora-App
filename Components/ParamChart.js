@@ -96,7 +96,7 @@ export const ParamChart = ({ }) => {
   return (
     <View style={{ width: chartWidth * 1.3, justifyContent: 'center', alignItems: 'center'}}>
       
-        <LineChart
+      <LineChart
           areaChart
           isAnimated
           data={data}
