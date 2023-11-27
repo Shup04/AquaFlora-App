@@ -80,14 +80,14 @@ const HomeScreen = ({navigation}) => {
     setActiveTab(tabName);
   };
 
-  const renderContent = ({navigation}) => {
+  const renderContent = ({navigation, item}) => {
     switch (activeTab) {
       case 'Dashboard':
         return <RemindersContent />;
       case 'Fish':
         return <FishContent />;
       case 'Tanks':        
-        return <TanksContent navigation={navigation}  />;
+        return <TanksContent navigation={navigation} item={item}  />;
       case 'Plants':
         return <PlantsContent />;
       
@@ -222,7 +222,7 @@ const HomeScreen = ({navigation}) => {
 
 
       </View>
-      {renderContent( navigation={navigation} )}
+  {renderContent( navigation={navigation}, item={item} )}
     </View>
   );
   /*

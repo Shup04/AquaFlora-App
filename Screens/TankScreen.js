@@ -11,7 +11,7 @@ const screenWidth = Dimensions.get('window').width;
 const chartWidth = screenWidth * 0.75; // 80% of screen width
 
 
-export const TankScreen = ({ navigation, route }) => {
+export const TankScreen = ({ navigation, route, item }) => {
   const { tankId } = route.params;
 
   return (
