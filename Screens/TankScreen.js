@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ScrollView, Image, View, Text, StyleSheet } from 'react-native';
 import { TanksColors } from '../Colors';
 import { BackButton } from '../Components/BackButton';
@@ -7,12 +7,26 @@ import { Dimensions } from 'react-native';
 import { PlusComponent } from '../Components/ItemComponent';
 import { RemindersContent } from '../RemindersContent';
 
+import realm from '../database/Realm';
+import { TankSchema } from '../database/schemas';
+
 const screenWidth = Dimensions.get('window').width;
 const chartWidth = screenWidth * 0.75; // 80% of screen width
 
 
-export const TankScreen = ({ navigation, route, item }) => {
+export const TankScreen = ({ navigation, route }) => {
   const { tankId } = route.params;
+  const [tankURI, setTankURI] = React.useState('');
+
+  useEffect(() => {
+    // Query for the tank with the given id
+    const tank = realm.objectForPrimaryKey('Tank', tankId);
+
+    // Set the tank URI in state
+    if (tank) {
+      setTankURI(tank.URI);
+    }
+  }, [tankId]);
 
   return (
   <View style={styles.body}>
@@ -20,7 +34,7 @@ export const TankScreen = ({ navigation, route, item }) => {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Image
-          source={{ uri: 'https://i.imgur.com/0y8FkZC.jpg'}}
+          source={{ uri: tankURI}}
           style={{
             width: '100%',
             height: 175,

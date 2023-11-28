@@ -222,7 +222,7 @@ const HomeScreen = ({navigation}) => {
 
 
       </View>
-  {renderContent( navigation={navigation}, item={item} )}
+  {renderContent( navigation={navigation} )}
     </View>
   );
   /*
