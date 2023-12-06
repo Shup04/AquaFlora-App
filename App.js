@@ -31,8 +31,42 @@ import TanksIcon from './assets/MiscImages/tanks.png';
 import FishIcon from './assets/MiscImages/fish.png';
 import PlantsIcon from './assets/MiscImages/plants.png';
 
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+
+//notification handler
+Notifications.setNotificationhandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
 const Stack = createNativeStackNavigator();
 const MyStack = ({ navigation }) => {
+
+  //Reqest notification permissions
+  useEffect(() => {
+    registerForPushNotificationAsync();
+
+    // This listener is fired whenever a notification is received while the app is foregrounded
+    const subscription = Notifications.addNotificationReceivedListener(notification => {
+      console.log('Notification received!', notification);
+    });
+
+    // This listener is fired whenever a user taps on or interacts with a notification
+    const responseSubscription = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log('Notification response received!', response);
+    });
+
+    return () => {
+      // Clean up: remove the listeners upon unmounting
+      Notifications.removeNotificationSubscription(subscription);
+      Notifications.removeNotificationSubscription(responseSubscription);
+    };
+  }, [])
+
   return (
     <NavigationContainer>
       <Stack.Navigator 
@@ -264,6 +298,36 @@ const HomeScreen = ({navigation}) => {
   );
   */
 };
+
+async function registerForPushNotificationsAsync() {
+  let token;
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+  } else {
+    alert('Must use physical device for Push Notifications');
+  }
+
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+
+  return token;
+}
 
 
 const styles = StyleSheet.create({
