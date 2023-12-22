@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ImageBackground, Button, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import ButtonComponent from './Components/ButtonComponent';
 import TankButton from './Components/TankButton';
@@ -35,12 +35,12 @@ import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 
 //notification handler
-Notifications.setNotificationhandler({
+Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: false,
     shouldSetBadge: false,
-  }),
+  }), 
 });
 
 const Stack = createNativeStackNavigator();
@@ -299,7 +299,7 @@ const HomeScreen = ({navigation}) => {
   */
 };
 
-async function registerForPushNotificationsAsync() {
+async function registerForPushNotificationAsync() {
   let token;
   if (Device.isDevice) {
     const { status: existingStatus } = await Notifications.getPermissionsAsync();
