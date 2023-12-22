@@ -15,8 +15,15 @@ export const ReminderSchema = {
   properties: {
     id: 'int',
     name: 'string',
-    startDate: 'date',
-    endDate: 'date',
+    desc: 'string',
+    dateTime: 'date',
+    tankId: 'int',
+    notificationId: 'string',
+    repeating: 'bool',
+    frequency: 'string?', // Optional, for repeating reminders
+    nextTrigger: 'date?',
+    missed: 'bool',
+    acknowledged: 'bool',
   },
   primaryKey: 'id',
 };
