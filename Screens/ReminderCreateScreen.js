@@ -9,9 +9,13 @@ import DatePicker from 'react-native-date-picker';
 
 export const ReminderCreateScreen = ({ navigation }) => {
 
-  const [reminderName, setReminderName] = React.useState('');
-  const [startDate, setStartDate] = React.useState(new Date());
-  const [endDate, setEndDate] = React.useState(new Date());
+  const [name, setName] = useState('');
+  const [desc, setDesc] = useState('');
+  const [dateTime, setDateTime] = useState(new Date());
+  const [repeating, setRepeating] = useState(false);
+  const [frequency, setFrequency] = useState('');
+  const [tankId, setTankId] = useState(0); // You'll need a way to set this, e.g., dropdown or input
+  const [openDateTimePicker, setOpenDateTimePicker] = useState(false);
 
   const saveToRealm = () => {
     try {
@@ -21,12 +25,28 @@ export const ReminderCreateScreen = ({ navigation }) => {
       const nextId = lastReminder ? lastReminder.id + 1 : 1;
   
       realm.write(() => {
-        realm.create('Reminder', { id: nextId, name: reminderName, startDate: startDate, endDate: endDate });
+        realm.create('Reminder', {
+          id: nextId,
+          name: name,
+          desc: desc,
+          dateTime: dateTime,
+          tankId: tankId,
+          notificationId: '', // This will be set when the notification is scheduled
+          repeating: repeating,
+          frequency: repeating ? frequency : null, // Set frequency only if repeating
+          nextTrigger: dateTime, // Initially, nextTrigger will be the same as dateTime
+          missed: false,
+          acknowledged: false
+        });
       });
   
-      setReminderName('');
-      setStartDate(new Date());
-      setEndDate(new Date());
+      setName('');
+      setDesc('');
+      setDateTime(new Date());
+      setRepeating(false);
+      setFrequency('');
+      setTankId(0);
+
     } catch (error) {
       console.error('Error saving to Realm database:', error);
     }
@@ -70,43 +90,26 @@ export const ReminderCreateScreen = ({ navigation }) => {
       <View style={styles.box}>
         <Text style={styles.boxText}>Name:</Text>
         <TextInput
-          value={reminderName}
-          onChangeText={(reminderName) => setReminderName(reminderName)}
+          value={name}
+          onChangeText={(name) => setReminderName(name)}
           style={styles.input}
         />
       </View>
-      {/*}
+
       <View style={styles.box}>
-        <Text style={styles.boxText}>Start Date:</Text>
-        <Button title="Set Start Date" onPress={() => setOpen1(true)} />
+        <Text style={styles.boxText}>Reminder Date:</Text>
+        <Text style={styles.input}>{dateTime.toString()}</Text>
+        <Button title="Set Reminder Date" onPress={() => setOpenDateTimePicker(true)} style={styles.Button}/>
         <DatePicker
           modal
-          open={open1}
-          date={startDate}
-          onConfirm={(startDate) => {
-            setOpen1(false)
-            setStartDate(date1)
+          open={openDateTimePicker}
+          date={dateTime}
+          onConfirm={(selectedDate) => {
+            setOpenDateTimePicker(false);
+            setDateTime(selectedDate);
           }}
           onCancel={() => {
-            setOpen1(false1)
-          }}
-        />
-      </View>
-      */}
-      <View style={styles.box}>
-        <Text style={styles.boxText}>End Date:</Text>
-        <Text style={styles.input}>{endDate.toString()}</Text>
-        <Button title="Set End Date" onPress={() => setOpen2(true)} style={styles.Button}/>
-        <DatePicker
-          modal
-          open={open2}
-          date={endDate}
-          onConfirm={(endDate) => {
-            setOpen2(false)
-            setEndDate(endDate)
-          }}
-          onCancel={() => {
-            setOpen2(false1)
+            setOpenDateTimePicker(false);
           }}
         />
       </View>
