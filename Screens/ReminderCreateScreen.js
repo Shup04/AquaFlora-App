@@ -22,8 +22,8 @@ export const ReminderCreateScreen = ({ navigation }) => {
   const scheduleNotification = async (dateTime, title, desc) => {
     return await Notifications.scheduleNotificationAsync({
       content: {
-        title: "title",
-        body: "desc",
+        title: "Water Change Tank!",
+        body: "Do a 25% water change on your 26g tank.",
 
       },
       trigger: { seconds: 2 },
