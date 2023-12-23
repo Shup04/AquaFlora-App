@@ -7,6 +7,8 @@ import ImagePicker from 'react-native-image-picker';
 import realm from '../database/Realm';
 import DatePicker from 'react-native-date-picker';
 
+import * as Notifications from 'expo-notifications';
+
 export const ReminderCreateScreen = ({ navigation }) => {
 
   const [name, setName] = useState('');
@@ -16,6 +18,16 @@ export const ReminderCreateScreen = ({ navigation }) => {
   const [frequency, setFrequency] = useState('');
   const [tankId, setTankId] = useState(0); // You'll need a way to set this, e.g., dropdown or input
   const [openDateTimePicker, setOpenDateTimePicker] = useState(false);
+
+  const scheduleNotification = async (dateTime, title, desc) => {
+    return await Notifications.scheduleNotificationAsync({
+      content: {
+        title: title,
+        body: desc,
+      },
+      trigger: dateTime,
+    });
+  };
 
   const saveToRealm = () => {
     try {
@@ -60,7 +72,7 @@ export const ReminderCreateScreen = ({ navigation }) => {
       // Print the data
       console.log('Database content for Reminders:');
       allReminders.forEach((reminder) => {
-        console.log(`ID: ${reminder.id}, Name: ${reminder.name}, Start Date: ${reminder.startDate}, End Date: ${reminder.endDate}`);
+        console.log(`ID: ${reminder.id}, Name: ${reminder.name}, dateTime: ${reminder.dateTime}`);
       });
     } catch (error) {
       console.error('Error reading from Realm database:', error);
@@ -78,9 +90,6 @@ export const ReminderCreateScreen = ({ navigation }) => {
       console.error(`Error clearing schema 'Reminder':`, error);
     }
   };
-  
-  const [open1, setOpen1] = useState(false)
-  const [open2, setOpen2] = useState(false)
 
   return (
   <ScrollView style={styles.body}>
@@ -91,7 +100,7 @@ export const ReminderCreateScreen = ({ navigation }) => {
         <Text style={styles.boxText}>Name:</Text>
         <TextInput
           value={name}
-          onChangeText={(name) => setReminderName(name)}
+          onChangeText={(name) => setName(name)}
           style={styles.input}
         />
       </View>
