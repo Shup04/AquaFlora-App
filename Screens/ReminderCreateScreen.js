@@ -11,8 +11,8 @@ import * as Notifications from 'expo-notifications';
 
 export const ReminderCreateScreen = ({ navigation }) => {
 
-  const [name, setName] = useState('');
-  const [desc, setDesc] = useState('');
+  const [name, setName] = useState('reminder');
+  const [desc, setDesc] = useState('desc');
   const [dateTime, setDateTime] = useState(new Date());
   const [repeating, setRepeating] = useState(false);
   const [frequency, setFrequency] = useState('');
@@ -22,10 +22,11 @@ export const ReminderCreateScreen = ({ navigation }) => {
   const scheduleNotification = async (dateTime, title, desc) => {
     return await Notifications.scheduleNotificationAsync({
       content: {
-        title: title,
-        body: desc,
+        title: "title",
+        body: "desc",
+
       },
-      trigger: dateTime,
+      trigger: { seconds: 2 },
     });
   };
 
@@ -36,29 +37,35 @@ export const ReminderCreateScreen = ({ navigation }) => {
       const lastReminder = sortedReminderObjects.length > 0 ? sortedReminderObjects[0] : null;
       const nextId = lastReminder ? lastReminder.id + 1 : 1;
   
-      realm.write(() => {
-        realm.create('Reminder', {
-          id: nextId,
-          name: name,
-          desc: desc,
-          dateTime: dateTime,
-          tankId: tankId,
-          notificationId: '', // This will be set when the notification is scheduled
-          repeating: repeating,
-          frequency: repeating ? frequency : null, // Set frequency only if repeating
-          nextTrigger: dateTime, // Initially, nextTrigger will be the same as dateTime
-          missed: false,
-          acknowledged: false
-        });
-      });
-  
-      setName('');
-      setDesc('');
-      setDateTime(new Date());
-      setRepeating(false);
-      setFrequency('');
-      setTankId(0);
+      scheduleNotification(dateTime, name, desc).then(notificationId => {
 
+        realm.write(() => {
+          realm.create('Reminder', {
+            id: nextId,
+            name: name,
+            desc: desc,
+            dateTime: dateTime,
+            tankId: tankId,
+            notificationId: notificationId, // This will be set when the notification is scheduled
+            repeating: repeating,
+            frequency: repeating ? frequency : null, // Set frequency only if repeating
+            nextTrigger: dateTime, // Initially, nextTrigger will be the same as dateTime
+            missed: false,
+            acknowledged: false
+          });
+        });
+ 
+        setName('');
+        setDesc('');
+        setDateTime(new Date());
+        setRepeating(false);
+        setFrequency('');
+        setTankId(0);
+  
+      }).catch(error => {
+        console.error('Error scheduling Notification:', error)
+      });
+ 
     } catch (error) {
       console.error('Error saving to Realm database:', error);
     }
