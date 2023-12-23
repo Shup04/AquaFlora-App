@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { ScrollView, Image, View, Text, StyleSheet } from 'react-native';
-import { TanksColors } from '../Colors';
+import { Colors } from '../Colors';
 import { BackButton } from '../Components/BackButton';
 import { ParamChart } from '../Components/ParamChart';
 import { Dimensions } from 'react-native';
@@ -57,12 +57,10 @@ export const TankScreen = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   body: {
-    backgroundColor: TanksColors.backgroundTanks,
-    
+    backgroundColor: Colors.backgroundDark,
     width: '100%',
     flex: 1,
     alignItems: 'flex-start',
-    backgroundColor: TanksColors.backgroundTanks,
     width: '100%',
     paddingTop: Platform.OS === 'android' ? 60 : 0,
     paddingBottom: 60
@@ -77,12 +75,12 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    
+    paddingBottom: 60,
   },
   title: {
     fontSize: 30,
     width: '90%',
-    color: TanksColors.text,
+    color: Colors.textWhite,
     fontWeight: 'bold',
     marginTop: 20,
     marginBottom: 30,

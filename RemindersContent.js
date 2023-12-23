@@ -46,6 +46,7 @@ export const RemindersContent = ( {navigation } ) => {
         numColumns={1}
         contentContainerStyle={styles.listContainer} // Adjust styles as needed
         scrollEnabled={false}
+        style={styles.list}
       />
     </>
   );
@@ -62,5 +63,8 @@ const styles = StyleSheet.create({
   listContainer: {
     width: '90%',
     minWidth: '90%',
+  },
+  list: {
+    paddingBottom: 60,
   },
 });
