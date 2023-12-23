@@ -6,8 +6,8 @@ export const Colors = {
     height2: '#242424',
     height3: '#2c2c2c',
     height4: '#383838',
-    textWhite: '#d9fcf7',
-    textMarine: '#D7FCF7',
+    textWhite: '#edf7f6',
+    textMarine: '#d9fcf7',
     searchBar: '#4C5059',
     subtitle: '#FFFFFF',
   };

@@ -93,17 +93,17 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   buttonTitle: {
-    color: Colors.textWhite,
+    color: Colors.textMarine,
     fontWeight: 'bold',
     fontSize: 24,
   },
   buttonSubtitle: {
-    color: Colors.textWhite,
+    color: Colors.textMarine,
     fontWeight: 'bold',
     fontSize: 18,
   },
   plusButtonText: {
-    color: Colors.textWhite,
+    color: Colors.textMarine,
     fontSize: 20,
     fontWeight: 'bold',
   },  

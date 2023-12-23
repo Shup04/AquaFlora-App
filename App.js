@@ -193,7 +193,7 @@ const HomeScreen = ({navigation}) => {
           textStyle={{
             fontSize: 15,
             fontWeight: '500',
-            color: Colors.text,
+            color: Colors.textWhite,
           }}
         />
         <ButtonComponent
@@ -212,7 +212,7 @@ const HomeScreen = ({navigation}) => {
           textStyle={{
             fontSize: 16,
             fontWeight: '500',
-            color: Colors.text,
+            color: Colors.textWhite,
           }}
         />
         <ButtonComponent
@@ -231,7 +231,7 @@ const HomeScreen = ({navigation}) => {
           textStyle={{
             fontSize: 16,
             fontWeight: '500',
-            color: Colors.text,
+            color: Colors.textWhite,
           }}
         />
         <ButtonComponent
@@ -250,7 +250,7 @@ const HomeScreen = ({navigation}) => {
           textStyle={{
             fontSize: 16,
             fontWeight: '500',
-            color: Colors.text,
+            color: Colors.textWhite,
           }}
         />
 
