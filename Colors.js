@@ -1,11 +1,19 @@
 import { SearchBar } from "react-native-screens";
 
 export const Colors = {
-    backgroundTanks: '#2C2D3f',
-    text: '#F1F1F1',
+    backgroundDark: '#121212',
+    height1: '#1e1e1e',
+    height2: '#242424',
+    height3: '#2c2c2c',
+    height4: '#383838',
+    textWhite: '#d9fcf7',
+    textMarine: '#D7FCF7',
     searchBar: '#4C5059',
+    subtitle: '#FFFFFF',
   };
+{/*
 
+*/}
 export const TanksColors = {
   headerBackground: '#191924',
   backgroundTanks: '#2C2D3f',

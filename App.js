@@ -340,7 +340,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'flex-start',
-    backgroundColor: Colors.backgroundTanks,
+    backgroundColor: Colors.backgroundDark,
     alignItems: 'center',
     width: '100%',
     paddingTop: Platform.OS === 'android' ? 60 : 0,
@@ -361,12 +361,12 @@ const styles = StyleSheet.create({
   header1: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: Colors.text,
+    color: Colors.textWhite,
   },
   header2: {
     fontSize: 16,
     fontWeight: '500',
-    color: Colors.text,
+    color: Colors.textWhite,
     //marginTop: 5,
     //marginLeft: 50,
   },
@@ -378,19 +378,6 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 35,
     borderBottomRightRadius: 35,
 
-  },
-  searchBar: {
-    width: '80%',
-    height: 40,
-    marginTop: 20,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-    backgroundColor: Colors.searchBar,
-    shadowColor: '#A4A4A4',
-    elevation: 5, // This property is required for Android
-    shadowDx: 0,
-    shadowDy: 0,
-    shadowRadius: 15,
   },
   
   tankInfo: {
@@ -420,7 +407,7 @@ const styles = StyleSheet.create({
     marginLeft: 90,
     marginRight: 10,
     fontWeight: 'bold',
-    color: Colors.dark
+    color: Colors.textWhite
   },
   tankSize: {
     fontSize: 16,

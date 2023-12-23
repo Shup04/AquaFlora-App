@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
-import { TanksColors } from '../Colors';
+import { Colors } from '../Colors';
+
 
 export const ItemComponent = ({ item, title, subtitle, URI, navigation }) => {
 
@@ -64,27 +65,27 @@ const styles = StyleSheet.create({
   button: {
     height: 220,
     width: '100%',
-    backgroundColor: TanksColors.componentDark,
+    backgroundColor: Colors.height2,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    borderRadius: 15,
-    shadowColor: '#A4A4A4',
-    elevation: 3,
+    borderRadius: 8,
+    shadowColor: '#000000',
+    elevation: 5,
   },
   plusButton: {
     height: '100%',
     width: '100%',
-    backgroundColor: TanksColors.componentDark,
+    backgroundColor: Colors.height2,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 15,
-    shadowColor: '#A4A4A4',
-    elevation: 3,
+    borderRadius: 8,
+    shadowColor: '#000000',
+    elevation: 5,
   },
   image: {
     height: '70%',
     width: '100%',
-    borderRadius: 15,
+    borderRadius: 8,
   },
   textContainer: {
     height: '30%',
@@ -92,17 +93,17 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   buttonTitle: {
-    color: TanksColors.title,
+    color: Colors.textWhite,
     fontWeight: 'bold',
     fontSize: 24,
   },
   buttonSubtitle: {
-    color: TanksColors.subtitle,
+    color: Colors.textWhite,
     fontWeight: 'bold',
     fontSize: 18,
   },
   plusButtonText: {
-    color: TanksColors.title,
+    color: Colors.textWhite,
     fontSize: 20,
     fontWeight: 'bold',
   },  
