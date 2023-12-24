@@ -33,7 +33,6 @@ import PlantsIcon from './assets/MiscImages/plants.png';
 
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
-import firebase from 'firebase/app';
 
 //notification handler
 Notifications.setNotificationHandler({
@@ -49,7 +48,7 @@ const MyStack = ({ navigation }) => {
 
   //Reqest notification permissions
   useEffect(() => {
-    registerForPushNotificationAsync();
+    //registerForPushNotificationAsync();
 
     // This listener is fired whenever a notification is received while the app is foregrounded
     const subscription = Notifications.addNotificationReceivedListener(notification => {
@@ -301,6 +300,7 @@ const HomeScreen = ({navigation}) => {
   */
 };
 
+{/*
 async function registerForPushNotificationAsync() {
   let token;
   try {
@@ -334,6 +334,8 @@ async function registerForPushNotificationAsync() {
     console.error('Error getting push token:', error);
   }
 }
+*/}
+
 
 
 const styles = StyleSheet.create({
