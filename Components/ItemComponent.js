@@ -11,7 +11,6 @@ export const ItemComponent = ({ item, title, subtitle, URI, navigation }) => {
 
   return (
     <View style={styles.buttonContainer}>
-      {console.log(URI)}
       <TouchableOpacity 
         style={styles.button}
         onPress={() => handlePress(item.id)}
@@ -51,7 +50,7 @@ export const PlusComponent = ({ navigation, destination }) => {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    width: '50%',
+    width: '100%',
     //backgroundColor: 'green',
     alignItems: 'center',
     padding: 10,
@@ -63,9 +62,10 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   button: {
-    height: 220,
+    height: 100,
     width: '100%',
     backgroundColor: Colors.height2,
+    flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     borderRadius: 8,
@@ -83,12 +83,12 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   image: {
-    height: '70%',
-    width: '100%',
+    height: '100%',
+    width: '50%',
     borderRadius: 8,
   },
   textContainer: {
-    height: '30%',
+    height: '100%',
     justifyContent: 'center',
     marginLeft: 12,
   },

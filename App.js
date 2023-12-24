@@ -33,6 +33,7 @@ import PlantsIcon from './assets/MiscImages/plants.png';
 
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+import firebase from 'firebase/app';
 
 //notification handler
 Notifications.setNotificationHandler({
@@ -176,7 +177,9 @@ const HomeScreen = ({navigation}) => {
           }}
         />
       </View>
-      <View style={styles.buttonContainer}>
+      
+  {renderContent( navigation={navigation} )}
+  <View style={styles.buttonContainer}>
         <ButtonComponent
           imageLink={DashboardIcon}
           title="Dashboard"
@@ -256,7 +259,6 @@ const HomeScreen = ({navigation}) => {
 
 
       </View>
-  {renderContent( navigation={navigation} )}
     </View>
   );
   /*
@@ -301,32 +303,36 @@ const HomeScreen = ({navigation}) => {
 
 async function registerForPushNotificationAsync() {
   let token;
-  if (Device.isDevice) {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
+  try {
+    if (Device.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      }
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+    } else {
+      alert('Must use physical device for Push Notifications');
     }
-    if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
-      return;
+  
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
     }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-  } else {
-    alert('Must use physical device for Push Notifications');
+  
+    return token;
+  } catch (error) {
+    console.error('Error getting push token:', error);
   }
-
-  if (Platform.OS === 'android') {
-    Notifications.setNotificationChannelAsync('default', {
-      name: 'default',
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#FF231F7C',
-    });
-  }
-
-  return token;
 }
 
 
@@ -348,10 +354,11 @@ const styles = StyleSheet.create({
   buttonContainer: {
     display: 'flex',
     flexDirection: 'row',
-    marginVertical: 10,
-    width: '90%',
+    padding: 10,
+    width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: Colors.height4,
   },
   flexHoz: {
     display: 'flex',

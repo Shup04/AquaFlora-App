@@ -19,6 +19,27 @@ export const Colors = {
     searchBar: '#4C5059',
     subtitle: '#FFFFFF',
   };
+
+  export const ColorsDark = {
+    background: '#121212',
+
+    height1: '#1e1e1e',
+    height2: '#242424',
+    height3: '#2c2c2c',
+    height4: '#383838',
+
+    primary: '#bb86fc',
+    primaryVariant: '#3700b3',
+    secondary: '#03dac6',
+    error: '#cf6679',
+
+    textWhite: '#edf7f6',
+    textMarine: '#d9fcf7',
+
+    searchBar: '#4C5059',
+    subtitle: '#FFFFFF',
+  };
+  
 {/*
 
 */}
