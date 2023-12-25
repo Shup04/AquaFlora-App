@@ -2,7 +2,6 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { ImageBackground, Button, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import ButtonComponent from './Components/ButtonComponent';
-import TankButton from './Components/TankButton';
 import profileButton from './Components/ProfileButton';
 import BezierChart from './Components/BezierChart';
 import {NavigationContainer} from '@react-navigation/native';
