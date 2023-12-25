@@ -68,6 +68,7 @@ const MyStack = ({ navigation }) => {
   }, [])
 
   return (
+    //Navigator for ALL pages
     <NavigationContainer>
       <Stack.Navigator 
         initialRouteName='Home'
@@ -132,7 +133,7 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar style="light" />
       <View style={styles.flexHoz}>
         <ButtonComponent
           //onPress={() => showList(1)}
@@ -169,6 +170,7 @@ const HomeScreen = ({navigation}) => {
           imageStyle={{
             height: '90%',
             width: '90%',
+            tintColor: Colors.textMarine,
           }}
           textStyle={{
             fontSize: 20,
@@ -191,11 +193,12 @@ const HomeScreen = ({navigation}) => {
           imageStyle={{
             width: 40,
             height: 40,
+            tintColor: Colors.textMarine,
           }}
           textStyle={{
-            fontSize: 15,
-            fontWeight: '500',
-            color: Colors.textWhite,
+            fontSize: 13,
+            fontWeight: '400',
+            color: Colors.textMarine,
           }}
         />
         <ButtonComponent
@@ -210,11 +213,12 @@ const HomeScreen = ({navigation}) => {
           imageStyle={{
             width: 40,
             height: 40,
+            tintColor: Colors.textMarine,
           }}
           textStyle={{
-            fontSize: 16,
-            fontWeight: '500',
-            color: Colors.textWhite,
+            fontSize: 13,
+            fontWeight: '400',
+            color: Colors.textMarine,
           }}
         />
         <ButtonComponent
@@ -229,11 +233,12 @@ const HomeScreen = ({navigation}) => {
           imageStyle={{
             width: 40,
             height: 40,
+            tintColor: Colors.textMarine,
           }}
           textStyle={{
-            fontSize: 16,
-            fontWeight: '500',
-            color: Colors.textWhite,
+            fontSize: 13,
+            fontWeight: '400',
+            color: Colors.textMarine,
           }}
         />
         <ButtonComponent
@@ -248,11 +253,12 @@ const HomeScreen = ({navigation}) => {
           imageStyle={{
             width: 40,
             height: 40,
+            tintColor: Colors.textMarine,
           }}
           textStyle={{
-            fontSize: 16,
-            fontWeight: '500',
-            color: Colors.textWhite,
+            fontSize: 13,
+            fontWeight: '400',
+            color: Colors.textMarine,
           }}
         />
 
@@ -260,46 +266,9 @@ const HomeScreen = ({navigation}) => {
       </View>
     </View>
   );
-  /*
-  return (
-    <SafeAreaView style={{ flex: 1, paddingTop: StatusBar.currentHeight }}>
-      <StatusBar hidden={true} />
-      <View style={styles.container}>
-          <View style={styles.HomeHeaderContainer}>
-            <Text style={styles.header1}>Hi Bradley!</Text>
-            <Text style={styles.header2}>Your tanks are all healthy.</Text>
-            <Text style={styles.header2}>You have no reminders.</Text>
-
-            <View style={styles.buttonContainer}>
-              <Text
-                style={[styles.tab, activeTab === 'Dashboard' && styles.activeTab]}
-                onPress={() => handleTabChange('Dashboard')}>
-                Dashboard</Text>
-              <Text
-                style={[styles.tab, activeTab === 'My Tanks' && styles.activeTab]}
-                onPress={() => handleTabChange('My Tanks')}>
-                My Tanks</Text>
-              <Text
-                style={[styles.tab, activeTab === 'Reminders' && styles.activeTab]}
-                onPress={() => handleTabChange('Reminders')}>
-                Reminders</Text>
-              <Text
-                style={[styles.tab, activeTab === 'Settings' && styles.activeTab]}
-                onPress={() => handleTabChange('Settings')}>
-                Settings</Text>
-            </View>
-
-          </View>
-          {renderContent()}
-        
-        
-        <GridList style={styles.gridList} />
-      </View>
-    </SafeAreaView>
-  );
-  */
 };
 
+//push notif token
 {/*
 async function registerForPushNotificationAsync() {
   let token;
@@ -342,7 +311,7 @@ const styles = StyleSheet.create({
   header: {
     height: Platform.OS === 'android' ? 50 : 40,
     width: '100%',
-    backgroundColor: TanksColors.headerBackground,
+    backgroundColor: Colors.primary,
     marginBottom: 20,
   },
   container: {
@@ -360,7 +329,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: Colors.height4,
+    backgroundColor: Colors.height3,
   },
   flexHoz: {
     display: 'flex',
@@ -370,12 +339,12 @@ const styles = StyleSheet.create({
   header1: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: Colors.textWhite,
+    color: Colors.textMarine,
   },
   header2: {
     fontSize: 16,
     fontWeight: '500',
-    color: Colors.textWhite,
+    color: Colors.textMarine,
     //marginTop: 5,
     //marginLeft: 50,
   },

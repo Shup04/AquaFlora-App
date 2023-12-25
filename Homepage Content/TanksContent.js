@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, FlatList, StyleSheet } from 'react-native';
-import { TanksColors } from '../Colors';
+import { Colors } from '../Colors';
 import { ItemComponent, PlusComponent } from '../Components/ItemComponent';
 import realm from '../database/Realm';
 
 export const TanksContent = ( {navigation } ) => {
 
+  //fetch entire tank list from realm
   const fetchTankDataFromRealm = () => {
     try {
       const allTanks = realm.objects('Tank');
@@ -27,6 +28,7 @@ export const TanksContent = ( {navigation } ) => {
   };
   const data = fetchTankDataFromRealm();
 
+  //Render one tank
   const renderItem = ({ item }) => {
     return (
       <ItemComponent
@@ -39,7 +41,9 @@ export const TanksContent = ( {navigation } ) => {
     );
   };
 
+  //Key extractor for flatlist
   const keyExtractor = (item) => (item.id ? item.id.toString() : null);
+
   return (
     <>
     <View style={{width: '90%'}}>
@@ -65,7 +69,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     margin: 10,
     marginTop: 20,
-    color: TanksColors.text,
+    color: Colors.textMarine,
   },
   listContainer: {
     width: '90%',
