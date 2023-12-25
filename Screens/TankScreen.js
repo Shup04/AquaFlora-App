@@ -16,14 +16,14 @@ const chartWidth = screenWidth * 0.75; // 80% of screen width
 
 export const TankScreen = ({ navigation, route }) => {
   const { tankId } = route.params;
-  const [tankURI, setTankURI] = React.useState('');
+  const [tankURI, setTankURI] = React.useState(null);
 
   useEffect(() => {
     // Query for the tank with the given id
     const tank = realm.objectForPrimaryKey('Tank', tankId);
 
     // Set the tank URI in state
-    if (tank) {
+    if (tank && tank.URI) {
       setTankURI(tank.URI);
     }
   }, [tankId]);
@@ -33,15 +33,18 @@ export const TankScreen = ({ navigation, route }) => {
     <BackButton navigation={navigation}/>
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Image
-          source={{ uri: tankURI}}
-          style={{
-            width: '100%',
-            height: 175,
-            resizeMode: 'cover',
-            backgroundColor: 'blue',
-          }}
-        />
+        {tankURI && (//only render image if tankURI was fetched.
+          <Image
+            source={{ uri: tankURI}}
+            style={{
+              width: '100%',
+              height: 175,
+              resizeMode: 'cover',
+              backgroundColor: 'blue',
+            }}
+          />
+        )}
+
         <Text style={styles.title}>Param Chart: </Text>
         <ParamChart/>
         <Text style={styles.title}>Reminders: </Text>
