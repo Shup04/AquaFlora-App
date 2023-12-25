@@ -7,7 +7,7 @@ import { navigation } from '@react-navigation/native';
 export const BackButton = ({ navigation }) => {
 
   const handlePress = () => {
-    navigation.navigate("Home");
+    navigation.goBack();
   };
 
   return (
