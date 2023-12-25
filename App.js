@@ -2,13 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { ImageBackground, Button, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import ButtonComponent from './Components/ButtonComponent';
-import profileButton from './Components/ProfileButton';
 import BezierChart from './Components/BezierChart';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import GridList from './Components/GridList';
 import { Colors, TanksColors } from './Colors';
-import Modal from 'react-native-modal';
 
 import { FishContent } from './Homepage Content/FishContent';
 import { TanksContent } from './Homepage Content/TanksContent';
