@@ -132,8 +132,8 @@ const HomeScreen = ({navigation}) => {
           //onPress={() => showList(1)}
           imageLink={DefaultPFP}
           style={{
-            width: 55,
-            height: 55,
+            width: 50,
+            height: 50,
             marginLeft: 0,
             marginRight: 10,
           }}
@@ -153,10 +153,11 @@ const HomeScreen = ({navigation}) => {
         <ButtonComponent
           imageLink={SettingsIcon}
           style={{
-            width: 40,
-            height: 40,
+            width: 50,
+            height: 50,
             marginRight: 0,
             marginLeft: 'auto',
+            
           }}
           imageStyle={{
             height: '90%',
@@ -315,7 +316,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backgroundDark,
     alignItems: 'center',
     width: '100%',
-    paddingTop: Platform.OS === 'android' ? 45 : 0,
+    paddingTop: Platform.OS === 'android' ? 60 : 0,
   },
   buttonContainer: {
     display: 'flex',
@@ -330,7 +331,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     width: '90%',
-    alignItems: 'center',
+    height: 35,
+    
   },
   header1: {
     fontSize: 20,
