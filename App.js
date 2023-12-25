@@ -134,7 +134,7 @@ const HomeScreen = ({navigation}) => {
           style={{
             width: 55,
             height: 55,
-            marginLeft: 30,
+            marginLeft: 0,
             marginRight: 10,
           }}
           imageStyle={{
@@ -155,7 +155,7 @@ const HomeScreen = ({navigation}) => {
           style={{
             width: 40,
             height: 40,
-            marginRight: 10,
+            marginRight: 0,
             marginLeft: 'auto',
           }}
           imageStyle={{
@@ -189,6 +189,7 @@ const HomeScreen = ({navigation}) => {
           textStyle={{
             fontSize: 13,
             fontWeight: '400',
+            marginTop: 5,
             color: Colors.textMarine,
           }}
         />
@@ -209,6 +210,7 @@ const HomeScreen = ({navigation}) => {
           textStyle={{
             fontSize: 13,
             fontWeight: '400',
+            marginTop: 5,
             color: Colors.textMarine,
           }}
         />
@@ -229,6 +231,7 @@ const HomeScreen = ({navigation}) => {
           textStyle={{
             fontSize: 13,
             fontWeight: '400',
+            marginTop: 5,
             color: Colors.textMarine,
           }}
         />
@@ -249,6 +252,7 @@ const HomeScreen = ({navigation}) => {
           textStyle={{
             fontSize: 13,
             fontWeight: '400',
+            marginTop: 5,
             color: Colors.textMarine,
           }}
         />
@@ -325,7 +329,8 @@ const styles = StyleSheet.create({
   flexHoz: {
     display: 'flex',
     flexDirection: 'row',
-    width: '100%',
+    width: '90%',
+    alignItems: 'center',
   },
   header1: {
     fontSize: 20,
@@ -338,65 +343,6 @@ const styles = StyleSheet.create({
     color: Colors.textMarine,
     //marginTop: 5,
     //marginLeft: 50,
-  },
-  HomeHeaderContainer: {
-    backgroundColor: Colors.darker,
-    flex: 1,
-    width: '100%',
-    height: 50,
-    borderBottomLeftRadius: 35,
-    borderBottomRightRadius: 35,
-
-  },
-  
-  tankInfo: {
-    marginTop: 50,
-    display: 'flex',
-    flexDirection: 'row',
-    borderWidth: 2,
-    borderRadius: 25,
-    borderColor: Colors.dark,
-    height: 100,
-    width: '95%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Colors.secondary,
-  },
-  tankImage: {
-    height: 100,
-    width: 100,
-    borderWidth: 2,
-    borderRadius: 25,
-    borderColor: Colors.dark,
-    position: 'absolute',
-    left: -2,
-  },
-  tankHeader: {
-    fontSize: 32,
-    marginLeft: 90,
-    marginRight: 10,
-    fontWeight: 'bold',
-    color: Colors.textWhite
-  },
-  tankSize: {
-    fontSize: 16,
-    color: Colors.dark,
-    fontWeight: 'bold'
-  },
-  tankStatus: {
-    fontSize: 16,
-    color: Colors.dark,
-    fontWeight: 'bold'
-  },
-  
-  tab: {
-    padding: 10
-  },
-  activeTab: {
-    color: Colors.lightest,
-    backgroundColor: Colors.darkest,
-    padding: 10,
-    borderRadius: 25,
   },
 
   
