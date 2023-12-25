@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { platform } from 'react-native';
 import { View, Text, StyleSheet, 
   TextInput, TouchableOpacity, Button } from 'react-native';
-import { TanksColors } from '../Colors';
+import { TanksColors, Colors } from '../Colors';
 import { BackButton } from '../Components/BackButton';
 import realm from '../database/Realm';
 
@@ -140,19 +140,18 @@ export const TankCreateScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   body: {
-    backgroundColor: TanksColors.backgroundTanks,
+    backgroundColor: Colors.backgroundDark,
     height: '100%',
     width: '100%',
     flex: 1,
     alignItems: 'flex-start',
-    backgroundColor: TanksColors.backgroundTanks,
     width: '100%',
     paddingTop: Platform.OS === 'android' ? 60 : 0,
   },
   title: {
     fontSize: 30,
     width: '80%',
-    color: TanksColors.text,
+    color: Colors.textMarine,
     fontWeight: 'bold',
     marginBottom: 30,
   },
@@ -166,21 +165,21 @@ const styles = StyleSheet.create({
   box: {
     width: '80%',
     height: 75,
-    backgroundColor: TanksColors.componentDark,
+    backgroundColor: Colors.height3,
     borderRadius: 15,
     shadowColor: '#A4A4A4',
     elevation: 3,
     marginBottom: 30,
   },
   boxText: {
-    color: TanksColors.title,
+    color: Colors.textMarine,
     fontSize: 20,
     fontWeight: 'bold',
     marginTop: 5,
     marginLeft: 10,
   },
   input: {
-    color: TanksColors.subtitle,
+    color: Colors.textMarine,
     fontSize: 16,
     fontWeight: 'bold',
     marginTop: 5,
