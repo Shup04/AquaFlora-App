@@ -10,8 +10,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import GridList from './Components/GridList';
 import { Colors, TanksColors } from './Colors';
 import Modal from 'react-native-modal';
-import Popup from './Popup';
-import { HeaderButton } from './Components/HeaderButton';
 
 import { FishContent } from './Homepage Content/FishContent';
 import { TanksContent } from './Homepage Content/TanksContent';
@@ -406,11 +404,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.darkest,
     padding: 10,
     borderRadius: 25,
-  },
-  headerButton: {
-    width: '22%',
-    aspectRatio: 1,
-    backgroundColor: 'blue',
   },
 
   
