@@ -130,11 +130,10 @@ const HomeScreen = ({navigation}) => {
       <View style={styles.flexHoz}>
         <ButtonComponent
           //onPress={() => showList(1)}
-          color="#4287f5"
           imageLink={DefaultPFP}
           style={{
-            width: 60,
-            height: 60,
+            width: 55,
+            height: 55,
             marginLeft: 30,
             marginRight: 10,
           }}
@@ -152,13 +151,12 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.header2}>Your tanks are all healthy.</Text>
         </View>
         <ButtonComponent
-          color="#4287f5"
           imageLink={SettingsIcon}
           style={{
-            width: 50,
-            height: 50,
-            marginLeft: 30,
+            width: 40,
+            height: 40,
             marginRight: 10,
+            marginLeft: 'auto',
           }}
           imageStyle={{
             height: '90%',
@@ -184,8 +182,8 @@ const HomeScreen = ({navigation}) => {
             alignItems: 'center',
           }}
           imageStyle={{
-            width: 40,
-            height: 40,
+            width: 30,
+            height: 30,
             tintColor: Colors.textMarine,
           }}
           textStyle={{
@@ -204,8 +202,8 @@ const HomeScreen = ({navigation}) => {
             alignItems: 'center',
           }}
           imageStyle={{
-            width: 40,
-            height: 40,
+            width: 30,
+            height: 30,
             tintColor: Colors.textMarine,
           }}
           textStyle={{
@@ -224,8 +222,8 @@ const HomeScreen = ({navigation}) => {
             alignItems: 'center',
           }}
           imageStyle={{
-            width: 40,
-            height: 40,
+            width: 30,
+            height: 30,
             tintColor: Colors.textMarine,
           }}
           textStyle={{
@@ -244,8 +242,8 @@ const HomeScreen = ({navigation}) => {
             alignItems: 'center',
           }}
           imageStyle={{
-            width: 40,
-            height: 40,
+            width: 30,
+            height: 30,
             tintColor: Colors.textMarine,
           }}
           textStyle={{
@@ -313,7 +311,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backgroundDark,
     alignItems: 'center',
     width: '100%',
-    paddingTop: Platform.OS === 'android' ? 60 : 0,
+    paddingTop: Platform.OS === 'android' ? 45 : 0,
   },
   buttonContainer: {
     display: 'flex',
@@ -330,12 +328,12 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   header1: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
     color: Colors.textMarine,
   },
   header2: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '500',
     color: Colors.textMarine,
     //marginTop: 5,
