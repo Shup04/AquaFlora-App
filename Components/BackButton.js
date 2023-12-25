@@ -32,6 +32,6 @@ const styles = StyleSheet.create({
   textStyle: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: Colors.text,
+    color: Colors.textMarine,
   },
 });

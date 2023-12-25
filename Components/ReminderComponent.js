@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
-import { TanksColors } from '../Colors';
+import { Colors } from '../Colors';
 
 export const ReminderComponent = ({ item, navigation }) => {
 
@@ -58,9 +58,9 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   button: {
-    height: 75,
+    height: 70,
     width: '100%',
-    backgroundColor: TanksColors.componentDark,
+    backgroundColor: Colors.height2,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     borderRadius: 15,
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   plusButton: {
     height: '100%',
     width: '100%',
-    backgroundColor: TanksColors.componentDark,
+    backgroundColor: Colors.height2,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
@@ -88,17 +88,17 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   buttonTitle: {
-    color: TanksColors.title,
+    color: Colors.textMarine,
     fontWeight: 'bold',
     fontSize: 24,
   },
   buttonSubtitle: {
-    color: TanksColors.subtitle,
+    color: Colors.textMarine,
     fontWeight: 'bold',
     fontSize: 18,
   },
   plusButtonText: {
-    color: TanksColors.title,
+    color: Colors.textMarine,
     fontSize: 20,
     fontWeight: 'bold',
   },  

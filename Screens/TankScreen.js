@@ -40,7 +40,6 @@ export const TankScreen = ({ navigation, route }) => {
               width: '100%',
               height: 175,
               resizeMode: 'cover',
-              backgroundColor: 'blue',
             }}
           />
         )}
@@ -71,7 +70,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    paddingTop: 50,
+    paddingTop: 30,
     //alignItems: 'center',
   },
   scrollContainer: {
