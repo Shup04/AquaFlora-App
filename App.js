@@ -4,7 +4,6 @@ import { ImageBackground, Button, StyleSheet, Text, View, TouchableOpacity } fro
 import ButtonComponent from './Components/ButtonComponent';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import GridList from './Components/GridList';
 import { Colors, TanksColors } from './Colors';
 
 import { FishContent } from './Homepage Content/FishContent';
