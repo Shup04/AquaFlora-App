@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    width: '80%',
+    width: '90%',
     color: Colors.textMarine,
     fontWeight: 'bold',
     marginBottom: 30,

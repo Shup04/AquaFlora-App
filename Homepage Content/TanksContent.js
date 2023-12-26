@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     color: Colors.textMarine,
   },
   listContainer: {
-    width: '90%',
-    minWidth: '90%',
+    width: '100%',
+    minWidth: '100%',
   },
 });
