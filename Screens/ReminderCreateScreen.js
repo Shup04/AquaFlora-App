@@ -115,7 +115,7 @@ export const ReminderCreateScreen = ({ navigation }) => {
       <View style={styles.box}>
         <Text style={styles.boxText}>Reminder Date:</Text>
         <Text style={styles.input}>{dateTime.toString()}</Text>
-        <Button title="Set Reminder Date" onPress={() => setOpenDateTimePicker(true)} style={styles.Button}/>
+        
         <DatePicker
           modal
           open={openDateTimePicker}
@@ -130,6 +130,10 @@ export const ReminderCreateScreen = ({ navigation }) => {
         />
       </View>
       
+      <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={() => setOpenDateTimePicker(true)} >
+        <Text style={styles.boxText}>Set Reminder Date</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={saveToRealm} >
         <Text style={styles.boxText}>Create</Text>
       </TouchableOpacity>
@@ -177,9 +181,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   box: {
-    width: '80%',
+    width: '90%',
+    height: 75,
     backgroundColor: Colors.height3,
-    borderRadius: 15,
+    borderRadius: 8,
     shadowColor: '#A4A4A4',
     elevation: 3,
     marginBottom: 30,
@@ -196,7 +201,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginTop: 5,
-    marginLeft: 10,
+    marginBottom: 'auto',
+    marginHorizontal: 10,
+    borderBottomWidth: 1,
+    borderColor: Colors.textWhite,
+
   },
   Button: {
     width: '80%',

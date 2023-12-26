@@ -10,26 +10,28 @@ import { RemindersContent } from '../RemindersContent';
 import realm from '../database/Realm';
 import { TankSchema } from '../database/schemas';
 
-const screenWidth = Dimensions.get('window').width;
-const chartWidth = screenWidth * 0.75; // 80% of screen width
-
-
 export const ReminderScreen = ({ navigation, route }) => {
   const { reminderId } = route.params;
+  const [reminder, setReminder] = React.useState(null);
 
   useEffect(() => {
     // Query for the tank with the given id
     const reminder = realm.objectForPrimaryKey('Reminder', reminderId);
+    
+    if (reminder && reminder.name) {
+      setReminder(reminder);
+    }
 
   }, [reminderId]);
 
   return (
+
   <View style={styles.body}>
     <BackButton navigation={navigation}/>
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
 
-        <Text style={styles.title}>Reminders: </Text>
+        {reminder && <Text style={styles.title}>{reminder.name}: </Text>}
         
         
       </ScrollView>
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    paddingTop: 30,
+    paddingTop: 10,
     //alignItems: 'center',
   },
   scrollContainer: {
@@ -66,7 +68,7 @@ const styles = StyleSheet.create({
     width: '90%',
     color: Colors.textWhite,
     fontWeight: 'bold',
-    marginTop: 20,
-    marginBottom: 30,
+    marginTop: 10,
+    marginBottom: 'auto',
   },
 });

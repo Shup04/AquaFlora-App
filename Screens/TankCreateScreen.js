@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   box: {
-    width: '80%',
+    width: '90%',
     height: 75,
     backgroundColor: Colors.height3,
     borderRadius: 8,
