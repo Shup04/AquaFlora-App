@@ -4,8 +4,8 @@ import { Colors } from '../Colors';
 
 export const ReminderComponent = ({ item, navigation }) => {
 
-  const handlePress = (tankId) => {
-    navigation.navigate('Tank', { tankId })
+  const handlePress = (reminderId) => {
+    navigation.navigate('Reminder', { reminderId })
   };
 
   return (
