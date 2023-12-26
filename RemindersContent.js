@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
     color: TanksColors.text,
   },
   listContainer: {
-    width: '90%',
-    minWidth: '90%',
+    width: '100%',
+    minWidth: '100%',
   },
   list: {
     paddingBottom: 60,
