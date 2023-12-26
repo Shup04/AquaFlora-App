@@ -95,7 +95,8 @@ export const TankCreateScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.title}>Create New Tank:</Text>
       
-      <Button title="Pick an Image" onPress={pickImage} />
+      {/* Old Button.
+      <Button title="Pick an Image" onPress={pickImage} />*/}
 
       <View style={styles.box}>
         <Text style={styles.boxText}>Tank Name:</Text>
@@ -121,6 +122,11 @@ export const TankCreateScreen = ({ navigation }) => {
           style={styles.input}
         />
       </View>
+      
+
+      <TouchableOpacity style={[styles.box, styles.createBox]} title="Pick image" onPress={pickImage} >
+        <Text style={styles.boxText}>Pick Image</Text>
+      </TouchableOpacity>
       
       <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={saveToRealm} >
         <Text style={styles.boxText}>Create</Text>
