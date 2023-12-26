@@ -14,7 +14,7 @@ export const Colors = {
     error: '#cf6679',
 
     textWhite: '#edf7f6',
-    textMarine: '#d9fcf7',
+    textMarine: '#e6fcf9',
 
     searchBar: '#4C5059',
     subtitle: '#FFFFFF',

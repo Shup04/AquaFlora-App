@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 75,
     backgroundColor: Colors.height3,
-    borderRadius: 15,
+    borderRadius: 8,
     shadowColor: '#A4A4A4',
     elevation: 3,
     marginBottom: 30,
@@ -183,7 +183,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginTop: 5,
-    marginLeft: 10,
+    marginHorizontal: 10,
+    borderBottomWidth: 1,
+    borderColor: Colors.textWhite,
+
   },
   uploadButton: {
     width: 100,
