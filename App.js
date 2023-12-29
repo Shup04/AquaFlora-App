@@ -16,8 +16,6 @@ import { ReminderScreen } from './Screens/ReminderScreen';
 import { TankCreateScreen } from './Screens/TankCreateScreen';
 import { ReminderCreateScreen } from './Screens/ReminderCreateScreen';
 
-import { SafeAreaView } from 'react-native-safe-area-context';
-
 import DefaultPFP from './assets/MiscImages/defaultPFP.png';
 import SettingsIcon from './assets/MiscImages/settings.png';
 import DashboardIcon from './assets/MiscImages/dashboard.png';
@@ -183,7 +181,10 @@ const HomeScreen = ({navigation}) => {
       </View>
       
   {renderContent( navigation={navigation} )}
+
+  {/* Menu Bar On home screen */}
   <View style={styles.buttonContainer}>
+
         <ButtonComponent
           imageLink={DashboardIcon}
           title="Dashboard"

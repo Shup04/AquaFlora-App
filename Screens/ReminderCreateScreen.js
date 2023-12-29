@@ -6,13 +6,14 @@ import { BackButton } from '../Components/BackButton';
 import ImagePicker from 'react-native-image-picker';
 import realm from '../database/Realm';
 import DatePicker from 'react-native-date-picker';
+import Checkbox from 'expo-checkbox';
 
 import * as Notifications from 'expo-notifications';
 
 export const ReminderCreateScreen = ({ navigation }) => {
 
-  const [name, setName] = useState('reminder');
-  const [desc, setDesc] = useState('desc');
+  const [name, setName] = useState('');
+  const [desc, setDesc] = useState('');
   const [dateTime, setDateTime] = useState(new Date());
   const [repeating, setRepeating] = useState(false);
   const [frequency, setFrequency] = useState('');
@@ -129,22 +130,25 @@ export const ReminderCreateScreen = ({ navigation }) => {
           }}
         />
       </View>
-      
-      <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={() => setOpenDateTimePicker(true)} >
-        <Text style={styles.boxText}>Set Reminder Date</Text>
-      </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={saveToRealm} >
-        <Text style={styles.boxText}>Create</Text>
-      </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={printRealm} >
-        <Text style={styles.boxText}>Print Reminders</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={() => setOpenDateTimePicker(true)} >
+          <Text style={styles.boxText}>Set Reminder Date</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={clearRealm} >
-        <Text style={styles.boxText}>Clear Reminders</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={saveToRealm} >
+          <Text style={styles.boxText}>Create</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={printRealm} >
+          <Text style={styles.boxText}>Print Reminders</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={clearRealm} >
+          <Text style={styles.boxText}>Clear Reminders</Text>
+        </TouchableOpacity>
+
+
     </View>
   </ScrollView>
   );
@@ -154,8 +158,6 @@ const styles = StyleSheet.create({
   body: {
     backgroundColor: Colors.backgroundDark,
     height: '100%',
-    width: '100%',
-    flex: 1,
     width: '100%',
     paddingTop: Platform.OS === 'android' ? 60 : 0,
   },
@@ -176,7 +178,7 @@ const styles = StyleSheet.create({
   container: {
     //backgroundColor: 'orange',
     width: '100%',
-    height: '90%',
+    //height: '100%',
     paddingTop: 50,
     alignItems: 'center',
   },
@@ -218,5 +220,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
+    
   },
+
 });

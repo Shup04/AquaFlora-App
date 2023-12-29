@@ -5,14 +5,14 @@ import { TanksColors } from './Colors';
 import realm from './database/Realm';
 import { ReminderComponent, PlusComponent } from './Components/ReminderComponent';
 
-export const RemindersContent = ( {navigation } ) => {
+export const RemindersContent = ( {navigation, tankId } ) => {
 
   const fetchReminderDataFromRealm = () => {
     try {
-      const allReminders = realm.objects('Reminder');
+      const allReminders = realm.objects('Reminder').filtered(`tankId = ${tankId}`);
       const reminderArray = Array.from(allReminders); //convert realm list to array
   
-      // Convert each tank object to the format expected by the FlatList
+      // Convert each reminder object to the format expected by the FlatList
       const dataFromRealm = reminderArray.map((reminder) => ({
         id: reminder.id,
         title: reminder.name,
