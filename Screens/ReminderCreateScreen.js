@@ -129,14 +129,20 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
           }}
         />
       </TouchableOpacity>
+
         <View style={styles.repeatingForm}>
-          <Checkbox
-            style={styles.checkbox}
-            value={repeating}
-            onValueChange={setRepeating}
-            color={repeating ? '#4630EB' : undefined}
-          />
-          <View style={[styles.box, styles.checkContainer]}>
+          <View style={styles.checkContainer}>
+            <Checkbox
+              style={styles.checkbox}
+              value={repeating}
+              onValueChange={setRepeating}
+              color={repeating ? Colors.textMarine : "#FFFFFF"}
+              
+            />
+            <Text style={styles.checkText}>Repeating</Text>
+          </View>
+          
+          <View style={[styles.box, styles.repeatingBox]}>
 
           </View>
 
@@ -231,14 +237,30 @@ const styles = StyleSheet.create({
   checkbox: {
     height: 30,
     width: 30,
+    marginTop: 10,
   },
-  checkContainer: {
-    width: '75%',
+  repeatingBox: {
+    width: '65%',
     marginLeft: 'auto',
   },
   repeatingForm: {
     flexDirection: 'row',
     width: '100%',
+  },
+  checkContainer: {
+    marginLeft: 0,
+    alignItems: 'center',
+    height: 75,
+    flex: 1,
+    marginRight: 20,
+    borderRadius: 8,
+    elevation: 3,
+    backgroundColor: Colors.height3,
+    justifyContent: 'center',
+  },
+  checkText: {
+    color: Colors.textMarine,
+    fontSize: 14,
   },
 
 });
