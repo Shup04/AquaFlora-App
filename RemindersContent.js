@@ -38,7 +38,7 @@ export const RemindersContent = ( {navigation, tankId } ) => {
 
   return (
     <>
-      <PlusComponent navigation={navigation} destination={"ReminderCreate"}></PlusComponent>
+      <PlusComponent navigation={navigation} destination={"ReminderCreate"} tankId={tankId}></PlusComponent>
       <FlatList
         data={data}
         renderItem={renderItem}

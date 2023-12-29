@@ -10,14 +10,14 @@ import Checkbox from 'expo-checkbox';
 
 import * as Notifications from 'expo-notifications';
 
-export const ReminderCreateScreen = ({ navigation }) => {
+export const ReminderCreateScreen = ({ navigation, route }) => {
 
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
   const [dateTime, setDateTime] = useState(new Date());
   const [repeating, setRepeating] = useState(false);
   const [frequency, setFrequency] = useState('');
-  const [tankId, setTankId] = useState(0); // You'll need a way to set this, e.g., dropdown or input
+  const { tankId } = route.params;
   const [openDateTimePicker, setOpenDateTimePicker] = useState(false);
 
   const scheduleNotification = async (dateTime, title, desc) => {
@@ -46,7 +46,7 @@ export const ReminderCreateScreen = ({ navigation }) => {
             name: name,
             desc: desc,
             dateTime: dateTime,
-            tankId: tankId,
+            tankId: tankId, // set tankId to whatever is passed from the tank screen, works for now.
             notificationId: notificationId, // This will be set when the notification is scheduled
             repeating: repeating,
             frequency: repeating ? frequency : null, // Set frequency only if repeating
@@ -61,7 +61,6 @@ export const ReminderCreateScreen = ({ navigation }) => {
         setDateTime(new Date());
         setRepeating(false);
         setFrequency('');
-        setTankId(0);
   
       }).catch(error => {
         console.error('Error scheduling Notification:', error)

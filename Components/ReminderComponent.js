@@ -22,17 +22,17 @@ export const ReminderComponent = ({ item, navigation }) => {
   );
 };
 
-export const PlusComponent = ({ navigation, destination }) => {
+export const PlusComponent = ({ navigation, destination, tankId }) => {
 
-  const handlePress = () => {
-    navigation.navigate(destination)
-  };
+  const handlePress = (tankId) => {
+    navigation.navigate(destination, {tankId: tankId});
+  }; 
 
   return (
   <View style={styles.plusButtonContainer}>
     <TouchableOpacity 
       style={styles.plusButton}
-      onPress={handlePress}
+      onPress={() => handlePress(tankId)}
     >
       <Text style={styles.plusButtonText}>Create New Reminder</Text>
     </TouchableOpacity>
