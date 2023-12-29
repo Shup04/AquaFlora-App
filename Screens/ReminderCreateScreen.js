@@ -112,7 +112,7 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
         />
       </View>
 
-      <View style={styles.box}>
+      <TouchableOpacity style={styles.box} onPress={() => setOpenDateTimePicker(true)}>
         <Text style={styles.boxText}>Reminder Date:</Text>
         <Text style={styles.input}>{dateTime.toString()}</Text>
         
@@ -128,12 +128,19 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
             setOpenDateTimePicker(false);
           }}
         />
-      </View>
+      </TouchableOpacity>
+        <View style={styles.repeatingForm}>
+          <Checkbox
+            style={styles.checkbox}
+            value={repeating}
+            onValueChange={setRepeating}
+            color={repeating ? '#4630EB' : undefined}
+          />
+          <View style={[styles.box, styles.checkContainer]}>
 
+          </View>
 
-        <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={() => setOpenDateTimePicker(true)} >
-          <Text style={styles.boxText}>Set Reminder Date</Text>
-        </TouchableOpacity>
+        </View>
 
         <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={saveToRealm} >
           <Text style={styles.boxText}>Create</Text>
@@ -176,13 +183,14 @@ const styles = StyleSheet.create({
   },
   container: {
     //backgroundColor: 'orange',
-    width: '100%',
+    width: '90%',
     //height: '100%',
     paddingTop: 50,
     alignItems: 'center',
+    alignSelf: 'center',
   },
   box: {
-    width: '90%',
+    width: '100%',
     height: 75,
     backgroundColor: Colors.height3,
     borderRadius: 8,
@@ -200,7 +208,7 @@ const styles = StyleSheet.create({
   input: {
     color: Colors.textMarine,
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: 'normal',
     marginTop: 5,
     marginBottom: 'auto',
     marginHorizontal: 10,
@@ -219,7 +227,18 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    
+  },
+  checkbox: {
+    height: 30,
+    width: 30,
+  },
+  checkContainer: {
+    width: '75%',
+    marginLeft: 'auto',
+  },
+  repeatingForm: {
+    flexDirection: 'row',
+    width: '100%',
   },
 
 });
