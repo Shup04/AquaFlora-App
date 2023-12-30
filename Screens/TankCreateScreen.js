@@ -7,6 +7,7 @@ import { BackButton } from '../Components/BackButton';
 import realm from '../database/Realm';
 
 import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
 
 export const TankCreateScreen = ({ navigation }) => {
 
@@ -72,6 +73,24 @@ export const TankCreateScreen = ({ navigation }) => {
     }
   };
 
+  //move selected image to document directory
+  const moveImage = async (sourceUri) => {
+    const fileName = sourceUri.substring(sourceUri.lastIndexOf('/') + 1);
+    const destinationUri = `${FileSystem.documentDirectory}${fileName}`;
+  
+    await FileSystem.moveAsync({
+      from: sourceUri,
+      to: destinationUri,
+    });
+  
+    return destinationUri;
+  };
+
+  const checkFileExists = async (fileUri) => {
+    let fileInfo = await FileSystem.getInfoAsync(fileUri);
+    console.log(fileInfo.exists ? "File exists" : "File doesn't exist");
+  };
+
   const pickImage = async () => {
     //pick image
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -81,10 +100,17 @@ export const TankCreateScreen = ({ navigation }) => {
     });
     //if user picks an image get the URI and save it to realm.
     if (!result.canceled && result.assets && result.assets.length > 0) {
-      const selectedImage = result.assets[0];
-      setImageURI(selectedImage.uri);
+      try {
+        const selectedImage = result.assets[0];
+        const permanentUri = await moveImage(selectedImage.uri);
+        console.log("permanentUri:", permanentUri)
+        setImageURI(permanentUri);
+        await checkFileExists(permanentUri);
+      } catch (error) {
+        console.error('Error saving image to document directory:', error);
+      }
       
-      //saveImageUriToRealm(result.uri);
+
     }
     
   };
