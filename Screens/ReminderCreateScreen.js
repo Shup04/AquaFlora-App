@@ -20,14 +20,35 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
   const { tankId } = route.params;
   const [openDateTimePicker, setOpenDateTimePicker] = useState(false);
 
-  const scheduleNotification = async (dateTime, title, desc) => {
+  const scheduleNotification = async (dateTime, title, desc, repeating, frequency) => {
+    let seconds;
+
+    //convert repeating time to seconds
+    switch (frequency) {
+      case 'daily':
+        seconds = 24 * 60 * 60;
+        break;
+      case 'weekly':
+        seconds = 7 * 24 * 60 * 60;
+        break;
+      case 'monthly':
+        seconds = 30 * 24 * 60 * 60; // Approximation
+        break;
+      default:
+        seconds = 24 * 60 * 60; // Default to daily if no valid frequency is provided
+        break;
+    }
+
     return await Notifications.scheduleNotificationAsync({
       content: {
         title: title,
         body: desc,
-
       },
-      trigger: dateTime,
+      trigger: {
+        dateTime,
+        repeats: repeating,
+        seconds: seconds,
+      }
     });
   };
 
@@ -38,7 +59,7 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
       const lastReminder = sortedReminderObjects.length > 0 ? sortedReminderObjects[0] : null;
       const nextId = lastReminder ? lastReminder.id + 1 : 1;
   
-      scheduleNotification(dateTime, name, desc).then(notificationId => {
+      scheduleNotification(dateTime, name, desc, repeating, frequency).then(notificationId => {
 
         realm.write(() => {
           realm.create('Reminder', {
