@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import { ScrollView, View, Text, StyleSheet, Button,
   TextInput, TouchableOpacity } from 'react-native';
 import { TanksColors, Colors } from '../Colors';
@@ -9,6 +9,7 @@ import DatePicker from 'react-native-date-picker';
 import Checkbox from 'expo-checkbox';
 
 import * as Notifications from 'expo-notifications';
+
 
 export const ReminderCreateScreen = ({ navigation, route }) => {
 
@@ -91,7 +92,7 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
       console.error('Error saving to Realm database:', error);
     }
   };
-
+  
   const printRealm = () => {
     try {
       // Get all data from the 'Reminder' schema
@@ -164,7 +165,7 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
           </View>
           
           <View style={[styles.box, styles.repeatingBox]}>
-
+            
           </View>
 
         </View>
