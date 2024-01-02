@@ -106,13 +106,13 @@ export const ParamChart = ({ }) => {
           spacing={chartWidth/data.length}
           endSpacing={10}
           initialSpacing={10}
-          color1="red"
-          color2="orange"
+          color1="lightblue"
+          color2="teal"
           hideDataPoints
-          startFillColor1="red"
-          startFillColor2="orange"
-          endFillColor1="red"
-          endFillColor2="orange"
+          startFillColor1="lightblue"
+          startFillColor2="teal"
+          endFillColor1="lightblue"
+          endFillColor2="teal"
           startOpacity={0.5}
           endOpacity={0.1}
           xAxisColor="white"
