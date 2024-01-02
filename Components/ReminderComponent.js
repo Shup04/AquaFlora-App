@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Modal, Button } from 'react-native';
 import { Colors } from '../Colors';
 
+//item is the reminder object.
 export const ReminderComponent = ({ item, navigation }) => {
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handlePress = (reminderId) => {
-    navigation.navigate('Reminder', { reminderId })
+    //navigation.navigate('Reminder', { reminderId })
+    setModalVisible(true);
+  };
+
+  //open edit menu popup modal
+  const handleLongPress = () => {
+    setModalVisible(true);
+  };
+  const handleCloseModal = () => {
+    setModalVisible(false);
   };
 
   return (
@@ -13,11 +24,27 @@ export const ReminderComponent = ({ item, navigation }) => {
       <TouchableOpacity 
         style={styles.button}
         onPress={() => handlePress(item.id)}
+        onLongPress={() => handleLongPress()}
+        delayLongPress={500}
       >
         <View style={styles.textContainer}>
           <Text style={styles.buttonTitle}>{item.title}</Text>
         </View>
       </TouchableOpacity>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={handleCloseModal}
+      >
+        <View style={modalStyles.centeredView}>
+          <View style={modalStyles.modalView}>
+            <Text style={modalStyles.modalText}>Hello World!</Text>
+
+            <Button onPress={handleCloseModal} title="Hide Modal" />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -98,4 +125,32 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },  
+});
+const modalStyles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+    backgroundColor: '#000000AA',
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  }
 });
