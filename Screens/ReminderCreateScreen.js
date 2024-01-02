@@ -9,6 +9,7 @@ import DatePicker from 'react-native-date-picker';
 import Checkbox from 'expo-checkbox';
 
 import * as Notifications from 'expo-notifications';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 
 export const ReminderCreateScreen = ({ navigation, route }) => {
@@ -17,15 +18,20 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
   const [desc, setDesc] = useState('');
   const [dateTime, setDateTime] = useState(new Date());
   const [repeating, setRepeating] = useState(false);
-  const [frequency, setFrequency] = useState('');
+  const [frequency, setFrequency] = useState('daily');
   const { tankId } = route.params;
+
   const [openDateTimePicker, setOpenDateTimePicker] = useState(false);
+  const [openRepeatingPicker, setOpenRepeatingPicker] = useState(false);
 
   const scheduleNotification = async (dateTime, title, desc, repeating, frequency) => {
     let seconds;
 
     //convert repeating time to seconds
     switch (frequency) {
+
+      case 'debug': seconds=10; break;
+
       case 'daily':
         seconds = 24 * 60 * 60;
         break;
@@ -40,17 +46,31 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
         break;
     }
 
-    return await Notifications.scheduleNotificationAsync({
+    await Notifications.scheduleNotificationAsync({
       content: {
         title: title,
         body: desc,
       },
-      trigger: {
-        dateTime,
-        repeats: repeating,
-        seconds: seconds,
-      }
+      trigger: dateTime,
     });
+
+    if(repeating){
+
+      //subtarct current time from dateTime to get time difference
+      const now = new Date();
+      const timeDifference = Math.abs(dateTime - now) / 1000;
+
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: title,
+          body: desc,
+        },
+        trigger: {
+          seconds: seconds,
+          repeats: true,
+        },
+      });
+    }
   };
 
   const saveToRealm = () => {
@@ -82,7 +102,7 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
         setDesc('');
         setDateTime(new Date());
         setRepeating(false);
-        setFrequency('');
+        setFrequency('daily');
   
       }).catch(error => {
         console.error('Error scheduling Notification:', error)
@@ -121,7 +141,7 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
   };
 
   return (
-  <ScrollView style={styles.body}>
+  <View style={styles.body}>
     <BackButton navigation={navigation} />
     <View style={styles.container}>
       <Text style={styles.title}>Create New Reminder:</Text>
@@ -145,6 +165,7 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
           onConfirm={(selectedDate) => {
             setOpenDateTimePicker(false);
             setDateTime(selectedDate);
+            Notifications.cancelAllScheduledNotificationsAsync("7ffc6e9b-a33f-4dd0-993f-6b39ab74f5e0");
           }}
           onCancel={() => {
             setOpenDateTimePicker(false);
@@ -164,8 +185,26 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
             <Text style={styles.checkText}>Repeating</Text>
           </View>
           
-          <View style={[styles.box, styles.repeatingBox]}>
-            
+          <View style={[ styles.repeatingBox, {zIndex: 1}]}>
+            <DropDownPicker
+              items={[
+                {label: 'Debug', value: 'debug'},
+                {label: 'Daily', value: 'daily'},
+                {label: 'Weekly', value: 'weekly'},
+                {label: 'Monthly', value: 'monthly'},
+              ]}
+              open={openRepeatingPicker}
+              setOpen={setOpenRepeatingPicker}
+
+              value={frequency}
+              disabled={!repeating}
+              placeholder="Select Frequency"
+              
+              //Set value to whataver is selected
+              onSelectItem={(item) => setFrequency(item.value)}
+
+              disabledStyle={{opacity: 0.3}}
+          />
           </View>
 
         </View>
@@ -184,7 +223,7 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
 
 
     </View>
-  </ScrollView>
+  </View>
   );
 }
 
@@ -259,25 +298,27 @@ const styles = StyleSheet.create({
   checkbox: {
     height: 30,
     width: 30,
-    marginTop: 10,
+    //marginTop: 10,
   },
+  
   repeatingBox: {
-    width: '65%',
+    width: '70%',
     marginLeft: 'auto',
   },
   repeatingForm: {
     flexDirection: 'row',
     width: '100%',
+    marginBottom: 30,
   },
   checkContainer: {
     marginLeft: 0,
     alignItems: 'center',
-    height: 75,
+    //height: 75,
     flex: 1,
     marginRight: 20,
     borderRadius: 8,
-    elevation: 3,
-    backgroundColor: Colors.height3,
+    //elevation: 3,
+    //backgroundColor: Colors.height3,
     justifyContent: 'center',
   },
   checkText: {
