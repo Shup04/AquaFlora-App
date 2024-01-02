@@ -46,6 +46,14 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
         break;
     }
 
+    const notificationId = await Notifications.scheduleNotificationAsync({
+      content: {
+        title: title,
+        body: desc,
+      },
+      trigger: dateTime,
+    });
+
     await Notifications.scheduleNotificationAsync({
       content: {
         title: title,
@@ -71,6 +79,7 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
         },
       });
     }
+    return notificationId;
   };
 
   const saveToRealm = () => {
