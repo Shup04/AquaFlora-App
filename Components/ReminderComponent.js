@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     borderRadius: 8,
-    shadowColor: '#A4A4A4',
+    shadowColor: '#000000',
     elevation: 3,
   },
   plusButton: {
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 8,
-    shadowColor: '#A4A4A4',
+    shadowColor: '#000000',
     elevation: 3,
   },
   image: {
