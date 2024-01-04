@@ -28,14 +28,15 @@ export const RemindersContent = ( {navigation, tankId } ) => {
       return [];
     }
   };
-  
-  //const data = fetchReminderDataFromRealm();
+
+
 
   useEffect(() => {
+    
     const interval = setInterval(() => {
       const newData = fetchReminderDataFromRealm();
       setData(newData);
-    }, 5000);
+    }, 1000);
 
     return () => {
       clearInterval(interval);
