@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, TouchableOpacity, Text, FlatList, StyleSheet } from 'react-native';
 import { TanksColors } from './Colors';
 
@@ -6,6 +6,7 @@ import realm from './database/Realm';
 import { ReminderComponent, PlusComponent } from './Components/ReminderComponent';
 
 export const RemindersContent = ( {navigation, tankId } ) => {
+  const [data, setData] = React.useState([]);
 
   const fetchReminderDataFromRealm = () => {
     try {
@@ -27,7 +28,19 @@ export const RemindersContent = ( {navigation, tankId } ) => {
       return [];
     }
   };
-  const data = fetchReminderDataFromRealm();
+  
+  //const data = fetchReminderDataFromRealm();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const newData = fetchReminderDataFromRealm();
+      setData(newData);
+    }, 5000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  })
 
   const renderItem = ({ item }) => {
     return (

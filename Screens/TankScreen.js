@@ -22,13 +22,25 @@ export const TankScreen = ({ navigation, route }) => {
   const [tankURI, setTankURI] = React.useState(null);
 
   useEffect(() => {
-    // Query for the tank with the given id
-    const tank = realm.objectForPrimaryKey('Tank', tankId);
+    const fetchData = () => {
+      // Query for the tank with the given id
+      const tank = realm.objectForPrimaryKey('Tank', tankId);
 
-    // Set the tank URI in state
-    if (tank && tank.URI) {
-      setTankURI(tank.URI);
-    }
+      // Set the tank URI in state
+      if (tank && tank.URI) {
+        setTankURI(tank.URI);
+      }
+    };
+
+    fetchData();
+
+    // Fetch data every 5 seconds (adjust the interval as needed)
+    const intervalId = setInterval(fetchData, 5000);
+
+    // Clean up the interval when the component unmounts or the dependency changes
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [tankId]);
 
   return (
