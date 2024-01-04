@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, TouchableOpacity, Text, FlatList, StyleSheet } from 'react-native';
 import { Colors } from '../Colors';
 import { ItemComponent, PlusComponent } from '../Components/ItemComponent';
 import realm from '../database/Realm';
 
 export const TanksContent = ( {navigation } ) => {
-
+  const [data, setData] = React.useState([]);
   //fetch entire tank list from realm
   const fetchTankDataFromRealm = () => {
     try {
@@ -26,7 +26,18 @@ export const TanksContent = ( {navigation } ) => {
       return [];
     }
   };
-  const data = fetchTankDataFromRealm();
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const newData = fetchTankDataFromRealm();
+      setData(newData);
+    }, 5000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  
+  })
 
   //Render one tank
   const renderItem = ({ item }) => {
