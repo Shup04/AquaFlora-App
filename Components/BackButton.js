@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Colors } from '../Colors';
 import BackArrow from '../assets/MiscImages/backArrow.png';
 import { navigation } from '@react-navigation/native';
@@ -11,12 +11,13 @@ export const BackButton = ({ navigation }) => {
   };
 
   return (
-    <TouchableOpacity 
-      style={styles.button}
-      onPress={handlePress}
-    >
-      <Text style={styles.textStyle}>&lt; Back</Text>
-    </TouchableOpacity>
+      <TouchableOpacity 
+        style={styles.button}
+        onPress={handlePress}
+      >
+        <Text style={styles.textStyle}>&lt; Back</Text>
+      </TouchableOpacity>
+    
   );
 };
 
