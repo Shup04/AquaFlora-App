@@ -16,6 +16,9 @@ export const RemindersContent = ( {navigation, tankId } ) => {
       const dataFromRealm = reminderArray.map((reminder) => ({
         id: reminder.id,
         title: reminder.name,
+        dateTime: reminder.dateTime,
+        repeating: reminder.repeating,
+        frequency: reminder.frequency,
       }));
   
       return dataFromRealm;

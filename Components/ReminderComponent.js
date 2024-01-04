@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Modal, Button } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Modal, Button, TouchableWithoutFeedback } from 'react-native';
 import { Colors } from '../Colors';
 
 //item is the reminder object.
@@ -32,16 +32,20 @@ export const ReminderComponent = ({ item, navigation }) => {
         </View>
       </TouchableOpacity>
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={handleCloseModal}
       >
         <View style={modalStyles.centeredView}>
           <View style={modalStyles.modalView}>
-            <Text style={modalStyles.modalText}>Hello World!</Text>
-
-            <Button onPress={handleCloseModal} title="Hide Modal" />
+            <Text style={modalStyles.modalTitle}>{item.title}</Text>
+            <Text style={modalStyles.modalText}>Due Date: {item.dateTime.toLocaleString('en-US', {day: 'numeric', month: 'long', year: 'numeric'})}</Text>
+            <Text style={modalStyles.modalText}>Due Time: {item.dateTime.toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})}</Text>
+            <Text style={modalStyles.modalText}>Repeats: {item.repeating ? item.frequency : 'No'}</Text>
+            <TouchableOpacity onPress={handleCloseModal} style={modalStyles.button}> 
+              <Text style={modalStyles.buttonText}>Close</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -135,12 +139,14 @@ const modalStyles = StyleSheet.create({
     backgroundColor: '#000000AA',
   },
   modalView: {
+    height: '50%',
+    width: '80%',
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: Colors.height3,
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: {
       width: 0,
       height: 2
@@ -149,8 +155,33 @@ const modalStyles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5
   },
-  modalText: {
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: Colors.textMarine,
     marginBottom: 15,
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
+  modalText: {
+    fontSize: 16,
+    marginBottom: 15,
+    textAlign: "center",
+    color: Colors.textMarine,
+  },
+  button: {
+    borderRadius: 20,
+    elevation: 2,
+    backgroundColor: Colors.height4,
+    width: '50%',
+    height: '15%',
+    justifyContent: 'center',
+    marginBottom: 5,
+    marginTop: 'auto',
+  },
+  buttonText: {
+    alignSelf: 'center',
+    fontSize: 16,
+    color: Colors.textMarine,
+
+  },
 });
