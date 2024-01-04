@@ -10,6 +10,9 @@ import { RemindersContent } from '../RemindersContent';
 import realm from '../database/Realm';
 import { TankSchema } from '../database/schemas';
 
+import { BlurView } from 'expo-blur';
+
+
 const screenWidth = Dimensions.get('window').width;
 const chartWidth = screenWidth * 0.75; // 80% of screen width
 
@@ -31,6 +34,7 @@ export const TankScreen = ({ navigation, route }) => {
   return (
   <View style={styles.body}>
     <BackButton navigation={navigation}/>
+    
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {tankURI && (//only render image if tankURI was fetched.
@@ -46,6 +50,7 @@ export const TankScreen = ({ navigation, route }) => {
 
         <Text style={styles.title}>Param Chart: </Text>
         <ParamChart/>
+
         <Text style={styles.title}>Reminders: </Text>
         <RemindersContent navigation={navigation} tankId={tankId}></RemindersContent>
 
@@ -86,5 +91,15 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     marginTop: 20,
     marginBottom: 30,
+  },
+  BlurView: {
+    width: '100%',
+    height: '10%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  blurContainer: {
+    height: 50,
+    backgroundColor: 'green',
   },
 });
