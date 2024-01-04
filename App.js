@@ -5,6 +5,7 @@ import ButtonComponent from './Components/ButtonComponent';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { Colors, TanksColors } from './Colors';
+import { BlurView } from 'expo-blur';
 
 import { FishContent } from './Homepage Content/FishContent';
 import { TanksContent } from './Homepage Content/TanksContent';
@@ -337,7 +338,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: Colors.height3,
+    backgroundColor: Colors.height2,
   },
   flexHoz: {
     display: 'flex',

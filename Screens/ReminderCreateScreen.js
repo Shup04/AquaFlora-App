@@ -143,6 +143,7 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
         const objectsToDelete = realm.objects('Reminder');
         realm.delete(objectsToDelete);
       });
+      Notifications.cancelAllScheduledNotificationsAsync()
       console.log(`All objects in schema 'Reminder' have been cleared.`);
     } catch (error) {
       console.error(`Error clearing schema 'Reminder':`, error);
