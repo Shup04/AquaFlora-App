@@ -70,9 +70,15 @@ export const ReminderComponent = ({ item, navigation }) => {
                 convertTime(item.dateTime.getTime() - Date.now()).minutes + " minutes": 'Overdue'
               }</Text>
               <Text style={modalStyles.modalText}>Repeats: {item.repeating ? item.frequency : 'No'}</Text>
-              <TouchableOpacity onPress={handleCloseModal} style={modalStyles.button}> 
-                <Text style={modalStyles.buttonText}>Close</Text>
-              </TouchableOpacity>
+              <View style={modalStyles.buttonContainer}>
+                <TouchableOpacity onPress={handleCloseModal} style={modalStyles.button}> 
+                  <Text style={modalStyles.buttonText}>Close</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={deleteReminder} style={[modalStyles.button, {width:'40%'}]}>
+                  <Text style={modalStyles.buttonText}>X</Text>
+                </TouchableOpacity>
+              </View>
+              
             </View>
           </BlurView>
         </View>
@@ -204,16 +210,27 @@ const modalStyles = StyleSheet.create({
     elevation: 2,
     backgroundColor: Colors.height4,
     width: '50%',
-    height: '15%',
+    height: '70%',
     justifyContent: 'center',
     alignSelf: 'center',
-    marginBottom: 5,
-    marginTop: 'auto',
+    //marginBottom: 5,
+    //marginTop: 'auto',
   },
   buttonText: {
     alignSelf: 'center',
     fontSize: 16,
     color: Colors.textMarine,
-
   },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: '20%',
+    //justifyContent: 'flex-end',
+    alignItems: 'center',
+    //backgroundColor: 'green',
+    marginBottom: 0,
+    marginTop: 'auto',
+  }
 });
