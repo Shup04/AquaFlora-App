@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   plusButtonContainer: {
     width: '100%',
-    height: '10%',
+    height: 75,
     alignItems: 'center',
     padding: 10,
   },

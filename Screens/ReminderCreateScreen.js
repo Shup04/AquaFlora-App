@@ -214,6 +214,29 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
               onSelectItem={(item) => setFrequency(item.value)}
 
               disabledStyle={{opacity: 0.3}}
+              style={{
+                backgroundColor: Colors.height3,
+                borderWidth: 1,
+                borderBottomWidth: 0,
+                borderColor: Colors.backgroundDark,
+              }}
+              textStyle={{
+                color: Colors.textMarine,
+                fontSize: 16,
+                fontWeight: 'normal',
+              }}
+              arrowIconStyle={{
+                tintColor: Colors.textMarine,
+              }}
+              tickIconStyle={{
+                tintColor: Colors.textMarine
+              }}
+              dropDownContainerStyle={{
+                backgroundColor: Colors.height3,
+                borderWidth: 1,
+                borderTopWidth: 0,
+                borderColor: Colors.backgroundDark,
+              }}
           />
           </View>
 
@@ -271,7 +294,7 @@ const styles = StyleSheet.create({
     height: 75,
     backgroundColor: Colors.height3,
     borderRadius: 8,
-    shadowColor: '#A4A4A4',
+    shadowColor: '#000000',
     elevation: 3,
     marginBottom: 30,
   },
@@ -335,5 +358,4 @@ const styles = StyleSheet.create({
     color: Colors.textMarine,
     fontSize: 14,
   },
-
 });

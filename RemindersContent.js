@@ -56,6 +56,11 @@ export const RemindersContent = ( {navigation, tankId } ) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: '100%',
+
+  },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
