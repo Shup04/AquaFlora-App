@@ -20,6 +20,24 @@ export const ReminderComponent = ({ item, navigation }) => {
     setModalVisible(false);
   };
 
+  const convertTime = (ms) => {
+    const seconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    const remainingHours = hours % 24;
+    const remainingMinutes = minutes % 60;
+    const remainingSeconds = seconds % 60;
+
+    return {
+      days,
+      hours: remainingHours,
+      minutes: remainingMinutes,
+      seconds: remainingSeconds
+    };
+  };
+
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity 
@@ -45,6 +63,12 @@ export const ReminderComponent = ({ item, navigation }) => {
               <Text style={modalStyles.modalTitle}>{item.title}</Text>
               <Text style={modalStyles.modalText}>Due Date: {item.dateTime.toLocaleString('en-US', {day: 'numeric', month: 'long', year: 'numeric'})}</Text>
               <Text style={modalStyles.modalText}>Due Time: {item.dateTime.toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})}</Text>
+              <Text style={modalStyles.modalText}>Time Left: {
+                (item.dateTime.getTime() - Date.now()) > 0 ? "\n" +
+                convertTime(item.dateTime.getTime() - Date.now()).days + " days\n" +
+                convertTime(item.dateTime.getTime() - Date.now()).hours + " hours\n" +
+                convertTime(item.dateTime.getTime() - Date.now()).minutes + " minutes": 'Overdue'
+              }</Text>
               <Text style={modalStyles.modalText}>Repeats: {item.repeating ? item.frequency : 'No'}</Text>
               <TouchableOpacity onPress={handleCloseModal} style={modalStyles.button}> 
                 <Text style={modalStyles.buttonText}>Close</Text>
@@ -152,7 +176,7 @@ const modalStyles = StyleSheet.create({
     //backgroundColor: '#FFFFFF',
     borderRadius: 20,
     padding: 35,
-    alignItems: "center",
+    //alignItems: "center",
     shadowColor: "#000000",
     shadowOffset: {
       width: 0,
@@ -172,7 +196,7 @@ const modalStyles = StyleSheet.create({
   modalText: {
     fontSize: 16,
     marginBottom: 15,
-    textAlign: "center",
+    //textAlign: "center",
     color: Colors.textMarine,
   },
   button: {
@@ -182,6 +206,7 @@ const modalStyles = StyleSheet.create({
     width: '50%',
     height: '15%',
     justifyContent: 'center',
+    alignSelf: 'center',
     marginBottom: 5,
     marginTop: 'auto',
   },
