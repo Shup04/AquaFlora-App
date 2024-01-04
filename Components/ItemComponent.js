@@ -22,7 +22,7 @@ export const ItemComponent = ({ item, title, subtitle, URI, navigation }) => {
           }}
         />
         <View style={styles.textContainer}>
-          <Text style={styles.buttonTitle}>{title}</Text>
+          <Text numberOfLines={1} style={styles.buttonTitle}>{title}</Text>
           <Text style={styles.buttonSubtitle}>{subtitle}</Text>
         </View>
       </TouchableOpacity>
@@ -51,6 +51,7 @@ export const PlusComponent = ({ navigation, destination }) => {
 const styles = StyleSheet.create({
   buttonContainer: {
     width: '100%',
+    maxWidth: '100%',
     //backgroundColor: 'green',
     alignItems: 'center',
     padding: 10,
@@ -91,11 +92,15 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     marginLeft: 12,
+    width: '45%',
+    //backgroundColor:'yellow'
   },
   buttonTitle: {
     color: Colors.textMarine,
     fontWeight: 'bold',
     fontSize: 24,
+    maxWidth: '100%',
+    //backgroundColor: 'red',
   },
   buttonSubtitle: {
     color: Colors.textMarine,
