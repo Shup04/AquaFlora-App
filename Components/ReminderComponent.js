@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Modal, Button, TouchableWithoutFeedback } from 'react-native';
 import { Colors } from '../Colors';
+import { BlurView } from 'expo-blur';
 
 //item is the reminder object.
 export const ReminderComponent = ({ item, navigation }) => {
@@ -31,6 +32,7 @@ export const ReminderComponent = ({ item, navigation }) => {
           <Text style={styles.buttonTitle}>{item.title}</Text>
         </View>
       </TouchableOpacity>
+
       <Modal
         animationType="fade"
         transparent={true}
@@ -49,6 +51,7 @@ export const ReminderComponent = ({ item, navigation }) => {
           </View>
         </View>
       </Modal>
+      
     </View>
   );
 };
@@ -133,9 +136,9 @@ const styles = StyleSheet.create({
 const modalStyles = StyleSheet.create({
   centeredView: {
     flex: 1,
+    height: '100%',
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22,
     backgroundColor: '#000000AA',
   },
   modalView: {
@@ -143,6 +146,7 @@ const modalStyles = StyleSheet.create({
     width: '80%',
     margin: 20,
     backgroundColor: Colors.height3,
+    //backgroundColor: '#FFFFFF',
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
