@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Modal, Button, TouchableWithoutFeedback } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Modal, Button, StatusBar } from 'react-native';
 import { Colors } from '../Colors';
 import { BlurView } from 'expo-blur';
 
@@ -39,17 +39,20 @@ export const ReminderComponent = ({ item, navigation }) => {
         visible={modalVisible}
         onRequestClose={handleCloseModal}
       >
-        <View style={modalStyles.centeredView}>
-          <View style={modalStyles.modalView}>
-            <Text style={modalStyles.modalTitle}>{item.title}</Text>
-            <Text style={modalStyles.modalText}>Due Date: {item.dateTime.toLocaleString('en-US', {day: 'numeric', month: 'long', year: 'numeric'})}</Text>
-            <Text style={modalStyles.modalText}>Due Time: {item.dateTime.toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})}</Text>
-            <Text style={modalStyles.modalText}>Repeats: {item.repeating ? item.frequency : 'No'}</Text>
-            <TouchableOpacity onPress={handleCloseModal} style={modalStyles.button}> 
-              <Text style={modalStyles.buttonText}>Close</Text>
-            </TouchableOpacity>
-          </View>
+        <View>
+          <BlurView style={modalStyles.centeredView} tint={'dark'}>
+            <View style={modalStyles.modalView}>
+              <Text style={modalStyles.modalTitle}>{item.title}</Text>
+              <Text style={modalStyles.modalText}>Due Date: {item.dateTime.toLocaleString('en-US', {day: 'numeric', month: 'long', year: 'numeric'})}</Text>
+              <Text style={modalStyles.modalText}>Due Time: {item.dateTime.toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})}</Text>
+              <Text style={modalStyles.modalText}>Repeats: {item.repeating ? item.frequency : 'No'}</Text>
+              <TouchableOpacity onPress={handleCloseModal} style={modalStyles.button}> 
+                <Text style={modalStyles.buttonText}>Close</Text>
+              </TouchableOpacity>
+            </View>
+          </BlurView>
         </View>
+        
       </Modal>
       
     </View>
@@ -135,11 +138,11 @@ const styles = StyleSheet.create({
 });
 const modalStyles = StyleSheet.create({
   centeredView: {
-    flex: 1,
     height: '100%',
+    marginTop: -32,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: '#000000AA',
+    backgroundColor: '#FFFFFF',
   },
   modalView: {
     height: '50%',
