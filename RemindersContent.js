@@ -20,6 +20,7 @@ export const RemindersContent = ( {navigation, tankId } ) => {
         dateTime: reminder.dateTime,
         repeating: reminder.repeating,
         frequency: reminder.frequency,
+        notificationId: reminder.notificationId,
       }));
   
       return dataFromRealm;

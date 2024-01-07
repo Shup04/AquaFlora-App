@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Modal, Button, StatusBar } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Modal, Button, StatusBar, Alert } from 'react-native';
 import { Colors } from '../Colors';
 import { BlurView } from 'expo-blur';
+import realm from '../database/Realm';
+import * as Notifications from 'expo-notifications';
 
 //item is the reminder object.
 export const ReminderComponent = ({ item, navigation }) => {
@@ -18,6 +20,35 @@ export const ReminderComponent = ({ item, navigation }) => {
   };
   const handleCloseModal = () => {
     setModalVisible(false);
+  };
+
+  const deleteReminder = () => {
+    const confirmed = () => {
+      realm.write(() => {
+        realm.delete(realm.objectForPrimaryKey('Reminder', item.id));
+        console.log(item.notificationId)
+
+        Notifications.cancelScheduledNotificationAsync(item.notificationId)
+        .then(() => {
+          console.log('Notification cancelled successfully');
+        })
+        .catch(error => {
+          console.error('Error cancelling notification:', error);
+        });
+      })
+    };
+    Alert.alert(
+      'Are you sure you want to delete this reminder?',
+      'This action is irreversible.',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        { text: 'Confirm', onPress: () => confirmed() },
+      ],
+      { cancelable: true }
+    );
   };
 
   const convertTime = (ms) => {
