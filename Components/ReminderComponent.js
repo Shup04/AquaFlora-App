@@ -22,20 +22,44 @@ export const ReminderComponent = ({ item, navigation }) => {
     setModalVisible(false);
   };
 
-  const deleteReminder = () => {
-    const confirmed = () => {
-      realm.write(() => {
+  const deleteReminder = async () => {
+    const confirmed = async () => {
+      realm.write(async () => {
         realm.delete(realm.objectForPrimaryKey('Reminder', item.id));
         console.log(item.notificationId)
 
-        Notifications.cancelScheduledNotificationAsync(item.notificationId)
-        .then(() => {
-          console.log('Notification cancelled successfully');
-        })
-        .catch(error => {
-          console.error('Error cancelling notification:', error);
-        });
-      })
+        /*
+        // Get all scheduled notifications
+        const scheduledNotifications = await Notifications.getAllScheduledNotificationsAsync();
+
+        // Find the notification with the same identifier as item.notificationId
+        const notification = scheduledNotifications.find(n => n.identifier === item.notificationId);
+        //console.log(notification.identifier)
+
+        // Cancel the repeating notification
+        if (notification) {
+          
+
+          // Cancel the repeating notification
+          if (notification.content.data.repeatingNotificationId) {
+            await Notifications.cancelScheduledNotificationAsync(notification.content.data.repeatingNotificationId);
+          }
+        }
+        */
+
+        // Cancel single notification
+        await Notifications.cancelScheduledNotificationAsync(item.notificationId).catch((error) => console.log(error));
+        
+        console.log(item.repeatingReminderId)
+
+        if (item.repeatingReminderId){
+          await Notifications.cancelScheduledNotificationAsync(item.repeatingReminderId).catch((error) => console.log(error));
+        }
+        
+        
+  
+        
+      });
     };
     Alert.alert(
       'Are you sure you want to delete this reminder?',

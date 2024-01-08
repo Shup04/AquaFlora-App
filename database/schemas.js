@@ -14,6 +14,7 @@ export const ReminderSchema = {
   name: 'Reminder',
   properties: {
     id: 'int',
+    repeatingReminderId: 'string?',
     name: 'string',
     desc: 'string',
     dateTime: 'date',

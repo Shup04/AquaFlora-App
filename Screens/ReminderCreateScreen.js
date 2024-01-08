@@ -24,7 +24,7 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
   const [openDateTimePicker, setOpenDateTimePicker] = useState(false);
   const [openRepeatingPicker, setOpenRepeatingPicker] = useState(false);
 
-  const scheduleNotification = async (dateTime, title, desc, repeating, frequency) => {
+  const scheduleNotification = async (dateTime, title, desc, repeating, frequency, Id) => {
     let seconds;
 
     //convert repeating time to seconds
@@ -46,39 +46,15 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
         break;
     }
 
-    const notificationId = await Notifications.scheduleNotificationAsync({
+    notificationId = await Notifications.scheduleNotificationAsync({
       content: {
         title: title,
         body: desc,
+        data: { reminderId: Id, repeating: repeating, seconds: seconds, single: true } // Include repeating and seconds in the data
       },
       trigger: dateTime,
     });
 
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: title,
-        body: desc,
-      },
-      trigger: dateTime,
-    });
-
-    if(repeating){
-
-      //subtarct current time from dateTime to get time difference
-      const now = new Date();
-      const timeDifference = Math.abs(dateTime - now) / 1000;
-
-      await Notifications.scheduleNotificationAsync({
-        content: {
-          title: title,
-          body: desc,
-        },
-        trigger: {
-          seconds: seconds,
-          repeats: true,
-        },
-      });
-    }
     return notificationId;
   };
 
@@ -89,7 +65,7 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
       const lastReminder = sortedReminderObjects.length > 0 ? sortedReminderObjects[0] : null;
       const nextId = lastReminder ? lastReminder.id + 1 : 1;
   
-      scheduleNotification(dateTime, name, desc, repeating, frequency).then(notificationId => {
+      scheduleNotification(dateTime, name, desc, repeating, frequency, nextId).then(notificationId => {
 
         realm.write(() => {
           realm.create('Reminder', {

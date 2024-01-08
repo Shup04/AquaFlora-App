@@ -29,11 +29,42 @@ import * as Notifications from 'expo-notifications';
 
 //notification handler
 Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }), 
+  handleNotification: async (notification) => {
+
+    if (notification.request.content.data.repeating && notification.request.content.data.single) {
+      // Calculate the number of seconds until the next notification
+      const seconds = notification.request.content.data.seconds;
+
+      // Schedule the repeating notification
+      repeatingNotificationId = await Notifications.scheduleNotificationAsync({
+        content: {
+          ...notification.request.content,
+          data: { ...notification.request.content.data, single: false }, // Set single to false
+        },
+        trigger: {
+          seconds: seconds,
+          repeats: true,
+        },
+      });
+      console.log("repeating Id: " + repeatingNotificationId)
+
+      // Get the reminderId from the notification data
+      const reminderId = notification.request.content.data.reminderId;
+      console.log("reminder Id: " + reminderId)
+
+      // Get the reminder from the Realm database
+      let reminder = realm.objects('Reminder').filtered(`notificationId = "${reminderId}"`)[0].catch((error) => console.log(error));
+      console.log("Og Reminder name: " + reminder.name)
+
+      // Update the reminder to include the repeatingNotificationId
+      realm.write(() => {
+        reminder.repeatingNotificationId = repeatingNotificationId;
+      });
+      
+    }
+
+    return { shouldShowAlert: true, shouldPlaySound: false, shouldSetBadge: false };
+  },
 });
 
 const Stack = createNativeStackNavigator();
