@@ -42,6 +42,8 @@ export const ReminderComponent = ({ item, navigation }) => {
           // Delete the reminder from realm
           realm.delete(realm.objectForPrimaryKey('Reminder', item.id));
         });
+        
+        console.log("Reminder deleted successfully.")
 
       } catch (error) {
         console.error("Error deleting reminder:", error);
