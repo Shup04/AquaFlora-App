@@ -2,7 +2,7 @@ const initialState = {
   waterParameters: [],
 };
 
-const ammoniaReducer = (state = initialState, action) => {
+const phReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_PARAMETER':
       return {
@@ -28,4 +28,4 @@ const ammoniaReducer = (state = initialState, action) => {
   }
 };
 
-export default ammoniaReducer;
+export default phReducer;
