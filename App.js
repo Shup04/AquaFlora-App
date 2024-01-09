@@ -27,6 +27,9 @@ import PlantsIcon from './assets/MiscImages/plants.png';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import realm from './database/Realm';
+import { Provider } from 'react-redux';
+import store from './store';
+
 
 //notification handler
 Notifications.setNotificationHandler({
@@ -100,51 +103,53 @@ const MyStack = ({ navigation }) => {
 
   return (
     //Navigator for ALL pages
-    <NavigationContainer>
-      <Stack.Navigator 
-        initialRouteName='Home'
-        screenOptions={{
-          headerShown: false // Set headerShown to false to hide the header
-        }}>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-          }}
-        />
-        <Stack.Screen 
-          name="Tank" 
-          component={TankScreen}
-          options={{
-            headerStyle: {
-              backgroundColor: Colors.primary,
-              headerTintColor: Colors.primary,
-            }
-          }} 
-        />
-        <Stack.Screen 
-          name="Reminder" 
-          component={ReminderScreen}
-          options={{
-            headerStyle: {
-              backgroundColor: Colors.primary,
-              headerTintColor: Colors.primary,
-            }
-          }} 
-        />
-        <Stack.Screen
-          name="TankCreate"
-          backTo="HomeScreen"
-          component={TankCreateScreen}
-        />
-        <Stack.Screen
-          name="ReminderCreate"
-          backTo="TankScreen"
-          component={ReminderCreateScreen}
-        />
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator 
+          initialRouteName='Home'
+          screenOptions={{
+            headerShown: false // Set headerShown to false to hide the header
+          }}>
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+            }}
+          />
+          <Stack.Screen 
+            name="Tank" 
+            component={TankScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: Colors.primary,
+                headerTintColor: Colors.primary,
+              }
+            }} 
+          />
+          <Stack.Screen 
+            name="Reminder" 
+            component={ReminderScreen}
+            options={{
+              headerStyle: {
+                backgroundColor: Colors.primary,
+                headerTintColor: Colors.primary,
+              }
+            }} 
+          />
+          <Stack.Screen
+            name="TankCreate"
+            backTo="HomeScreen"
+            component={TankCreateScreen}
+          />
+          <Stack.Screen
+            name="ReminderCreate"
+            backTo="TankScreen"
+            component={ReminderCreateScreen}
+          />
 
-      </Stack.Navigator>
-    </NavigationContainer>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 

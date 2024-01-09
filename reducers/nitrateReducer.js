@@ -1,5 +1,5 @@
 const initialState = {
-  waterParameters: [],
+  nitrateParams: [{value:30, data: '2 Sept 2023'}],
 };
 
 const nitrateReducer = (state = initialState, action) => {
@@ -7,19 +7,19 @@ const nitrateReducer = (state = initialState, action) => {
     case 'ADD_PARAMETER':
       return {
         ...state,
-        waterParameters: [...state.waterParameters, action.payload],
+        nitrateParams: [...state.nitrateParams, action.payload],
       };
     case 'EDIT_PARAMETER':
       return {
         ...state,
-        waterParameters: state.waterParameters.map((parameter) =>
+        nitrateParams: state.nitrateParams.map((parameter) =>
           parameter.id === action.payload.id ? action.payload : parameter
         ),
       };
     case 'DELETE_PARAMETER':
       return {
         ...state,
-        waterParameters: state.waterParameters.filter(
+        nitrateParams: state.nitrateParams.filter(
           (parameter) => parameter.id !== action.payload.id
         ),
       };

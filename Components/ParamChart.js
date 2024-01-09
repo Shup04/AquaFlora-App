@@ -3,13 +3,24 @@ import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { Colors } from '../Colors';
 import { LineChart } from 'react-native-gifted-charts';
 import { Dimensions } from 'react-native';
+import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-export const ParamChart = ({ }) => {
+export const ParamChart = ({  }) => {
+
+  //console.log(waterParameters);
 
   const screenWidth = Dimensions.get('window').width;
   const chartWidth = screenWidth * 0.65;
 
-  const lineData2 = [ 
+  const waterParameters = useSelector((state) => state.nitrateParams);
+
+  const lineData2 = waterParameters.map((parameter) => ({
+    value: parameter.value,
+    data: parameter.date,
+  }));
+
+  const lineData = [ 
     { value:30, data: '1 Sept 2023', label: 'Sept', labelTextStyle: {color: 'white', width: 50}}, 
     { value:30, data: '2 Sept 2023'}, 
     { value:15, data: '3 Sept 2023'},
@@ -130,3 +141,9 @@ export const ParamChart = ({ }) => {
     
   );
 };
+
+const mapStateToProps = (state) => ({
+  waterParameters: state.parameters.waterParameters,
+});
+
+export default connect(mapStateToProps)(ParamChart);
