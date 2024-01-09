@@ -26,12 +26,14 @@ import PlantsIcon from './assets/MiscImages/plants.png';
 
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+import realm from './database/Realm';
 
 //notification handler
 Notifications.setNotificationHandler({
   handleNotification: async (notification) => {
 
     if (notification.request.content.data.repeating && notification.request.content.data.single) {
+      
       // Calculate the number of seconds until the next notification
       const seconds = notification.request.content.data.seconds;
 
@@ -53,13 +55,19 @@ Notifications.setNotificationHandler({
       console.log("reminder Id: " + reminderId)
 
       // Get the reminder from the Realm database
-      let reminder = realm.objects('Reminder').filtered(`notificationId = "${reminderId}"`)[0].catch((error) => console.log(error));
+      try{
+      const reminder = realm.objects('Reminder').filtered(`id = ${reminderId}`)[0]
       console.log("Og Reminder name: " + reminder.name)
 
       // Update the reminder to include the repeatingNotificationId
       realm.write(() => {
-        reminder.repeatingNotificationId = repeatingNotificationId;
+        reminder.repeatingReminderId = repeatingNotificationId;
       });
+      
+      console.log("idL: " + reminder.repeatingReminderId);
+    } catch (error) {
+      console.error('Error scheduling repeating notification:', error);
+    }
       
     }
 
@@ -72,7 +80,6 @@ const MyStack = ({ navigation }) => {
 
   //Reqest notification permissions
   useEffect(() => {
-    //registerForPushNotificationAsync();
 
     // This listener is fired whenever a notification is received while the app is foregrounded
     const subscription = Notifications.addNotificationReceivedListener(notification => {

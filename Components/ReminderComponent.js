@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Modal, Button, StatusBar, Alert } from 'react-native';
 import { Colors } from '../Colors';
 import { BlurView } from 'expo-blur';
@@ -8,6 +8,14 @@ import * as Notifications from 'expo-notifications';
 //item is the reminder object.
 export const ReminderComponent = ({ item, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [reminder, setReminder] = useState(item);
+
+  useEffect(() => {
+    // Fetch the latest reminder object here and update the state
+    const updatedItem = realm.objects('Reminder').filtered(`id = ${item.id}`)[0];
+    setReminder(updatedItem);
+  }, [item.repeatingReminderId]); // Re-run this effect whenever `item.id` changes
+
 
   const handlePress = (reminderId) => {
     //navigation.navigate('Reminder', { reminderId })
@@ -24,42 +32,20 @@ export const ReminderComponent = ({ item, navigation }) => {
 
   const deleteReminder = async () => {
     const confirmed = async () => {
-      realm.write(async () => {
-        realm.delete(realm.objectForPrimaryKey('Reminder', item.id));
-        console.log(item.notificationId)
-
-        /*
-        // Get all scheduled notifications
-        const scheduledNotifications = await Notifications.getAllScheduledNotificationsAsync();
-
-        // Find the notification with the same identifier as item.notificationId
-        const notification = scheduledNotifications.find(n => n.identifier === item.notificationId);
-        //console.log(notification.identifier)
-
-        // Cancel the repeating notification
-        if (notification) {
-          
-
-          // Cancel the repeating notification
-          if (notification.content.data.repeatingNotificationId) {
-            await Notifications.cancelScheduledNotificationAsync(notification.content.data.repeatingNotificationId);
-          }
-        }
-        */
-
-        // Cancel single notification
-        await Notifications.cancelScheduledNotificationAsync(item.notificationId).catch((error) => console.log(error));
-        
-        console.log(item.repeatingReminderId)
-
-        if (item.repeatingReminderId){
-          await Notifications.cancelScheduledNotificationAsync(item.repeatingReminderId).catch((error) => console.log(error));
-        }
-        
-        
+      try {
   
-        
-      });
+        // Cancel single notification, then repeating.
+        await Notifications.cancelScheduledNotificationAsync(reminder.notificationId).catch((error) => console.log(error));
+        await Notifications.cancelScheduledNotificationAsync(reminder.repeatingReminderId).catch((error) => console.log(error));
+
+        realm.write(() => {
+          // Delete the reminder from realm
+          realm.delete(realm.objectForPrimaryKey('Reminder', item.id));
+        });
+
+      } catch (error) {
+        console.error("Error deleting reminder:", error);
+      }
     };
     Alert.alert(
       'Are you sure you want to delete this reminder?',
