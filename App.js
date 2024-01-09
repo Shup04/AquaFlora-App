@@ -103,7 +103,7 @@ const MyStack = ({ navigation }) => {
 
   return (
     //Navigator for ALL pages
-    <Provider store={store}>
+    
       <NavigationContainer>
         <Stack.Navigator 
           initialRouteName='Home'
@@ -149,7 +149,7 @@ const MyStack = ({ navigation }) => {
 
         </Stack.Navigator>
       </NavigationContainer>
-    </Provider>
+
   );
 };
 

@@ -158,6 +158,7 @@ export const TankCreateScreen = ({ navigation }) => {
         <Text style={styles.boxText}>Create</Text>
       </TouchableOpacity>
 
+{/* 
       <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={printRealm} >
         <Text style={styles.boxText}>Print Tanks</Text>
       </TouchableOpacity>
@@ -165,6 +166,8 @@ export const TankCreateScreen = ({ navigation }) => {
       <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={clearRealm} >
         <Text style={styles.boxText}>Clear Tanks</Text>
       </TouchableOpacity>
+*/}
+
     </View>
   </View>
   );
@@ -227,5 +230,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 5,
+    marginTOp: 'auto',
   },
 });

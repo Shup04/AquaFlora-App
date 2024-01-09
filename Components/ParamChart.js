@@ -13,14 +13,16 @@ export const ParamChart = ({  }) => {
   const screenWidth = Dimensions.get('window').width;
   const chartWidth = screenWidth * 0.65;
 
+  /*
   const waterParameters = useSelector((state) => state.nitrateParams);
 
-  const lineData2 = waterParameters.map((parameter) => ({
+  const lineData1 = waterParameters.map((parameter) => ({
     value: parameter.value,
     data: parameter.date,
   }));
-
-  const lineData = [ 
+  */
+  
+  const lineData2 = [ 
     { value:30, data: '1 Sept 2023', label: 'Sept', labelTextStyle: {color: 'white', width: 50}}, 
     { value:30, data: '2 Sept 2023'}, 
     { value:15, data: '3 Sept 2023'},
