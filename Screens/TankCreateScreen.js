@@ -119,44 +119,43 @@ export const TankCreateScreen = ({ navigation }) => {
   <View style={styles.body}>
     <BackButton navigation={navigation} />
     <View style={styles.container}>
-      <Text style={styles.title}>Create New Tank:</Text>
-      
-      {/* Old Button.
-      <Button title="Pick an Image" onPress={pickImage} />*/}
+        <Text style={styles.title}>Create New Tank:</Text>
 
-      <View style={styles.box}>
-        <Text style={styles.boxText}>Tank Name:</Text>
-        <TextInput
-          value={tankName}
-          onChangeText={(tankName) => setTankName(tankName)}
-          style={styles.input}
-        />
+        <View style={styles.box}>
+          <Text style={styles.boxText}>Tank Name:</Text>
+          <TextInput
+            value={tankName}
+            onChangeText={(tankName) => setTankName(tankName)}
+            style={styles.input}
+          />
+        </View>
+        <View style={styles.box}>
+          <Text style={styles.boxText}>Tank Size (gallons):</Text>
+          <TextInput
+            value={tankSize}
+            onChangeText={(tankSize) => setTankSize(tankSize)}
+            style={styles.input}
+          />
+        </View>
+        <View style={styles.box}>
+          <Text style={styles.boxText}>Tank Description:</Text>
+          <TextInput
+            value={tankDesc}
+            onChangeText={(tankDesc) => setTankDesc(tankDesc)}
+            style={styles.input}
+          />
+        </View>
+      <View style={styles.createButtonHolder}>
+        <TouchableOpacity style={[styles.box, styles.createBox]} title="Pick image" onPress={pickImage} >
+          <Text style={styles.boxText}>Pick Image</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={saveToRealm} >
+          <Text style={styles.boxText}>Create</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.box}>
-        <Text style={styles.boxText}>Tank Size (gallons):</Text>
-        <TextInput
-          value={tankSize}
-          onChangeText={(tankSize) => setTankSize(tankSize)}
-          style={styles.input}
-        />
-      </View>
-      <View style={styles.box}>
-        <Text style={styles.boxText}>Tank Description:</Text>
-        <TextInput
-          value={tankDesc}
-          onChangeText={(tankDesc) => setTankDesc(tankDesc)}
-          style={styles.input}
-        />
-      </View>
-      
-
-      <TouchableOpacity style={[styles.box, styles.createBox]} title="Pick image" onPress={pickImage} >
-        <Text style={styles.boxText}>Pick Image</Text>
-      </TouchableOpacity>
-      
-      <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={saveToRealm} >
-        <Text style={styles.boxText}>Create</Text>
-      </TouchableOpacity>
+        
+        
 
 {/* 
       <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={printRealm} >
@@ -230,7 +229,13 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 5,
-    marginTOp: 'auto',
   },
+  createButtonHolder: {
+
+    width: '100%',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginBottom: 0,
+    marginTop: 'auto',
+  }
 });
