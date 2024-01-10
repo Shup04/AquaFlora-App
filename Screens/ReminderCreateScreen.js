@@ -218,10 +218,13 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
 
         </View>
 
-        <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={saveToRealm} >
-          <Text style={styles.boxText}>Create</Text>
-        </TouchableOpacity>
+        <View style={styles.createButtonHolder}>
+          <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={saveToRealm} >
+            <Text style={styles.boxText}>Create</Text>
+          </TouchableOpacity>
+        </View>
 
+{/*
         <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={printRealm} >
           <Text style={styles.boxText}>Print Reminders</Text>
         </TouchableOpacity>
@@ -229,6 +232,7 @@ export const ReminderCreateScreen = ({ navigation, route }) => {
         <TouchableOpacity style={[styles.box, styles.createBox]} title="Save" onPress={clearRealm} >
           <Text style={styles.boxText}>Clear Reminders</Text>
         </TouchableOpacity>
+ */}
 
 
     </View>
@@ -259,14 +263,14 @@ const styles = StyleSheet.create({
   },
   container: {
     //backgroundColor: 'orange',
-    width: '90%',
-    //height: '100%',
+    width: '100%',
+    height: '90%',
     paddingTop: 50,
     alignItems: 'center',
     alignSelf: 'center',
   },
   box: {
-    width: '100%',
+    width: '90%',
     height: 75,
     backgroundColor: Colors.height3,
     borderRadius: 8,
@@ -304,6 +308,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  createButtonHolder: {
+    width: '100%',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginBottom: 0,
+    marginTop: 'auto',
+  },
   checkbox: {
     height: 30,
     width: 30,
@@ -316,7 +327,7 @@ const styles = StyleSheet.create({
   },
   repeatingForm: {
     flexDirection: 'row',
-    width: '100%',
+    width: '90%',
     marginBottom: 30,
   },
   checkContainer: {
