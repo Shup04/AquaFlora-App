@@ -18,7 +18,8 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.shup.aquaFlora"
+      "package": "com.shup.aquaFlora",
+      "icon": "./assets/icon.png"
     },
     "web": {
       "favicon": "./assets/icon.png"
