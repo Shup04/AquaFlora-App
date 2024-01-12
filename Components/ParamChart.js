@@ -3,8 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { Colors } from '../Colors';
 import { LineChart } from 'react-native-gifted-charts';
 import { Dimensions } from 'react-native';
-import { connect } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { styles } from 'react-native-gifted-charts/src/LineChart/styles';
 
 export const ParamChart = ({  }) => {
 
@@ -13,14 +12,8 @@ export const ParamChart = ({  }) => {
   const screenWidth = Dimensions.get('window').width;
   const chartWidth = screenWidth * 0.65;
 
-  const waterParameters = useSelector((state) => state.nitrateParams);
 
-  const lineData2 = waterParameters.map((parameter) => ({
-    value: parameter.value,
-    data: parameter.date,
-  }));
-
-  const lineData = [ 
+  const lineData2 = [ 
     { value:30, data: '1 Sept 2023', label: 'Sept', labelTextStyle: {color: 'white', width: 50}}, 
     { value:30, data: '2 Sept 2023'}, 
     { value:15, data: '3 Sept 2023'},
@@ -105,7 +98,7 @@ export const ParamChart = ({  }) => {
     { value:20, data: '10 Oct 2023'}
   ]
   return (
-    <View style={{ width: chartWidth * 1.3, justifyContent: 'center', alignItems: 'center'}}>
+    <View style={styles2.Container}>
       
       <LineChart
           areaChart
@@ -135,15 +128,41 @@ export const ParamChart = ({  }) => {
           maxValue={60}
           noOfSections={2}
         />
-      
+        <TouchableOpacity style={styles2.box}>
+          <Text style={styles2.title}>View</Text>
+        </TouchableOpacity>
     </View>
     
     
   );
 };
 
-const mapStateToProps = (state) => ({
-  waterParameters: state.parameters.waterParameters,
+const styles2 = StyleSheet.create({
+  Container: {
+    flex: 1,
+    backgroundColor: Colors.height2,
+    width: '90%',
+    height: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 5,
+    shadowColor: Colors.backgroundDark,
+    borderRadius: 10,
+    paddingLeft: 10,
+  },
+  box: {
+    width: '25%',
+    height: 45,
+    backgroundColor: Colors.height4,
+    borderRadius: 10,
+    shadowColor: '#000000',
+    elevation: 3,
+    marginBottom: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    color: Colors.textMarine,
+    fontSize: 18,
+  }
 });
-
-export default connect(mapStateToProps)(ParamChart);
