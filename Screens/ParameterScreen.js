@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { LineChart } from 'react-native-gifted-charts';
-import Realm from '../database/Realm';
+import realm from '../database/Realm';
 
-const ParameterScreen = () => {
+export const ParameterScreen = () => {
   const [parameters, setParameters] = useState([]);
 
   useEffect(() => {
     // Connect to your Realm database and fetch the parameters
-    const realm = new Realm({ schema: [YourSchema] });
-    const fetchedParameters = realm.objects('Parameter');
-    setParameters(fetchedParameters);
+    //const realm = new Realm({ schema: [waterParameter] });
+    //const fetchedParameters = realm.objects('WaterParameter');
+    const allReminders = realm.objects('WaterParameter')
+    //setParameters(fetchedParameters);
   }, []);
 
   return (
@@ -24,5 +25,3 @@ const ParameterScreen = () => {
     </View>
   );
 };
-
-export default ParameterScreen;

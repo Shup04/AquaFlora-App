@@ -94,7 +94,7 @@ export const ParamChart = ({ navigation }) => {
     { value:20, data: '9 Oct 2023'}, 
     { value:20, data: '10 OC 2023'}
   ]
-  
+
   return (
     <View style={styles2.Container}>
       
@@ -126,7 +126,7 @@ export const ParamChart = ({ navigation }) => {
           maxValue={60}
           noOfSections={2}
         />
-        <TouchableOpacity style={styles2.box}>
+        <TouchableOpacity onPress={navigation.navigate('Parameters')} style={styles2.box}>
           <Text style={styles2.title}>View</Text>
         </TouchableOpacity>
     </View>

@@ -15,6 +15,7 @@ import { RemindersContent } from './Homepage Content/RemindersContent';
 import { TankScreen } from './Screens/TankScreen';
 import { TankCreateScreen } from './Screens/TankCreateScreen';
 import { ReminderCreateScreen } from './Screens/ReminderCreateScreen';
+import { ParameterScreen } from './Screens/ParameterScreen';
 
 import DefaultPFP from './assets/MiscImages/defaultPFP.png';
 import SettingsIcon from './assets/MiscImages/settings.png';
