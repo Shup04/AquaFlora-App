@@ -10,7 +10,7 @@ export const ParameterScreen = () => {
     // Connect to your Realm database and fetch the parameters
     //const realm = new Realm({ schema: [waterParameter] });
     //const fetchedParameters = realm.objects('WaterParameter');
-    const allReminders = realm.objects('WaterParameter')
+    const allparams = realm.objects('WaterParameter')
     //setParameters(fetchedParameters);
   }, []);
 
