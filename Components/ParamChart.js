@@ -126,7 +126,7 @@ export const ParamChart = ({ navigation }) => {
           maxValue={60}
           noOfSections={2}
         />
-        <TouchableOpacity onPress={navigation.navigate('Parameters')} style={styles2.box}>
+        <TouchableOpacity onPress={() => navigation.navigate('Parameters')} style={styles2.box}>
           <Text style={styles2.title}>View</Text>
         </TouchableOpacity>
     </View>
