@@ -29,3 +29,15 @@ export const ReminderSchema = {
   primaryKey: 'id',
 };
 
+class WaterParameter extends Realm.Object {
+  static schema = {
+    name: 'WaterParameter',
+    primaryKey: '_id',
+    properties: {
+      _id: 'objectId',
+      parameterName: 'string',
+      value: 'float',
+      date: 'date',
+    },
+  };
+}
