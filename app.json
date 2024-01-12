@@ -15,15 +15,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.shup.aquaFlora"
+      "supportsTablet": true
     },
     "android": {
       "package": "com.shup.aquaFlora",
-      "icon": "./assets/icon.png",
-      "permissions": [
-        "android.permission.RECORD_AUDIO"
-      ]
+      "icon": "./assets/icon.png"
     },
     "web": {
       "favicon": "./assets/icon.png"
