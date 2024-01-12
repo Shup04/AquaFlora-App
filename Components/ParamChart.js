@@ -5,13 +5,10 @@ import { LineChart } from 'react-native-gifted-charts';
 import { Dimensions } from 'react-native';
 import { styles } from 'react-native-gifted-charts/src/LineChart/styles';
 
-export const ParamChart = ({  }) => {
-
-  //console.log(waterParameters);
+export const ParamChart = ({ navigation }) => {
 
   const screenWidth = Dimensions.get('window').width;
   const chartWidth = screenWidth * 0.65;
-
 
   const lineData2 = [ 
     { value:30, data: '1 Sept 2023', label: 'Sept', labelTextStyle: {color: 'white', width: 50}}, 
@@ -95,8 +92,9 @@ export const ParamChart = ({  }) => {
     { value:20, data: '7 Oct 2023'}, 
     { value:20, data: '8 Oct 2023'}, 
     { value:20, data: '9 Oct 2023'}, 
-    { value:20, data: '10 Oct 2023'}
+    { value:20, data: '10 OC 2023'}
   ]
+  
   return (
     <View style={styles2.Container}>
       
@@ -105,7 +103,7 @@ export const ParamChart = ({  }) => {
           isAnimated
           data={data}
           data2={lineData2}
-          height={100}
+          height={85}
           width={chartWidth}
           spacing={chartWidth/data.length}
           endSpacing={10}
@@ -119,8 +117,8 @@ export const ParamChart = ({  }) => {
           endFillColor2="teal"
           startOpacity={0.5}
           endOpacity={0.1}
-          xAxisColor="white"
-          yAxisColor="white"
+          xAxisColor={Colors.textMarine}
+          yAxisColor={Colors.textMarine}
           yAxisTextStyle={{color: 'white'}}
           rulesType='solid'
           rulesColor={"#EEEEEE55"}
@@ -157,7 +155,6 @@ const styles2 = StyleSheet.create({
     borderRadius: 10,
     shadowColor: '#000000',
     elevation: 3,
-    marginBottom: 30,
     justifyContent: 'center',
     alignItems: 'center',
   },

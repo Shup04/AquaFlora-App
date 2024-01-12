@@ -13,7 +13,6 @@ import { PlantsContent } from './Homepage Content/PlantsContent';
 import { RemindersContent } from './Homepage Content/RemindersContent';
 
 import { TankScreen } from './Screens/TankScreen';
-import { ReminderScreen } from './Screens/ReminderScreen';
 import { TankCreateScreen } from './Screens/TankCreateScreen';
 import { ReminderCreateScreen } from './Screens/ReminderCreateScreen';
 
@@ -126,16 +125,12 @@ const MyStack = ({ navigation }) => {
               }
             }} 
           />
-          <Stack.Screen 
-            name="Reminder" 
-            component={ReminderScreen}
-            options={{
-              headerStyle: {
-                backgroundColor: Colors.primary,
-                headerTintColor: Colors.primary,
-              }
-            }} 
+          <Stack.Screen
+            name="Parameters"
+            backTo="TankScreen"
+            component={ParameterScreen}
           />
+
           <Stack.Screen
             name="TankCreate"
             backTo="HomeScreen"
