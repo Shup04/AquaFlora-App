@@ -8,7 +8,7 @@ import { styles } from 'react-native-gifted-charts/src/LineChart/styles';
 export const ParamChart = ({ navigation }) => {
 
   const screenWidth = Dimensions.get('window').width;
-  const chartWidth = screenWidth * 0.65;
+  const chartWidth = screenWidth * 0.69;
 
   const lineData2 = [ 
     { value:30, data: '1 Sept 2023', label: 'Sept', labelTextStyle: {color: 'white', width: 50}}, 
@@ -106,8 +106,8 @@ export const ParamChart = ({ navigation }) => {
           height={85}
           width={chartWidth}
           spacing={chartWidth/data.length}
-          endSpacing={10}
-          initialSpacing={10}
+          endSpacing={0}
+          initialSpacing={0}
           color1="lightblue"
           color2="teal"
           hideDataPoints
