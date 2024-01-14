@@ -18,47 +18,49 @@ export const ParameterScreen = () => {
     setParameters(allParams);
   }, []);
 
+  function fillMissingDates(data) {
+    // Sort data by date
+    data.sort((a, b) => new Date(a.date) - new Date(b.date));
+  
+    let filledData = [];
+    for (let i = 0; i < data.length; i++) {
+      if (i === 0) {
+        filledData.push(data[i]);
+      } else {
+        let prevDate = new Date(filledData[filledData.length - 1].date);
+        let currDate = new Date(data[i].date);
+        let diffDays = Math.ceil((currDate - prevDate) / (1000 * 60 * 60 * 24));
+  
+        if (diffDays > 1) {
+          for (let j = 1; j < diffDays; j++) {
+              let newDate = new Date(prevDate);
+              newDate.setDate(newDate.getDate() + j);
+              filledData.push({ value: filledData[filledData.length - 1].value, date: new Date(newDate) });
+          }
+      }
+        filledData.push(data[i]);
+      }
+    }
+    console.log(filledData);
+    return filledData;
+  }
+
+  
+
 const data = [ 
-    { value:30, data: '1 Sept 2023', label: 'Sept', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:30, data: '2 Sept 2023'}, 
-    { value:30, data: '3 Sept 2023'},
-    { value:30, data: '4 Sept 2023'},
-    { value:30, data: '5 Sept 2023'},
-    { value:30, data: '6 Sept 2023'},
-    { value:45, data: '7 Sept 2023'}, 
-    { value:45, data: '8 Sept 2023'}, 
-    { value:45, data: '9 Sept 2023'},
-    { value:45, data: '10 Sept 2023'}, 
-    { value:45, data: '11 Sept 2023'},
-    { value:45, data: '12 Sept 2023'},
-    { value:45, data: '13 Sept 2023'},
-    { value:20, data: '14 Sept 2023'}, 
-    { value:20, data: '15 Sept 2023'}, 
-    { value:20, data: '16 Sept 2023'}, 
-    { value:20, data: '17 Sept 2023'}, 
-    { value:20, data: '18 Sept 2023'}, 
-    { value:20, data: '19 Sept 2023'}, 
-    { value:20, data: '20 Sept 2023'}, 
-    { value:35, data: '21 Sept 2023'}, 
-    { value:35, data: '22 Sept 2023'}, 
-    { value:35, data: '23 Sept 2023'}, 
-    { value:35, data: '24 Sept 2023'}, 
-    { value:35, data: '25 Sept 2023'}, 
-    { value:35, data: '26 Sept 2023'}, 
-    { value:35, data: '27 Sept 2023'}, 
-    { value:35, data: '28 Sept 2023'}, 
-    { value:35, data: '29 Sept 2023'}, 
-    { value:55, data: '30 Sept 2023'}, 
-    { value:55, label: 'Oct', labelTextStyle: {color: 'white', width: 50}, data: '1 Oct 2023'}, 
-    { value:55, data: '2 Oct 2023'}, 
-    { value:55, data: '3 Oct 2023'}, 
-    { value:55, data: '4 Oct 2023'}, 
-    { value:55, data: '5 Oct 2023'}, 
-    { value:55, data: '6 Oct 2023'}, 
-    { value:20, data: '7 Oct 2023'}, 
-    { value:20, data: '8 Oct 2023'}, 
-    { value:20, data: '9 Oct 2023'}, 
-    { value:20, data: '10 OC 2023'}
+    { value:30, date: new Date('2023-12-26'), label: 'Sept', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:32, date: new Date('2023-12-29') }, 
+    { value:35, date: new Date('2023-12-30')},
+    { value:69, date: new Date('2023-12-31')},
+    { value:55, date: new Date('2024-1-2')}, 
+    { value:54, date: new Date('2024-1-3')}, 
+    { value:43, date: new Date('2024-1-4')}, 
+    { value:45, date: new Date('2024-1-6')}, 
+    { value:34, date: new Date('2024-1-10')}, 
+    { value:68, date: new Date('2024-1-13')}, 
+    { value:75, date: new Date('2024-1-14')}, 
+    { value:69, date: new Date('2024-1-15')}, 
+    { value:40, date: new Date('2024-1-17')}
   ]
   const ptData = [
     {value: 16, date: '1 Apr 2022'},
@@ -115,42 +117,80 @@ const data = [
     {value: 25, date: '4 May 2022'},
     {value: 21, date: '5 May 2022'},
   ];
+  //const filledData = []
+
+  const filledData = fillMissingDates(data);
 
   return (
     <View style={styles.body}>
-        <View style={styles.container}>
+      <View style={styles.container}>
         <LineChart
-            areaChart
-            isAnimated
-            data={data}
-            data2={ptData}
-            height={400}
-            width={chartWidth}
-            spacing={20}
-            endSpacing={0}
-            initialSpacing={0}
+          areaChart
+          isAnimated
+          data={filledData}
+          data2={ptData}
+          height={400}
+          width={chartWidth}
+          spacing={20}
+          endSpacing={0}
+          initialSpacing={0}
 
-            color1="#8a56ce"
-            color2="#56acce"
-            startFillColor1="#8a56ce"
-            startFillColor2="#56acce"
-            endFillColor1="#8a56ce"
-            endFillColor2="#56acce"
+          color1="#8a56ce"
+          color2="#56acce"
+          startFillColor1="#8a56ce"
+          startFillColor2="#56acce"
+          endFillColor1="#8a56ce"
+          endFillColor2="#56acce"
 
-            hideDataPoints
-            startOpacity={0.5}
-            endOpacity={0.1}
-            xAxisColor={'lightgray'}
-            
-            yAxisThickness={0}
-            yAxisTextStyle={{color: 'white'}}
-            rulesType='solid'
-            rulesColor={"#EEEEEE55"}
-            verticalLinesColor={"#EEEEEE33"}
-            maxValue={100}
-            noOfSections={4}
-            />
-        </View>
+          hideDataPoints
+          startOpacity={0.5}
+          endOpacity={0.1}
+          xAxisColor={'lightgray'}
+          
+          yAxisThickness={0}
+          yAxisTextStyle={{color: 'white'}}
+          rulesType='solid'
+          rulesColor={"#EEEEEE55"}
+          verticalLinesColor={"#EEEEEE33"}
+          maxValue={100}
+          noOfSections={4}
+
+          pointerConfig={{
+            pointerStripUptoDataPoint: true,
+            pointerStripColor: 'lightgray',
+            pointerStripWidth: 2,
+            strokeDashArray: [2, 5],
+            pointerColor: 'lightgray',
+            radius: 4,
+            pointerLabelWidth: 100,
+            pointerLabelHeight: 120,
+            activatePointersOnLongPress: true,
+            pointerLabelComponent: items => {
+              return (
+                <View
+                  style={{
+                    height: 140,
+                    width: 100,
+                    backgroundColor: Colors.height3,
+                    borderRadius: 4,
+                    justifyContent:'center',
+                    paddingLeft: 10,
+                    marginLeft: 22
+                  }}>
+                  <Text style={{color: 'lightgray',fontSize:12}}>Nitrate</Text>
+                  <Text style={{color: 'lightgray',fontSize:12}}>{(items[0].date.getDate()).toString()}</Text>
+                  <Text style={{color: 'white', fontWeight:'bold'}}>{items[0].value}</Text>
+
+                  <Text style={{color: 'lightgray',fontSize:12, marginTop: 16}}>Ammonia</Text>
+                  <Text style={{color: 'lightgray',fontSize:12}}>{items[1].date}</Text>
+                  <Text style={{color: 'white', fontWeight:'bold'}}>{items[1].value}</Text>
+                </View>
+              );
+            },
+          }}
+
+          />
+      </View>
     </View>
   );
 };
