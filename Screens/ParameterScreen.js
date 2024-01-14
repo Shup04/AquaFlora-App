@@ -26,61 +26,13 @@ export const ParameterScreen = () => {
   }
 
   function setLabels(data) {
-    for(let i = 0; i < data.length; i++) {
-      //If the date is the first of the month
-      if(data[i].date.getDate() === 1){
-        switch(data[i].date.getMonth()) {
-          case 0:
-            data[i].label = 'Jan';
-            break;
-          case 1:
-            data[i].label = 'Feb';
-            break;
-          case 2:
-            data[i].label = 'Mar';
-            break;
-          case 3:
-            data[i].label = 'Apr';
-            break;
-          case 4:
-            data[i].label = 'May';
-            break;
-          case 5:
-            data[i].label = 'Jun';
-            break;
-          case 6:
-            data[i].label = 'Jul';
-            break;
-          case 7:
-            data[i].label = 'Aug';
-            break;
-          case 8:
-            data[i].label = 'Sep';
-            break;
-          case 9:
-            data[i].label = 'Oct';
-            break;
-          case 10:
-            data[i].label = 'Nov';
-            break;
-          case 11:
-            data[i].label = 'Dec';
-            break;
-          default:
-            data[i].label = 'Jan';
-
-        }
-      }
-    }
-    return data
-  }
-
-  function setLabels(data) {
     data.forEach((item, index) => {
-      console.log(`Data at index ${index}:`, item.date);
       if (item.date.getDate() === 1) {
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         item.label = monthNames[item.date.getMonth()];
+        item.labelTextStyle = {color: 'white', width: 50};
+
+        console.log(data[index])
       }
     });
     return data;
@@ -129,9 +81,9 @@ const data = [
     { value:32, date: new Date('2023-12-29'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
     { value:35, date: new Date('2023-12-30'), label: '', labelTextStyle: {color: 'white', width: 50}},
     { value:69, date: new Date('2023-12-31'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    { value:55, date: new Date('2024-1-2'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:54, date: new Date('2024-1-3'), label: '', labelTextStyle: {color: 'white', width: 50} }, 
-    { value:43, date: new Date('2024-1-4'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:55, date: new Date('2024-1-3'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:54, date: new Date('2024-1-4'), label: '', labelTextStyle: {color: 'white', width: 50} }, 
+    { value:43, date: new Date('2024-1-5'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
     { value:45, date: new Date('2024-1-6'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
     { value:34, date: new Date('2024-1-10'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
     { value:68, date: new Date('2024-1-13'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
@@ -195,12 +147,12 @@ const data = [
     {value: 21, date: '5 May 2022'},
   ];
 
+
   const finalData1 = setupData(data);
 
   return (
     <View style={styles.body}>
       <View style={styles.container}>
-        {console.log(finalData1)}
         <LineChart
           areaChart
           isAnimated
