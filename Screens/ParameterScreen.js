@@ -18,6 +18,74 @@ export const ParameterScreen = () => {
     setParameters(allParams);
   }, []);
 
+  function setupData(data) {
+    const filledData = fillMissingDates(data);
+    const finalData = setLabels(filledData);
+
+    return finalData
+  }
+
+  function setLabels(data) {
+    for(let i = 0; i < data.length; i++) {
+      //If the date is the first of the month
+      if(data[i].date.getDate() === 1){
+        switch(data[i].date.getMonth()) {
+          case 0:
+            data[i].label = 'Jan';
+            break;
+          case 1:
+            data[i].label = 'Feb';
+            break;
+          case 2:
+            data[i].label = 'Mar';
+            break;
+          case 3:
+            data[i].label = 'Apr';
+            break;
+          case 4:
+            data[i].label = 'May';
+            break;
+          case 5:
+            data[i].label = 'Jun';
+            break;
+          case 6:
+            data[i].label = 'Jul';
+            break;
+          case 7:
+            data[i].label = 'Aug';
+            break;
+          case 8:
+            data[i].label = 'Sep';
+            break;
+          case 9:
+            data[i].label = 'Oct';
+            break;
+          case 10:
+            data[i].label = 'Nov';
+            break;
+          case 11:
+            data[i].label = 'Dec';
+            break;
+          default:
+            data[i].label = 'Jan';
+
+        }
+      }
+    }
+    return data
+  }
+
+  function setLabels(data) {
+    data.forEach((item, index) => {
+      console.log(`Data at index ${index}:`, item.date);
+      if (item.date.getDate() === 1) {
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        item.label = monthNames[item.date.getMonth()];
+      }
+    });
+    return data;
+  }
+
   function fillMissingDates(data) {
     // Sort data by date
     data.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -34,6 +102,7 @@ export const ParameterScreen = () => {
         if (diffDays > 1) {
           for (let j = 1; j < diffDays; j++) {
               let newDate = new Date(prevDate);
+
               newDate.setDate(newDate.getDate() + j);
               filledData.push({ value: filledData[filledData.length - 1].value, date: new Date(newDate) });
           }
@@ -41,26 +110,34 @@ export const ParameterScreen = () => {
         filledData.push(data[i]);
       }
     }
-    console.log(filledData);
-    return filledData;
+
+    const newFilledData = incrementDates(filledData);
+
+    return newFilledData;
   }
 
-  
+  function incrementDates(data) {
+    return data.map(item => {
+      let newDate = new Date(item.date);
+      newDate.setDate(newDate.getDate() + 1);
+      return { ...item, date: newDate };
+    });
+  }
 
 const data = [ 
-    { value:30, date: new Date('2023-12-26'), label: 'Sept', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:32, date: new Date('2023-12-29') }, 
-    { value:35, date: new Date('2023-12-30')},
-    { value:69, date: new Date('2023-12-31')},
-    { value:55, date: new Date('2024-1-2')}, 
-    { value:54, date: new Date('2024-1-3')}, 
-    { value:43, date: new Date('2024-1-4')}, 
-    { value:45, date: new Date('2024-1-6')}, 
-    { value:34, date: new Date('2024-1-10')}, 
-    { value:68, date: new Date('2024-1-13')}, 
-    { value:75, date: new Date('2024-1-14')}, 
-    { value:69, date: new Date('2024-1-15')}, 
-    { value:40, date: new Date('2024-1-17')}
+    { value:30, date: new Date('2023-12-26'), label: '', labelTextStyle: {color: 'white', width: 50} }, 
+    { value:32, date: new Date('2023-12-29'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:35, date: new Date('2023-12-30'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    { value:69, date: new Date('2023-12-31'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    { value:55, date: new Date('2024-1-2'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:54, date: new Date('2024-1-3'), label: '', labelTextStyle: {color: 'white', width: 50} }, 
+    { value:43, date: new Date('2024-1-4'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:45, date: new Date('2024-1-6'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:34, date: new Date('2024-1-10'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:68, date: new Date('2024-1-13'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:75, date: new Date('2024-1-14'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:69, date: new Date('2024-1-15'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:40, date: new Date('2024-1-17'), label: '', labelTextStyle: {color: 'white', width: 50}}
   ]
   const ptData = [
     {value: 16, date: '1 Apr 2022'},
@@ -117,17 +194,17 @@ const data = [
     {value: 25, date: '4 May 2022'},
     {value: 21, date: '5 May 2022'},
   ];
-  //const filledData = []
 
-  const filledData = fillMissingDates(data);
+  const finalData1 = setupData(data);
 
   return (
     <View style={styles.body}>
       <View style={styles.container}>
+        {console.log(finalData1)}
         <LineChart
           areaChart
           isAnimated
-          data={filledData}
+          data={finalData1}
           data2={ptData}
           height={400}
           width={chartWidth}
