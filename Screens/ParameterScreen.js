@@ -26,16 +26,19 @@ export const ParameterScreen = () => {
   }
 
   function setLabels(data) {
-    data.forEach((item, index) => {
+    // For each entry, check if it is the first day of the month, if it is, set the label to the month name.
+    data.forEach((item) => {
       if (item.date.getDate() === 1) {
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         item.label = monthNames[item.date.getMonth()];
         item.labelTextStyle = {color: 'white', width: 50};
-
-        console.log(data[index])
       }
     });
     return data;
+  }
+  function getMonthName(date) {
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return monthNames[date.getMonth()];
   }
 
   function fillMissingDates(data) {
@@ -76,7 +79,7 @@ export const ParameterScreen = () => {
     });
   }
 
-const data = [ 
+  const data = [ 
     { value:30, date: new Date('2023-12-26'), label: '', labelTextStyle: {color: 'white', width: 50} }, 
     { value:32, date: new Date('2023-12-29'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
     { value:35, date: new Date('2023-12-30'), label: '', labelTextStyle: {color: 'white', width: 50}},
@@ -89,7 +92,20 @@ const data = [
     { value:68, date: new Date('2024-1-13'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
     { value:75, date: new Date('2024-1-14'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
     { value:69, date: new Date('2024-1-15'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:40, date: new Date('2024-1-17'), label: '', labelTextStyle: {color: 'white', width: 50}}
+    { value:40, date: new Date('2024-1-16'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    { value:30, date: new Date('2024-1-21'), label: '', labelTextStyle: {color: 'white', width: 50} }, 
+    { value:32, date: new Date('2024-1-24'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:35, date: new Date('2024-1-29'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    { value:69, date: new Date('2024-1-31'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    { value:55, date: new Date('2024-2-3'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:54, date: new Date('2024-2-4'), label: '', labelTextStyle: {color: 'white', width: 50} }, 
+    { value:43, date: new Date('2024-2-5'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:45, date: new Date('2024-2-6'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:34, date: new Date('2024-2-10'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:68, date: new Date('2024-2-13'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:75, date: new Date('2024-2-14'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:69, date: new Date('2024-2-15'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
+    { value:40, date: new Date('2024-2-16'), label: '', labelTextStyle: {color: 'white', width: 50}}
   ]
   const ptData = [
     {value: 16, date: '1 Apr 2022'},
@@ -160,7 +176,7 @@ const data = [
           data2={ptData}
           height={400}
           width={chartWidth}
-          spacing={20}
+          spacing={10}
           endSpacing={0}
           initialSpacing={0}
 
@@ -207,7 +223,7 @@ const data = [
                     marginLeft: 22
                   }}>
                   <Text style={{color: 'lightgray',fontSize:12}}>Nitrate</Text>
-                  <Text style={{color: 'lightgray',fontSize:12}}>{(items[0].date.getDate()).toString()}</Text>
+                  <Text style={{color: 'lightgray',fontSize:12}}>{(items[0].date.getDate()).toString()} {getMonthName(items[0].date)} {items[0].date.getFullYear()}</Text>
                   <Text style={{color: 'white', fontWeight:'bold'}}>{items[0].value}</Text>
 
                   <Text style={{color: 'lightgray',fontSize:12, marginTop: 16}}>Ammonia</Text>
