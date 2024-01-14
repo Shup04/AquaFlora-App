@@ -18,24 +18,25 @@ export const ParameterScreen = () => {
     setParameters(allParams);
   }, []);
 
-  function setupData(data) {
-    const filledData = fillMissingDates(data);
-    const finalData = setLabels(filledData);
+  function setupData(data1) {
+    //setup first data array
+    const filledData1 = fillMissingDates(data1);
+    const finalData1 = setLabels(filledData1);
 
-    return finalData
+    return (finalData1);
   }
 
   function setLabels(data) {
     // For each entry, check if it is the first day of the month, if it is, set the label to the month name.
     data.forEach((item) => {
       if (item.date.getDate() === 1) {
-        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        item.label = monthNames[item.date.getMonth()];
+        item.label = getMonthName(item.date);
         item.labelTextStyle = {color: 'white', width: 50};
       }
     });
     return data;
   }
+
   function getMonthName(date) {
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     return monthNames[date.getMonth()];
@@ -79,7 +80,7 @@ export const ParameterScreen = () => {
     });
   }
 
-  const data = [ 
+  const data1 = [ 
     { value:30, date: new Date('2023-12-26'), label: '', labelTextStyle: {color: 'white', width: 50} }, 
     { value:32, date: new Date('2023-12-29'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
     { value:35, date: new Date('2023-12-30'), label: '', labelTextStyle: {color: 'white', width: 50}},
@@ -107,64 +108,50 @@ export const ParameterScreen = () => {
     { value:69, date: new Date('2024-2-15'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
     { value:40, date: new Date('2024-2-16'), label: '', labelTextStyle: {color: 'white', width: 50}}
   ]
-  const ptData = [
-    {value: 16, date: '1 Apr 2022'},
-    {value: 18, date: '2 Apr 2022'},
-    {value: 19, date: '3 Apr 2022'},
-    {value: 18, date: '4 Apr 2022'},
-    {value: 14, date: '5 Apr 2022'},
-    {value: 14, date: '6 Apr 2022'},
-    {value: 16, date: '7 Apr 2022'},
-    {value: 20, date: '8 Apr 2022'},
-  
-    {value: 22, date: '9 Apr 2022'},
-    {
-      value: 24,
-      date: '10 Apr 2022',
-      label: '10 Apr',
-      labelTextStyle: {color: 'lightgray', width: 60},
-    },
-    {value: 28, date: '11 Apr 2022'},
-    {value: 26, date: '12 Apr 2022'},
-    {value: 34, date: '13 Apr 2022'},
-    {value: 38, date: '14 Apr 2022'},
-    {value: 28, date: '15 Apr 2022'},
-    {value: 39, date: '16 Apr 2022'},
-  
-    {value: 37, date: '17 Apr 2022'},
-    {value: 28, date: '18 Apr 2022'},
-    {value: 29, date: '19 Apr 2022'},
-    {
-      value: 30,
-      date: '20 Apr 2022',
-      label: '20 Apr',
-      labelTextStyle: {color: 'lightgray', width: 60},
-    },
-    {value: 28, date: '21 Apr 2022'},
-    {value: 29, date: '22 Apr 2022'},
-    {value: 26, date: '23 Apr 2022'},
-    {value: 25, date: '24 Apr 2022'},
-  
-    {value: 19, date: '25 Apr 2022'},
-    {value: 22, date: '26 Apr 2022'},
-    {value: 20, date: '27 Apr 2022'},
-    {value: 23, date: '28 Apr 2022'},
-    {value: 21, date: '29 Apr 2022'},
-    {
-      value: 20,
-      date: '30 Apr 2022',
-      label: '30 Apr',
-      labelTextStyle: {color: 'lightgray', width: 60},
-    },
-    {value: 24, date: '1 May 2022'},
-    {value: 25, date: '2 May 2022'},
-    {value: 28, date: '3 May 2022'},
-    {value: 25, date: '4 May 2022'},
-    {value: 21, date: '5 May 2022'},
+  const data2 = [
+    {value: 16, date: new Date('2023-12-31'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 18, date: new Date('2024-1-4'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 18, date: new Date('2024-1-8'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 18, date: new Date('2024-1-9'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 18, date: new Date('2024-1-11'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 18, date: new Date('2024-1-13'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 18, date: new Date('2024-1-14'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 18, date: new Date('2024-1-16'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 19, date: new Date('2024-1-18'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 18, date: new Date('2024-1-19'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 14, date: new Date('2024-1-20'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 14, date: new Date('2024-1-23'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 16, date: new Date('2024-1-26'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 20, date: new Date('2024-1-29'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 22, date: new Date('2024-2-1'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 28, date: new Date('2024-2-4'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 26, date: new Date('2024-2-8'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 34, date: new Date('2024-2-10'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 38, date: new Date('2024-2-13'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 28, date: new Date('2024-2-17'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 39, date: new Date('2024-2-20'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 37, date: new Date('2024-2-21'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 28, date: new Date('2024-2-22'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 29, date: new Date('2024-2-23'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 28, date: new Date('2024-2-25'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 29, date: new Date('2024-2-28'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 26, date: new Date('2024-2-30'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 25, date: new Date('2024-3-2'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 19, date: new Date('2024-3-3'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 22, date: new Date('2024-3-5'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 20, date: new Date('2024-3-6'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 23, date: new Date('2024-3-7'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 21, date: new Date('2024-3-9'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 24, date: new Date('2024-3-12'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 25, date: new Date('2024-3-13'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 28, date: new Date('2024-3-15'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 25, date: new Date('2024-3-16'), label: '', labelTextStyle: {color: 'white', width: 50}},
+    {value: 21, date: new Date('2024-3-17'), label: '', labelTextStyle: {color: 'white', width: 50}},
   ];
 
 
-  const finalData1 = setupData(data);
+  const finalData1 = setupData(data1)
+  const finalData2 = setupData(data2)
 
   return (
     <View style={styles.body}>
@@ -173,7 +160,7 @@ export const ParameterScreen = () => {
           areaChart
           isAnimated
           data={finalData1}
-          data2={ptData}
+          data2={finalData2}
           height={400}
           width={chartWidth}
           spacing={10}
@@ -226,8 +213,8 @@ export const ParameterScreen = () => {
                   <Text style={{color: 'lightgray',fontSize:12}}>{(items[0].date.getDate()).toString()} {getMonthName(items[0].date)} {items[0].date.getFullYear()}</Text>
                   <Text style={{color: 'white', fontWeight:'bold'}}>{items[0].value}</Text>
 
-                  <Text style={{color: 'lightgray',fontSize:12, marginTop: 16}}>Ammonia</Text>
-                  <Text style={{color: 'lightgray',fontSize:12}}>{items[1].date}</Text>
+                  <Text style={{color: 'lightgray',fontSize:12, marginTop: 12}}>Ammonia</Text>
+                  <Text style={{color: 'lightgray',fontSize:12}}>{(items[1].date.getDate()).toString()} {getMonthName(items[1].date)} {items[1].date.getFullYear()}</Text>
                   <Text style={{color: 'white', fontWeight:'bold'}}>{items[1].value}</Text>
                 </View>
               );
