@@ -17,6 +17,42 @@ export const ParameterScreen = () => {
     const allParams = realm.objects('WaterParameter')
     setParameters(allParams);
   }, []);
+  
+  function fetchParameterData() {
+    const allParams = realm.objects('WaterParameter');
+    const nitrateArray = []
+    const ammoniaArray = []
+    const nitriteArray = []
+    const phArray = []
+
+    allParams.forEach((item) => {
+      const paramName = item.parameterName
+      switch(paramName) {
+        case 'nitrate':
+          nitrateArray.push(item)
+          break;
+        case 'ammonia':
+          ammoniaArray.push(item)
+          break;
+        case 'nitrite':
+          nitriteArray.push(item)
+          break;
+        case 'ph':
+          phArray.push(item)
+          break;
+        default:
+          break;
+      }
+    });
+
+    return { 
+      nitrateArray: nitrateArray, 
+      ammoniaArray: ammoniaArray, 
+      nitriteArray: nitriteArray, 
+      phArray: phArray 
+    };
+
+  }
 
   function setupData(data1, data2) {
     //fill dates between logs
