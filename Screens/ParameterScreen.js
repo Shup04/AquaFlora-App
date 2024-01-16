@@ -18,12 +18,21 @@ export const ParameterScreen = () => {
     setParameters(allParams);
   }, []);
 
-  function setupData(data1) {
-    //setup first data array
+  function setupData(data1, data2) {
+    //fill dates between logs
     const filledData1 = fillMissingDates(data1);
-    const finalData1 = setLabels(filledData1);
+    const filledData2 = fillMissingDates(data2);
 
-    return (finalData1);
+    //align dates between params
+    const syncedData1 = alignArrays(filledData1, filledData2).alignedArray1
+    const syncedData2 = alignArrays(filledData1, filledData2).alignedArray2
+
+    //set month labels
+    const finalData1 = setLabels(syncedData1);
+    const finalData2 = setLabels(syncedData2);
+
+
+    return { finalData1: finalData1, finalData2: finalData2 };
   }
 
   function setLabels(data) {
@@ -78,6 +87,28 @@ export const ParameterScreen = () => {
       newDate.setDate(newDate.getDate() + 1);
       return { ...item, date: newDate };
     });
+  }
+
+  function alignArrays(array1, array2) {
+    // Find the earliest and latest dates in both arrays
+    let dates = [...array1, ...array2].map(item => item.date);
+    let earliestDate = new Date(Math.min.apply(null, dates));
+    let latestDate = new Date(Math.max.apply(null, dates));
+  
+    // Fill in the missing dates for both arrays
+    let alignedArray1 = syncDates(array1, earliestDate, latestDate);
+    let alignedArray2 = syncDates(array2, earliestDate, latestDate);
+  
+    return { alignedArray1: alignedArray1, alignedArray2: alignedArray2 };
+  }
+  
+  function syncDates(array, startDate, endDate) {
+    let result = [];
+    for (let dt = new Date(startDate); dt <= endDate; dt.setDate(dt.getDate() + 1)) {
+      let item = array.find(i => i.date.getTime() === dt.getTime());
+      result.push(item ? item : { date: new Date(dt), value: 0 });
+    }
+    return result;
   }
 
   const data1 = [ 
@@ -149,9 +180,8 @@ export const ParameterScreen = () => {
     {value: 21, date: new Date('2024-3-17'), label: '', labelTextStyle: {color: 'white', width: 50}},
   ];
 
-
-  const finalData1 = setupData(data1)
-  const finalData2 = setupData(data2)
+  const finalData1 = setupData(data1, data2).finalData1
+  const finalData2 = setupData(data1, data2).finalData2
 
   return (
     <View style={styles.body}>
