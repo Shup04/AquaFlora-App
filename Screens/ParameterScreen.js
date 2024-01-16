@@ -19,9 +19,13 @@ export const ParameterScreen = ({ route }) => {
   useEffect(() => {
     
     //fetch and set params from realm
+    clearRealm()
+    for (let i=0; i<30; i++) {
+      addParam()
+    }
+
     const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
-    console.log(tankId)
-    
+
     const nitrateArray = fetchParameterData(allParams).nitrateArray
     const ammoniaArray = fetchParameterData(allParams).ammoniaArray
     const nitriteArray = fetchParameterData(allParams).nitriteArray
@@ -69,9 +73,23 @@ export const ParameterScreen = ({ route }) => {
   }
 
   function setupData(data1, data2) {
+
+    const organizedData1 = data1.map(item => {
+      return{
+        value: item.value,
+        date: new Date(item.date),
+      }
+    })
+    const organizedData2 = data2.map(item => {
+      return{
+        value: item.value,
+        date: new Date(item.date),
+      }
+    })
+
     //fill dates between logs
-    const filledData1 = fillMissingDates(data1);
-    const filledData2 = fillMissingDates(data2);
+    const filledData1 = fillMissingDates(organizedData1);
+    const filledData2 = fillMissingDates(organizedData2);
 
     //align dates between params
     const syncedData1 = alignArrays(filledData1, filledData2).alignedArray1
@@ -80,6 +98,8 @@ export const ParameterScreen = ({ route }) => {
     //set month labels
     const finalData1 = setLabels(syncedData1);
     const finalData2 = setLabels(syncedData2);
+
+    console.log(organizedData1)
 
 
     return { finalData1: finalData1, finalData2: finalData2 };
@@ -139,6 +159,7 @@ export const ParameterScreen = ({ route }) => {
     });
   }
 
+
   function alignArrays(array1, array2) {
     // Find the earliest and latest dates in both arrays
     let dates = [...array1, ...array2].map(item => item.date);
@@ -160,6 +181,35 @@ export const ParameterScreen = ({ route }) => {
     }
     return result;
   }
+
+  function addParam(){
+    const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
+    const sortedParameterObjects = allParams.sorted('id', true);
+    const lastParam = sortedParameterObjects.length > 0 ? sortedParameterObjects[0] : null;
+    const nextId = lastParam ? lastParam.id + 1 : 1;
+
+    realm.write(() => {
+      realm.create('WaterParameter', {
+        id: nextId,
+        parameterName: 'nitrate',
+        value: 30,
+        date: new Date('2023-12-26' + nextId),
+        tankId: tankId,
+      });
+    });
+  }
+
+  const clearRealm = () => {
+    try {
+      realm.write(() => {
+        const objectsToDelete = realm.objects('WaterParameter');
+        realm.delete(objectsToDelete);
+      });
+      console.log(`All objects in schema 'Reminder' have been cleared.`);
+    } catch (error) {
+      console.error(`Error clearing schema 'Reminder':`, error);
+    }
+  };
 
   const data1 = [ 
     { value:30, date: new Date('2023-12-26'), label: '', labelTextStyle: {color: 'white', width: 50} }, 
@@ -230,8 +280,8 @@ export const ParameterScreen = ({ route }) => {
     {value: 21, date: new Date('2024-3-17'), label: '', labelTextStyle: {color: 'white', width: 50}},
   ];
 
-  const finalData1 = setupData(data1, data2).finalData1
-  const finalData2 = setupData(data1, data2).finalData2
+  const finalData1 = setupData(nitrates, data2).finalData1
+  const finalData2 = setupData(nitrates, data2).finalData2
 
   return (
     <View style={styles.body}>

@@ -31,9 +31,9 @@ export const ReminderSchema = {
 
 export const WaterParameterSchema = {
   name: 'WaterParameter',
-  primaryKey: '_id',
+  primaryKey: 'id',
   properties: {
-    _id: 'objectId',
+    id: 'int',
     parameterName: 'string',
     value: 'float',
     date: 'date',
