@@ -61,7 +61,7 @@ export const TankScreen = ({ navigation, route }) => {
         )}
 
         <Text style={styles.title}>Param Chart: </Text>
-        <ParamChart navigation={navigation}/>
+        <ParamChart navigation={navigation} tankId={tankId}/>
 
         <Text style={styles.title}>Reminders: </Text>
         <RemindersContent navigation={navigation} tankId={tankId}></RemindersContent>

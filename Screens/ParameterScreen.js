@@ -4,22 +4,36 @@ import { Colors } from '../Colors';
 import { LineChart } from 'react-native-gifted-charts';
 import realm from '../database/Realm';
 
-export const ParameterScreen = () => {
-  const [parameters, setParameters] = useState([]);
+export const ParameterScreen = ({ route }) => {
+
+  const { tankId } = route.params;
+
+  const [nitrates, setNitrates] = useState([]);
+  const [ammonia, setAmmonia] = useState([]);
+  const [nitrites, setNitrites] = useState([]);
+  const [ph, setPh] = useState([]);
 
   const screenWidth = Dimensions.get('window').width;
   const chartWidth = screenWidth * .85;
 
   useEffect(() => {
-    // Connect to your Realm database and fetch the parameters
-    //const realm = new Realm({ schema: [waterParameter] });
-    //const fetchedParameters = realm.objects('WaterParameter');
-    const allParams = realm.objects('WaterParameter')
-    setParameters(allParams);
+    
+    //fetch and set params from realm
+    const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
+    console.log(tankId)
+    
+    const nitrateArray = fetchParameterData(allParams).nitrateArray
+    const ammoniaArray = fetchParameterData(allParams).ammoniaArray
+    const nitriteArray = fetchParameterData(allParams).nitriteArray
+    const phArray = fetchParameterData(allParams).phArray
+
+    setNitrates(nitrateArray)
+    setAmmonia(ammoniaArray)
+    setNitrites(nitriteArray)
+    setPh(phArray)
   }, []);
   
-  function fetchParameterData() {
-    const allParams = realm.objects('WaterParameter');
+  function fetchParameterData(allParams) {
     const nitrateArray = []
     const ammoniaArray = []
     const nitriteArray = []

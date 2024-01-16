@@ -5,7 +5,7 @@ import { LineChart } from 'react-native-gifted-charts';
 import { Dimensions } from 'react-native';
 import { styles } from 'react-native-gifted-charts/src/LineChart/styles';
 
-export const ParamChart = ({ navigation }) => {
+export const ParamChart = ({ navigation, tankId }) => {
 
   const screenWidth = Dimensions.get('window').width;
   const chartWidth = screenWidth * 0.69;
@@ -126,7 +126,7 @@ export const ParamChart = ({ navigation }) => {
           maxValue={60}
           noOfSections={2}
         />
-        <TouchableOpacity onPress={() => navigation.navigate('Parameters')} style={styles2.box}>
+        <TouchableOpacity onPress={() => navigation.navigate('Parameters', {tankId})} style={styles2.box}>
           <Text style={styles2.title}>View</Text>
         </TouchableOpacity>
     </View>
