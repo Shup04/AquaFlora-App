@@ -78,31 +78,42 @@ export const ParameterScreen = ({ route }) => {
       return{
         value: item.value,
         date: new Date(item.date),
+        label: '',
+        labelTextStyle: {color: 'white', width: 50}
       }
     })
     const organizedData2 = data2.map(item => {
       return{
         value: item.value,
         date: new Date(item.date),
+        label: '',
+        labelTextStyle: {color: 'white', width: 50}
       }
     })
 
-    //fill dates between logs
-    const filledData1 = fillMissingDates(organizedData1);
-    const filledData2 = fillMissingDates(organizedData2);
+    try{
+      //fill dates between logs
+      const filledData1 = fillMissingDates(organizedData1);
+      const filledData2 = fillMissingDates(organizedData2);
 
-    //align dates between params
-    const syncedData1 = alignArrays(filledData1, filledData2).alignedArray1
-    const syncedData2 = alignArrays(filledData1, filledData2).alignedArray2
+      //align dates between params
+      const syncedData1 = alignArrays(filledData1, filledData2).alignedArray1
+      const syncedData2 = alignArrays(filledData1, filledData2).alignedArray2
 
-    //set month labels
-    const finalData1 = setLabels(syncedData1);
-    const finalData2 = setLabels(syncedData2);
+      //set month labels
+      const finalData1 = setLabels(syncedData1);
+      const finalData2 = setLabels(syncedData2);
 
+      return { finalData1: finalData1, finalData2: finalData2 };
+
+    }catch(error){
+      console.error(error)
+    }
+    
     console.log(organizedData1)
 
 
-    return { finalData1: finalData1, finalData2: finalData2 };
+    
   }
 
   function setLabels(data) {
@@ -188,12 +199,15 @@ export const ParameterScreen = ({ route }) => {
     const lastParam = sortedParameterObjects.length > 0 ? sortedParameterObjects[0] : null;
     const nextId = lastParam ? lastParam.id + 1 : 1;
 
+    let date = new Date('2023-12-26')
+    date.setDate(date.getDate() + nextId)
+
     realm.write(() => {
       realm.create('WaterParameter', {
         id: nextId,
         parameterName: 'nitrate',
         value: 30,
-        date: new Date('2023-12-26' + nextId),
+        date: date,
         tankId: tankId,
       });
     });
