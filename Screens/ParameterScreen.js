@@ -364,8 +364,13 @@ export const ParameterScreen = ({ route }) => {
               );
             },
           }}
-
           />
+        <View style={styles.bar}>
+          <View style={styles.legend}>
+            <span style={styles.legendItem}/>
+
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -383,15 +388,9 @@ const styles = StyleSheet.create({
     },
     container: {
       width: '100%',
-      //marginBottom: 30,
       marginTop: 50,
-
-    },
-    scrollContainer: {
-      flexGrow: 1,
-      alignItems: 'center',
       justifyContent: 'center',
-      paddingBottom: 60,
+      alignItems: 'center',
     },
     title: {
       fontSize: 30,
@@ -401,14 +400,25 @@ const styles = StyleSheet.create({
       marginTop: 20,
       marginBottom: 30,
     },
-    BlurView: {
-      width: '100%',
-      height: '10%',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    blurContainer: {
+    bar: {
+      width: '90%',
       height: 50,
+      marginTop: 5,
+      //backgroundColor: "white",
+    },
+    legend: {
+      width: '75%',
+      height: '100%',
       backgroundColor: 'green',
     },
+    legendItem: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 25,
+      height: 25,
+      backgroundColor: 'red',
+      borderRadius: 8,
+    },
+
   });
