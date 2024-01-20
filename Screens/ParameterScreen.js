@@ -445,17 +445,27 @@ export const ParameterScreen = ({ route }) => {
                     width: 100,
                     backgroundColor: Colors.height3,
                     borderRadius: 4,
-                    justifyContent:'center',
-                    paddingLeft: 10,
+                    justifyContent:'space-between',
+                    padding: 10,
                     marginLeft: 22
                   }}>
-                  <Text style={{color: 'lightgray',fontSize:12}}>Nitrate</Text>
-                  <Text style={{color: 'lightgray',fontSize:12}}>{(items[0].date.getDate()).toString()} {getMonthName(items[0].date)} {items[0].date.getFullYear()}</Text>
-                  <Text style={{color: 'white', fontWeight:'bold'}}>{items[0].value}</Text>
-
-                  <Text style={{color: 'lightgray',fontSize:12, marginTop: 12}}>Ammonia</Text>
-                  <Text style={{color: 'lightgray',fontSize:12}}>{(items[1].date.getDate()).toString()} {getMonthName(items[1].date)} {items[1].date.getFullYear()}</Text>
-                  <Text style={{color: 'white', fontWeight:'bold'}}>{items[1].value}</Text>
+                  <Text style={{color: 'lightgray',fontSize:14}}>{(items[0].date.getDate()).toString()} {getMonthName(items[0].date)} {items[0].date.getFullYear()}</Text>
+                  <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text style={{color: 'lightgray',fontSize:12}}>Nitrate</Text>
+                    <Text style={{color: '#ffc2a1', fontWeight:'bold'}}>{items[0].value}</Text>
+                  </View>
+                  <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text style={{color: 'lightgray',fontSize:12}}>Nitrite</Text>
+                    <Text style={{color: '#a2fae9', fontWeight:'bold'}}>{items[1].value}</Text>
+                  </View>
+                  <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text style={{color: 'lightgray',fontSize:12}}>Ammonia</Text>
+                    <Text style={{color: '#fcffa1', fontWeight:'bold'}}>{items[2].value}</Text>
+                  </View>
+                  <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text style={{color: 'lightgray',fontSize:12}}>Ph</Text>
+                    <Text style={{color: '#d3a2fa', fontWeight:'bold'}}>{items[3].value}</Text>
+                  </View>
                 </View>
               );
             },
