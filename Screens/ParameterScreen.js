@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Modal } from 'react-native';
+import { BlurView } from 'expo-blur';
 import { Colors } from '../Colors';
 import { LineChart } from 'react-native-gifted-charts';
 import realm from '../database/Realm';
@@ -12,6 +13,8 @@ export const ParameterScreen = ({ route }) => {
   const [nitrites, setNitrites] = useState([]);
   const [ammonia, setAmmonia] = useState([]);
   const [ph, setPh] = useState([]);
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const screenWidth = Dimensions.get('window').width;
   const chartWidth = screenWidth * .85;
@@ -266,9 +269,8 @@ export const ParameterScreen = ({ route }) => {
         const objectsToDelete = realm.objects('WaterParameter');
         realm.delete(objectsToDelete);
       });
-      console.log(`All objects in schema 'Reminder' have been cleared.`);
     } catch (error) {
-      console.error(`Error clearing schema 'Reminder':`, error);
+      console.error(`Error clearing schema 'WaterParameter':`, error);
     }
   };
   useEffect(() => {
@@ -291,78 +293,6 @@ export const ParameterScreen = ({ route }) => {
     setNitrites(nitriteArray)
     setPh(phArray)
   }, []);
-  
-
-/*
-  const finalAmmonia = [ 
-    { value:30, date: new Date('2023-12-26'), label: '', labelTextStyle: {color: 'white', width: 50} }, 
-    { value:32, date: new Date('2023-12-29'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:35, date: new Date('2023-12-30'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    { value:69, date: new Date('2023-12-31'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    { value:55, date: new Date('2024-1-3'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:54, date: new Date('2024-1-4'), label: '', labelTextStyle: {color: 'white', width: 50} }, 
-    { value:43, date: new Date('2024-1-5'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:45, date: new Date('2024-1-6'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:34, date: new Date('2024-1-10'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:68, date: new Date('2024-1-13'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:75, date: new Date('2024-1-14'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:69, date: new Date('2024-1-15'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:40, date: new Date('2024-1-16'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    { value:30, date: new Date('2024-1-21'), label: '', labelTextStyle: {color: 'white', width: 50} }, 
-    { value:32, date: new Date('2024-1-24'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:35, date: new Date('2024-1-29'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    { value:69, date: new Date('2024-1-31'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    { value:55, date: new Date('2024-2-3'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:54, date: new Date('2024-2-4'), label: '', labelTextStyle: {color: 'white', width: 50} }, 
-    { value:43, date: new Date('2024-2-5'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:45, date: new Date('2024-2-6'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:34, date: new Date('2024-2-10'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:68, date: new Date('2024-2-13'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:75, date: new Date('2024-2-14'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:69, date: new Date('2024-2-15'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
-    { value:40, date: new Date('2024-2-16'), label: '', labelTextStyle: {color: 'white', width: 50}}
-  ]
-  const finalPh = [
-    {value: 16, date: new Date('2023-12-31'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 18, date: new Date('2024-1-4'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 18, date: new Date('2024-1-8'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 18, date: new Date('2024-1-9'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 18, date: new Date('2024-1-11'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 18, date: new Date('2024-1-13'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 18, date: new Date('2024-1-14'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 18, date: new Date('2024-1-16'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 19, date: new Date('2024-1-18'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 18, date: new Date('2024-1-19'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 14, date: new Date('2024-1-20'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 14, date: new Date('2024-1-23'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 16, date: new Date('2024-1-26'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 20, date: new Date('2024-1-29'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 22, date: new Date('2024-2-1'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 28, date: new Date('2024-2-4'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 26, date: new Date('2024-2-8'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 34, date: new Date('2024-2-10'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 38, date: new Date('2024-2-13'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 28, date: new Date('2024-2-17'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 39, date: new Date('2024-2-20'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 37, date: new Date('2024-2-21'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 28, date: new Date('2024-2-22'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 29, date: new Date('2024-2-23'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 28, date: new Date('2024-2-25'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 29, date: new Date('2024-2-28'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 26, date: new Date('2024-2-30'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 25, date: new Date('2024-3-2'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 19, date: new Date('2024-3-3'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 22, date: new Date('2024-3-5'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 20, date: new Date('2024-3-6'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 23, date: new Date('2024-3-7'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 21, date: new Date('2024-3-9'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 24, date: new Date('2024-3-12'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 25, date: new Date('2024-3-13'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 28, date: new Date('2024-3-15'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 25, date: new Date('2024-3-16'), label: '', labelTextStyle: {color: 'white', width: 50}},
-    {value: 21, date: new Date('2024-3-17'), label: '', labelTextStyle: {color: 'white', width: 50}},
-  ];
-*/
 
   const finalNitrate = setupData(nitrates, nitrites, ammonia, ph).finalData1
   const finalNitrite = setupData(nitrates, nitrites, ammonia, ph).finalData2
@@ -383,10 +313,13 @@ export const ParameterScreen = ({ route }) => {
     { color: '#b04fff', text: 'Ph' },
   ];
 
+  handleCloseModal = () => {
+    setModalVisible(false);
+  }
+
   return (
     <View style={styles.body}>
       <View style={styles.container}>
-        {console.log(ammonia)}
         <LineChart
           areaChart
           isAnimated
@@ -476,10 +409,24 @@ export const ParameterScreen = ({ route }) => {
           {parameters.map((param, index) => (
             <LegendItem key={index} color={param.color} text={param.text} />
           ))}
-          <TouchableOpacity style={styles.plusButton}>
+          <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.plusButton}>
             <Text style={styles.plusButtonText}>+</Text>
           </TouchableOpacity>
         </View>
+
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={handleCloseModal}
+        >
+          <BlurView style={modalStyles.centeredView} tint={'dark'}>
+            <View style={modalStyles.modalView}>
+              <Text style={modalStyles.modalTitle}>Add Params:</Text>
+
+            </View>
+          </BlurView>
+        </Modal>
 
       </View>
     </View>
@@ -544,4 +491,72 @@ const styles = StyleSheet.create({
       color: Colors.textMarine,
     },
 
-  });
+});
+
+const modalStyles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: '#FFFFFF',
+  },
+  modalView: {
+    height: '50%',
+    width: '80%',
+    margin: 20,
+    backgroundColor: Colors.height3,
+    //backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    padding: 35,
+    //alignItems: "center",
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: Colors.textMarine,
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  modalText: {
+    fontSize: 16,
+    marginBottom: 15,
+    //textAlign: "center",
+    color: Colors.textMarine,
+  },
+  button: {
+    borderRadius: 20,
+    elevation: 2,
+    backgroundColor: Colors.height4,
+    width: '50%',
+    height: '70%',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    //marginBottom: 5,
+    //marginTop: 'auto',
+  },
+  buttonText: {
+    alignSelf: 'center',
+    fontSize: 16,
+    color: Colors.textMarine,
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: '20%',
+    //justifyContent: 'flex-end',
+    alignItems: 'center',
+    //backgroundColor: 'green',
+    marginBottom: 0,
+    marginTop: 'auto',
+  }
+});
