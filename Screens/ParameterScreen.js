@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Modal, TextInput } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { Colors } from '../Colors';
 import { LineChart } from 'react-native-gifted-charts';
@@ -423,7 +423,34 @@ export const ParameterScreen = ({ route }) => {
           <BlurView style={modalStyles.centeredView} tint={'dark'}>
             <View style={modalStyles.modalView}>
               <Text style={modalStyles.modalTitle}>Add Params:</Text>
-
+              <Text style={modalStyles.modalText}>Nitrate</Text>
+              <TextInput
+                style={modalStyles.textInput}
+                keyboardType='numeric'
+                placeholder='Enter Nitrate'
+                placeholderTextColor={Colors.textMarine}
+              />
+              <Text style={modalStyles.modalText}>Nitrite</Text>
+              <TextInput
+                style={modalStyles.textInput}
+                keyboardType='numeric'
+                placeholder='Enter Nitrite'
+                placeholderTextColor={Colors.textMarine}
+              />
+              <Text style={modalStyles.modalText}>Ammonia</Text>
+              <TextInput
+                style={modalStyles.textInput}
+                keyboardType='numeric'
+                placeholder='Enter Ammonia'
+                placeholderTextColor={Colors.textMarine}
+              />
+              <Text style={modalStyles.modalText}>Ph</Text>
+              <TextInput
+                style={modalStyles.textInput}
+                keyboardType='numeric'
+                placeholder='Enter Ph'
+                placeholderTextColor={Colors.textMarine}
+              />
             </View>
           </BlurView>
         </Modal>
@@ -527,7 +554,7 @@ const modalStyles = StyleSheet.create({
   },
   modalText: {
     fontSize: 16,
-    marginBottom: 15,
+    marginBottom: 5,
     //textAlign: "center",
     color: Colors.textMarine,
   },
@@ -558,5 +585,16 @@ const modalStyles = StyleSheet.create({
     //backgroundColor: 'green',
     marginBottom: 0,
     marginTop: 'auto',
+  },
+  textInput: {
+    borderRadius: 5,
+    elevation: 2,
+    backgroundColor: Colors.height4,
+    width: '100%',
+    height: 40,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    paddingLeft: 10,
+    marginBottom: 10,
   }
 });
