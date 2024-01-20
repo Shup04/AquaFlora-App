@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { Colors } from '../Colors';
 import { LineChart } from 'react-native-gifted-charts';
 import realm from '../database/Realm';
@@ -9,34 +9,14 @@ export const ParameterScreen = ({ route }) => {
   const { tankId } = route.params;
 
   const [nitrates, setNitrates] = useState([]);
-  const [ammonia, setAmmonia] = useState([]);
   const [nitrites, setNitrites] = useState([]);
+  const [ammonia, setAmmonia] = useState([]);
   const [ph, setPh] = useState([]);
 
   const screenWidth = Dimensions.get('window').width;
   const chartWidth = screenWidth * .85;
 
-  useEffect(() => {
-    
-    //fetch and set params from realm
-    clearRealm()
-    for (let i=0; i<30; i++) {
-      addParam()
-    }
 
-    const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
-
-    const nitrateArray = fetchParameterData(allParams).nitrateArray
-    const ammoniaArray = fetchParameterData(allParams).ammoniaArray
-    const nitriteArray = fetchParameterData(allParams).nitriteArray
-    const phArray = fetchParameterData(allParams).phArray
-
-    setNitrates(nitrateArray)
-    setAmmonia(ammoniaArray)
-    setNitrites(nitriteArray)
-    setPh(phArray)
-  }, []);
-  
   function fetchParameterData(allParams) {
     const nitrateArray = []
     const ammoniaArray = []
@@ -72,8 +52,7 @@ export const ParameterScreen = ({ route }) => {
 
   }
 
-  function setupData(data1, data2) {
-
+  function setupData(data1, data2, data3, data4) {
     const organizedData1 = data1.map(item => {
       return{
         value: item.value,
@@ -90,21 +69,48 @@ export const ParameterScreen = ({ route }) => {
         labelTextStyle: {color: 'white', width: 50}
       }
     })
+    const organizedData3 = data3.map(item => {
+      return{
+        value: item.value,
+        date: new Date(item.date),
+        label: '',
+        labelTextStyle: {color: 'white', width: 50}
+      }
+    })
+    const organizedData4 = data4.map(item => {
+      return{
+        value: item.value,
+        date: new Date(item.date),
+        label: '',
+        labelTextStyle: {color: 'white', width: 50}
+      }
+    })
 
     try{
       //fill dates between logs
       const filledData1 = fillMissingDates(organizedData1);
       const filledData2 = fillMissingDates(organizedData2);
+      const filledData3 = fillMissingDates(organizedData3);
+      const filledData4 = fillMissingDates(organizedData4);
 
       //align dates between params
-      const syncedData1 = alignArrays(filledData1, filledData2).alignedArray1
-      const syncedData2 = alignArrays(filledData1, filledData2).alignedArray2
+      const syncedData1 = alignArrays(filledData1, filledData2, filledData3, filledData4).alignedArray1
+      const syncedData2 = alignArrays(filledData1, filledData2, filledData3, filledData4).alignedArray2
+      const syncedData3 = alignArrays(filledData1, filledData2, filledData3, filledData4).alignedArray3
+      const syncedData4 = alignArrays(filledData1, filledData2, filledData3, filledData4).alignedArray4
 
       //set month labels
       const finalData1 = setLabels(syncedData1);
       const finalData2 = setLabels(syncedData2);
+      const finalData3 = setLabels(syncedData3);
+      const finalData4 = setLabels(syncedData4);
 
-      return { finalData1: finalData1, finalData2: finalData2 };
+      return { 
+        finalData1: finalData1, 
+        finalData2: finalData2,
+        finalData3: finalData3,
+        finalData4: finalData4 
+      };
 
     }catch(error){
       console.error(error)
@@ -170,18 +176,24 @@ export const ParameterScreen = ({ route }) => {
     });
   }
 
-
-  function alignArrays(array1, array2) {
+  function alignArrays(array1, array2, array3, array4) {
     // Find the earliest and latest dates in both arrays
-    let dates = [...array1, ...array2].map(item => item.date);
+    let dates = [...array1, ...array2, ...array3, ...array4].map(item => item.date);
     let earliestDate = new Date(Math.min.apply(null, dates));
     let latestDate = new Date(Math.max.apply(null, dates));
   
     // Fill in the missing dates for both arrays
     let alignedArray1 = syncDates(array1, earliestDate, latestDate);
     let alignedArray2 = syncDates(array2, earliestDate, latestDate);
+    let alignedArray3 = syncDates(array3, earliestDate, latestDate);
+    let alignedArray4 = syncDates(array4, earliestDate, latestDate);
   
-    return { alignedArray1: alignedArray1, alignedArray2: alignedArray2 };
+    return { 
+      alignedArray1: alignedArray1, 
+      alignedArray2: alignedArray2,
+      alignedArray3: alignedArray3,
+      alignedArray4: alignedArray4 
+    };
   }
   
   function syncDates(array, startDate, endDate) {
@@ -197,16 +209,51 @@ export const ParameterScreen = ({ route }) => {
     const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
     const sortedParameterObjects = allParams.sorted('id', true);
     const lastParam = sortedParameterObjects.length > 0 ? sortedParameterObjects[0] : null;
-    const nextId = lastParam ? lastParam.id + 1 : 1;
+    const nextId1 = lastParam ? lastParam.id + 1 : 1;
+    const nextId2 = lastParam ? lastParam.id + 2 : 2;
+    const nextId3 = lastParam ? lastParam.id + 3 : 3;
+    const nextId4 = lastParam ? lastParam.id + 4 : 4;
 
     let date = new Date('2023-12-26')
-    date.setDate(date.getDate() + nextId)
+    date.setDate(date.getDate() + nextId1/1.5)
+
+    let value1 = Math.floor(Math.random() * 25 + 50)
+    let value2 = Math.floor(Math.random() * 20 + 30)
+    let value3 = Math.floor(Math.random() * 19 + 10)
+    let value4 = Math.floor(Math.random() * 23 + 40)
 
     realm.write(() => {
       realm.create('WaterParameter', {
-        id: nextId,
+        id: nextId1,
         parameterName: 'nitrate',
-        value: 30,
+        value: value1,
+        date: date,
+        tankId: tankId,
+      });
+    });
+    realm.write(() => {
+      realm.create('WaterParameter', {
+        id: nextId2,
+        parameterName: 'nitrite',
+        value: value2,
+        date: date,
+        tankId: tankId,
+      });
+    });
+    realm.write(() => {
+      realm.create('WaterParameter', {
+        id: nextId3,
+        parameterName: 'ammonia',
+        value: value3,
+        date: date,
+        tankId: tankId,
+      });
+    });
+    realm.write(() => {
+      realm.create('WaterParameter', {
+        id: nextId4,
+        parameterName: 'ph',
+        value: value4,
         date: date,
         tankId: tankId,
       });
@@ -224,8 +271,30 @@ export const ParameterScreen = ({ route }) => {
       console.error(`Error clearing schema 'Reminder':`, error);
     }
   };
+  useEffect(() => {
+    
+    //fetch and set params from realm
+    clearRealm()
+    for (let i=0; i<30; i++) {
+      addParam()
+    }
 
-  const data1 = [ 
+    const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
+
+    const nitrateArray = fetchParameterData(allParams).nitrateArray
+    const ammoniaArray = fetchParameterData(allParams).ammoniaArray
+    const nitriteArray = fetchParameterData(allParams).nitriteArray
+    const phArray = fetchParameterData(allParams).phArray
+
+    setNitrates(nitrateArray)
+    setAmmonia(ammoniaArray)
+    setNitrites(nitriteArray)
+    setPh(phArray)
+  }, []);
+  
+
+/*
+  const finalAmmonia = [ 
     { value:30, date: new Date('2023-12-26'), label: '', labelTextStyle: {color: 'white', width: 50} }, 
     { value:32, date: new Date('2023-12-29'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
     { value:35, date: new Date('2023-12-30'), label: '', labelTextStyle: {color: 'white', width: 50}},
@@ -253,7 +322,7 @@ export const ParameterScreen = ({ route }) => {
     { value:69, date: new Date('2024-2-15'), label: '', labelTextStyle: {color: 'white', width: 50}}, 
     { value:40, date: new Date('2024-2-16'), label: '', labelTextStyle: {color: 'white', width: 50}}
   ]
-  const data2 = [
+  const finalPh = [
     {value: 16, date: new Date('2023-12-31'), label: '', labelTextStyle: {color: 'white', width: 50}},
     {value: 18, date: new Date('2024-1-4'), label: '', labelTextStyle: {color: 'white', width: 50}},
     {value: 18, date: new Date('2024-1-8'), label: '', labelTextStyle: {color: 'white', width: 50}},
@@ -293,35 +362,62 @@ export const ParameterScreen = ({ route }) => {
     {value: 25, date: new Date('2024-3-16'), label: '', labelTextStyle: {color: 'white', width: 50}},
     {value: 21, date: new Date('2024-3-17'), label: '', labelTextStyle: {color: 'white', width: 50}},
   ];
+*/
 
-  const finalData1 = setupData(nitrates, data2).finalData1
-  const finalData2 = setupData(nitrates, data2).finalData2
+  const finalNitrate = setupData(nitrates, nitrites, ammonia, ph).finalData1
+  const finalNitrite = setupData(nitrates, nitrites, ammonia, ph).finalData2
+  const finalAmmonia = setupData(nitrates, nitrites, ammonia, ph).finalData3
+  const finalPh = setupData(nitrates, nitrites, ammonia, ph).finalData4
+
+  const LegendItem = ({ color, text }) => (
+    <View style={styles.legendItem}>
+      <View style={[styles.legendMarker, { backgroundColor: color }]} />
+      <Text style={styles.legendText}>{text}</Text>
+    </View>
+  );
+  
+  const parameters = [
+    { color: '#ff8d4f', text: 'Nitrate' },
+    { color: '#47fcd8', text: 'Nitrite' },
+    { color: '#f9ff59', text: 'Ammonia' },
+    { color: '#b04fff', text: 'Ph' },
+  ];
 
   return (
     <View style={styles.body}>
       <View style={styles.container}>
+        {console.log(ammonia)}
         <LineChart
           areaChart
           isAnimated
-          data={finalData1}
-          data2={finalData2}
+          data={finalNitrate}
+          data2={finalNitrite}
+          data3={finalAmmonia}
+          data4={finalPh}
+          
+          color1={parameters[0].color}
+          color2={parameters[1].color}
+          color3={parameters[2].color}
+          color4={parameters[3].color}
+          startFillColor1={parameters[0].color}
+          startFillColor2={parameters[1].color}
+          startFillColor3={parameters[2].color}
+          startFillColor4={parameters[3].color}
+          endFillColor1={parameters[0].color}
+          endFillColor2={parameters[1].color}
+          endFillColor3={parameters[2].color}
+          endFillColor4={parameters[3].color}
+
+          hideDataPoints
+          startOpacity={0.05}
+          endOpacity={0}
+          xAxisColor={'lightgray'}
+
           height={400}
           width={chartWidth}
           spacing={10}
           endSpacing={0}
           initialSpacing={0}
-
-          color1="#8a56ce"
-          color2="#56acce"
-          startFillColor1="#8a56ce"
-          startFillColor2="#56acce"
-          endFillColor1="#8a56ce"
-          endFillColor2="#56acce"
-
-          hideDataPoints
-          startOpacity={0.5}
-          endOpacity={0.1}
-          xAxisColor={'lightgray'}
           
           yAxisThickness={0}
           yAxisTextStyle={{color: 'white'}}
@@ -365,12 +461,16 @@ export const ParameterScreen = ({ route }) => {
             },
           }}
           />
-        <View style={styles.bar}>
-          <View style={styles.legend}>
-            <span style={styles.legendItem}/>
 
-          </View>
+        <View style={styles.legend}>
+          {parameters.map((param, index) => (
+            <LegendItem key={index} color={param.color} text={param.text} />
+          ))}
+          <TouchableOpacity style={styles.plusButton}>
+            <Text style={styles.plusButtonText}>+</Text>
+          </TouchableOpacity>
         </View>
+
       </View>
     </View>
   );
@@ -400,25 +500,38 @@ const styles = StyleSheet.create({
       marginTop: 20,
       marginBottom: 30,
     },
-    bar: {
-      width: '90%',
-      height: 50,
-      marginTop: 5,
-      //backgroundColor: "white",
-    },
     legend: {
-      width: '75%',
-      height: '100%',
-      backgroundColor: 'green',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '90%',
+
+      //backgroundColor: 'green'
     },
     legendItem: {
       flexDirection: 'row',
       alignItems: 'center',
+    },
+    legendMarker: {
+      width: 15,
+      height: 15,
+      borderRadius: 5,
+    },
+    legendText: {
+      color: Colors.textMarine,
+      marginLeft: 3,
+    },
+    plusButton: {
+      width: 40,
+      height: 40,
+      borderRadius: 10,
+      backgroundColor: Colors.height4,
       justifyContent: 'center',
-      width: 25,
-      height: 25,
-      backgroundColor: 'red',
-      borderRadius: 8,
+      alignItems: 'center',
+    },
+    plusButtonText: {
+      fontSize: 24,
+      color: Colors.textMarine,
     },
 
   });
