@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Modal, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Modal, TextInput, KeyboardAvoidingView } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { Colors } from '../Colors';
 import { LineChart } from 'react-native-gifted-charts';
@@ -404,16 +404,18 @@ export const ParameterScreen = ({ route }) => {
             },
           }}
           />
+    
+          <View style={styles.legend}>
+            {parameters.map((param, index) => (
+              <LegendItem key={index} color={param.color} text={param.text} />
+            ))}
+            
+          </View>
 
-        <View style={styles.legend}>
-          {parameters.map((param, index) => (
-            <LegendItem key={index} color={param.color} text={param.text} />
-          ))}
           <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.plusButton}>
             <Text style={styles.plusButtonText}>+</Text>
           </TouchableOpacity>
-        </View>
-
+        
         <Modal
           animationType="fade"
           transparent={true}
@@ -506,9 +508,10 @@ const styles = StyleSheet.create({
       marginLeft: 3,
     },
     plusButton: {
-      width: 40,
+      width: '90%',
       height: 40,
       borderRadius: 10,
+      marginTop: 15,
       backgroundColor: Colors.height4,
       justifyContent: 'center',
       alignItems: 'center',
