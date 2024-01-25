@@ -9,6 +9,11 @@ export const ParameterScreen = ({ route }) => {
 
   const { tankId } = route.params;
 
+  const [tempNitrate, setTempNitrate] = useState('');
+  const [tempNitrite, setTempNitrite] = useState('');
+  const [tempAmmonia, setTempAmmonia] = useState('');
+  const [tempPh, setTempPh] = useState('');
+
   const [nitrates, setNitrates] = useState([]);
   const [nitrites, setNitrites] = useState([]);
   const [ammonia, setAmmonia] = useState([]);
@@ -317,6 +322,78 @@ export const ParameterScreen = ({ route }) => {
     setModalVisible(false);
   }
 
+  handleParamEntry = (nitrate, nitrite, ammonia, ph) => {
+    
+    let date = new Date()
+
+
+    if (nitrate !== '') {
+      const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
+      const sortedParameterObjects = allParams.sorted('id', true);
+      const lastParam = sortedParameterObjects.length > 0 ? sortedParameterObjects[0] : null;
+      const nextId = lastParam ? lastParam.id + 1 : 1;
+
+      realm.write(() => {
+        realm.create('WaterParameter', {
+          id: nextId,
+          parameterName: 'nitrate',
+          value: parseFloat(nitrate),
+          date: date,
+          tankId: tankId,
+        });
+      });
+    }
+    if (nitrite !== '') {
+      const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
+      const sortedParameterObjects = allParams.sorted('id', true);
+      const lastParam = sortedParameterObjects.length > 0 ? sortedParameterObjects[0] : null;
+      const nextId = lastParam ? lastParam.id + 1 : 1;
+
+      realm.write(() => {
+        realm.create('WaterParameter', {
+          id: nextId,
+          parameterName: 'nitrite',
+          value: parseFloat(nitrite),
+          date: date,
+          tankId: tankId,
+        });
+      });
+    }
+    if (ammonia !== '') {
+      const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
+      const sortedParameterObjects = allParams.sorted('id', true);
+      const lastParam = sortedParameterObjects.length > 0 ? sortedParameterObjects[0] : null;
+      const nextId = lastParam ? lastParam.id + 1 : 1;
+
+      realm.write(() => {
+        realm.create('WaterParameter', {
+          id: nextId,
+          parameterName: 'ammonia',
+          value: parseFloat(ammonia),
+          date: date,
+          tankId: tankId,
+        });
+      });
+    }
+    if (ph !== '') {
+      const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
+      const sortedParameterObjects = allParams.sorted('id', true);
+      const lastParam = sortedParameterObjects.length > 0 ? sortedParameterObjects[0] : null;
+      const nextId = lastParam ? lastParam.id + 1 : 1;
+
+      realm.write(() => {
+        realm.create('WaterParameter', {
+          id: nextId,
+          parameterName: 'ph',
+          value: parseFloat(ph),
+          date: date,
+          tankId: tankId,
+        });
+      });
+    }
+
+  }
+
   return (
     <View style={styles.body}>
       <View style={styles.container}>
@@ -431,6 +508,7 @@ export const ParameterScreen = ({ route }) => {
                 keyboardType='numeric'
                 placeholder='Enter Nitrate'
                 placeholderTextColor={Colors.textMarine}
+                onChangeText={setTempNitrate}
               />
               <Text style={modalStyles.modalText}>Nitrite</Text>
               <TextInput
@@ -438,6 +516,7 @@ export const ParameterScreen = ({ route }) => {
                 keyboardType='numeric'
                 placeholder='Enter Nitrite'
                 placeholderTextColor={Colors.textMarine}
+                onChangeText={setTempNitrite}
               />
               <Text style={modalStyles.modalText}>Ammonia</Text>
               <TextInput
@@ -445,6 +524,7 @@ export const ParameterScreen = ({ route }) => {
                 keyboardType='numeric'
                 placeholder='Enter Ammonia'
                 placeholderTextColor={Colors.textMarine}
+                onChangeText={setTempAmmonia}
               />
               <Text style={modalStyles.modalText}>Ph</Text>
               <TextInput
@@ -452,7 +532,11 @@ export const ParameterScreen = ({ route }) => {
                 keyboardType='numeric'
                 placeholder='Enter Ph'
                 placeholderTextColor={Colors.textMarine}
+                onChangeText={setTempPh}
               />
+              <TouchableOpacity onPress={() => handleParamEntry(tempNitrate, tempNitrite, tempAmmonia, tempPh)} style={modalStyles.button}>
+                <Text style={modalStyles.modalText}>Add Entry</Text>
+              </TouchableOpacity>
             </View>
           </BlurView>
         </Modal>
@@ -531,7 +615,7 @@ const modalStyles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   modalView: {
-    height: '50%',
+    height: '55%',
     width: '80%',
     margin: 20,
     backgroundColor: Colors.height3,
@@ -562,15 +646,15 @@ const modalStyles = StyleSheet.create({
     color: Colors.textMarine,
   },
   button: {
-    borderRadius: 20,
+    borderRadius: 5,
     elevation: 2,
     backgroundColor: Colors.height4,
     width: '50%',
-    height: '70%',
+    height: 40,
     justifyContent: 'center',
+    alignItems: 'center',
     alignSelf: 'center',
-    //marginBottom: 5,
-    //marginTop: 'auto',
+    marginVertical: 10,
   },
   buttonText: {
     alignSelf: 'center',
