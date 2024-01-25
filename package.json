@@ -13,6 +13,10 @@
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
     "@reduxjs/toolkit": "^2.0.1",
+    "@types/jest": "^29.5.11",
+    "@types/node": "^20.11.6",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
     "expo": "^49.0.21",
     "expo-blur": "~12.4.1",
     "expo-checkbox": "^2.5.0",
@@ -41,6 +45,7 @@
     "react-redux": "^9.0.4",
     "realm": "^11.10.1",
     "redux": "^5.0.1",
+    "typescript": "^5.3.3",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
