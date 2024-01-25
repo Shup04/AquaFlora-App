@@ -2,7 +2,7 @@ export const TankSchema = {
   name: 'Tank',
   primaryKey: 'id',
   properties: {
-    id: { type: 'number', indexed: true },
+    id: { type: 'int', indexed: true },
     name: 'string',
     size: 'string',
     desc: 'string',

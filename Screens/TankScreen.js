@@ -12,22 +12,12 @@ import { TankSchema } from '../database/schemas';
 
 import { BlurView } from 'expo-blur';
 
-interface Navigation {
-  navigate: (route: string) => void;
-}
-
-interface Route {
-  params: {
-    tankId: number;
-  };
-}
-
 const screenWidth = Dimensions.get('window').width;
 const chartWidth = screenWidth * 0.75; // 80% of screen width
 
 
-export const TankScreen: React.FC <{ navigation:Navigation, route: Route }> = ({ navigation, route }) => {
-  const { tankId } = route.params.tankId;
+export const TankScreen = ({ navigation,  route }) => {
+  const { tankId } = route.params;
   const [tankURI, setTankURI] = useState<string | null>(null);
 
   useEffect(() => {
