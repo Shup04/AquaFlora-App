@@ -18,7 +18,7 @@ const chartWidth = screenWidth * 0.75; // 80% of screen width
 
 export const TankScreen = ({ navigation,  route }) => {
   const { tankId } = route.params;
-  const [tankURI, setTankURI] = useState<string | null>(null);
+  const [tankURI, setTankURI] = useState('');
 
   useEffect(() => {
     const fetchData = () => {

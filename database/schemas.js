@@ -33,7 +33,7 @@ export const WaterParameterSchema = {
   name: 'WaterParameter',
   primaryKey: 'id',
   properties: {
-    id: 'int',
+    id: 'string',
     parameterName: 'string',
     value: 'float',
     date: 'date',

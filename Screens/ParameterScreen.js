@@ -4,6 +4,7 @@ import { BlurView } from 'expo-blur';
 import { Colors } from '../Colors';
 import { LineChart } from 'react-native-gifted-charts';
 import realm from '../database/Realm';
+import uuid from 'react-native-uuid';
 
 export const ParameterScreen = ({ route }) => {
 
@@ -20,6 +21,7 @@ export const ParameterScreen = ({ route }) => {
   const [ph, setPh] = useState([]);
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [dbChange, setDbChange] = useState(false);
 
   const screenWidth = Dimensions.get('window').width;
   const chartWidth = screenWidth * .85;
@@ -223,7 +225,7 @@ export const ParameterScreen = ({ route }) => {
     const nextId4 = lastParam ? lastParam.id + 4 : 4;
 
     let date = new Date('2023-12-26')
-    date.setDate(date.getDate() + nextId1/1.5)
+    date.setDate(date.getDate() + Math.random() * 100)
 
     let value1 = Math.floor(Math.random() * 25 + 50)
     let value2 = Math.floor(Math.random() * 20 + 30)
@@ -232,7 +234,7 @@ export const ParameterScreen = ({ route }) => {
 
     realm.write(() => {
       realm.create('WaterParameter', {
-        id: nextId1,
+        id: uuid.v4(),
         parameterName: 'nitrate',
         value: value1,
         date: date,
@@ -241,7 +243,7 @@ export const ParameterScreen = ({ route }) => {
     });
     realm.write(() => {
       realm.create('WaterParameter', {
-        id: nextId2,
+        id: uuid.v4(),
         parameterName: 'nitrite',
         value: value2,
         date: date,
@@ -250,7 +252,7 @@ export const ParameterScreen = ({ route }) => {
     });
     realm.write(() => {
       realm.create('WaterParameter', {
-        id: nextId3,
+        id: uuid.v4(),
         parameterName: 'ammonia',
         value: value3,
         date: date,
@@ -259,7 +261,7 @@ export const ParameterScreen = ({ route }) => {
     });
     realm.write(() => {
       realm.create('WaterParameter', {
-        id: nextId4,
+        id: uuid.v4(),
         parameterName: 'ph',
         value: value4,
         date: date,
@@ -281,11 +283,17 @@ export const ParameterScreen = ({ route }) => {
   useEffect(() => {
     
     //fetch and set params from realm
+
+    
     clearRealm()
     for (let i=0; i<30; i++) {
       addParam()
     }
+    
 
+    realm.addListener('change', () => {
+      setDbChange(!dbChange);
+    })
     const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
 
     const nitrateArray = fetchParameterData(allParams).nitrateArray
@@ -297,7 +305,7 @@ export const ParameterScreen = ({ route }) => {
     setAmmonia(ammoniaArray)
     setNitrites(nitriteArray)
     setPh(phArray)
-  }, []);
+  }, [dbChange]);
 
   const finalNitrate = setupData(nitrates, nitrites, ammonia, ph).finalData1
   const finalNitrite = setupData(nitrates, nitrites, ammonia, ph).finalData2
@@ -324,74 +332,32 @@ export const ParameterScreen = ({ route }) => {
 
   handleParamEntry = (nitrate, nitrite, ammonia, ph) => {
     
-    let date = new Date()
+    let date = new Date();
+    console.log('Current Date: ' + date);
 
+    const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
+    const sortedParameterObjects = allParams.sorted('date', true);
+    const lastParam = sortedParameterObjects.length > 0 ? sortedParameterObjects[0] : null;
+    const nextIdBase = lastParam ? lastParam.id : 0;
 
-    if (nitrate !== '') {
-      const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
-      const sortedParameterObjects = allParams.sorted('id', true);
-      const lastParam = sortedParameterObjects.length > 0 ? sortedParameterObjects[0] : null;
-      const nextId = lastParam ? lastParam.id + 1 : 1;
-
+    const addParameter = (parameterName, value) => {
+      const nextId = nextIdBase + 1;
       realm.write(() => {
         realm.create('WaterParameter', {
           id: nextId,
-          parameterName: 'nitrate',
-          value: parseFloat(nitrate),
+          parameterName: parameterName,
+          value: parseFloat(value),
           date: date,
           tankId: tankId,
         });
       });
-    }
-    if (nitrite !== '') {
-      const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
-      const sortedParameterObjects = allParams.sorted('id', true);
-      const lastParam = sortedParameterObjects.length > 0 ? sortedParameterObjects[0] : null;
-      const nextId = lastParam ? lastParam.id + 1 : 1;
+      console.log(`${parameterName}: ${value} added at date: ${date}`);
+    };
 
-      realm.write(() => {
-        realm.create('WaterParameter', {
-          id: nextId,
-          parameterName: 'nitrite',
-          value: parseFloat(nitrite),
-          date: date,
-          tankId: tankId,
-        });
-      });
-    }
-    if (ammonia !== '') {
-      const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
-      const sortedParameterObjects = allParams.sorted('id', true);
-      const lastParam = sortedParameterObjects.length > 0 ? sortedParameterObjects[0] : null;
-      const nextId = lastParam ? lastParam.id + 1 : 1;
-
-      realm.write(() => {
-        realm.create('WaterParameter', {
-          id: nextId,
-          parameterName: 'ammonia',
-          value: parseFloat(ammonia),
-          date: date,
-          tankId: tankId,
-        });
-      });
-    }
-    if (ph !== '') {
-      const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
-      const sortedParameterObjects = allParams.sorted('id', true);
-      const lastParam = sortedParameterObjects.length > 0 ? sortedParameterObjects[0] : null;
-      const nextId = lastParam ? lastParam.id + 1 : 1;
-
-      realm.write(() => {
-        realm.create('WaterParameter', {
-          id: nextId,
-          parameterName: 'ph',
-          value: parseFloat(ph),
-          date: date,
-          tankId: tankId,
-        });
-      });
-    }
-
+    if (nitrate !== '') addParameter('nitrate', nitrate);
+    if (nitrite !== '') addParameter('nitrite', nitrite);
+    if (ammonia !== '') addParameter('ammonia', ammonia);
+    if (ph !== '') addParameter('ph', ph);
   }
 
   return (
