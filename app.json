@@ -4,7 +4,7 @@
     "slug": "testApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/Icon/ic_launcher.png",
     "userInterfaceStyle": "dark",
     "splash": {
       "image": "./assets/splash.png",
@@ -18,7 +18,11 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.shup.aquaFlora"
+      "package": "com.shup.aquaFlora",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/Icon/ic-launcher_adaptive-fore.png",
+        "backgroundImage": "./assets/Icon/ic-launcher_adaptive-back.png"
+      }
     },
     "web": {
       "favicon": "./assets/icon.png"
