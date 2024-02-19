@@ -20,8 +20,8 @@
     "android": {
       "package": "com.shup.aquaFlora",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/Icon/ic-launcher_adaptive-fore.png",
-        "backgroundImage": "./assets/Icon/ic-launcher_adaptive-back.png"
+        "foregroundImage": "assets/Icon/ic_launcher_adaptive_fore.png",
+        "backgroundImage": "assets/Icon/ic-launcher_adaptive-back.png"
       }
     },
     "web": {

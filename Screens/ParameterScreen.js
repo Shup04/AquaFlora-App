@@ -5,6 +5,7 @@ import { Colors } from '../Colors';
 import { LineChart } from 'react-native-gifted-charts';
 import realm from '../database/Realm';
 import uuid from 'react-native-uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 export const ParameterScreen = ({ route }) => {
 
@@ -216,16 +217,8 @@ export const ParameterScreen = ({ route }) => {
   }
 
   function addParam(){
-    const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
-    const sortedParameterObjects = allParams.sorted('id', true);
-    const lastParam = sortedParameterObjects.length > 0 ? sortedParameterObjects[0] : null;
-    const nextId1 = lastParam ? lastParam.id + 1 : 1;
-    const nextId2 = lastParam ? lastParam.id + 2 : 2;
-    const nextId3 = lastParam ? lastParam.id + 3 : 3;
-    const nextId4 = lastParam ? lastParam.id + 4 : 4;
-
-    let date = new Date('2023-12-26')
-    date.setDate(date.getDate() + Math.random() * 100)
+    let date = new Date()
+    date.setDate(date.getDate())
 
     let value1 = Math.floor(Math.random() * 25 + 50)
     let value2 = Math.floor(Math.random() * 20 + 30)
@@ -295,12 +288,13 @@ export const ParameterScreen = ({ route }) => {
       setDbChange(!dbChange);
     })
     const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
+    //console.log(allParams);
 
     const nitrateArray = fetchParameterData(allParams).nitrateArray
     const ammoniaArray = fetchParameterData(allParams).ammoniaArray
     const nitriteArray = fetchParameterData(allParams).nitriteArray
     const phArray = fetchParameterData(allParams).phArray
-
+    
     setNitrates(nitrateArray)
     setAmmonia(ammoniaArray)
     setNitrites(nitriteArray)
@@ -311,7 +305,7 @@ export const ParameterScreen = ({ route }) => {
   const finalNitrite = setupData(nitrates, nitrites, ammonia, ph).finalData2
   const finalAmmonia = setupData(nitrates, nitrites, ammonia, ph).finalData3
   const finalPh = setupData(nitrates, nitrites, ammonia, ph).finalData4
-
+  
   const LegendItem = ({ color, text }) => (
     <View style={styles.legendItem}>
       <View style={[styles.legendMarker, { backgroundColor: color }]} />
@@ -334,23 +328,26 @@ export const ParameterScreen = ({ route }) => {
     
     let date = new Date();
     console.log('Current Date: ' + date);
+    date.setDate(date.getDate()+60);
 
-    const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
-    const sortedParameterObjects = allParams.sorted('date', true);
-    const lastParam = sortedParameterObjects.length > 0 ? sortedParameterObjects[0] : null;
-    const nextIdBase = lastParam ? lastParam.id : 0;
+    //const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
+    //const sortedParameterObjects = allParams.sorted('date', true);
+    //const lastParam = sortedParameterObjects.length > 0 ? sortedParameterObjects[0] : null;
+    //const nextIdBase = lastParam ? lastParam.id : 0;
 
     const addParameter = (parameterName, value) => {
-      const nextId = nextIdBase + 1;
+      //const nextId = nextIdBase + 1;
+      //addParam();
       realm.write(() => {
         realm.create('WaterParameter', {
-          id: nextId,
+          id: uuid.v4(),
           parameterName: parameterName,
-          value: parseFloat(value),
+          value: parseInt(value),
           date: date,
           tankId: tankId,
         });
       });
+
       console.log(`${parameterName}: ${value} added at date: ${date}`);
     };
 

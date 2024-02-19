@@ -35,7 +35,7 @@ export const WaterParameterSchema = {
   properties: {
     id: 'string',
     parameterName: 'string',
-    value: 'float',
+    value: 'int',
     date: 'date',
     tankId: 'int',
   },
