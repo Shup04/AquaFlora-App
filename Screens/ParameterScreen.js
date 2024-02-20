@@ -6,8 +6,9 @@ import { LineChart } from 'react-native-gifted-charts';
 import realm from '../database/Realm';
 import uuid from 'react-native-uuid';
 import { v4 as uuidv4 } from 'uuid';
+import { BackButton } from '../Components/BackButton';
 
-export const ParameterScreen = ({ route }) => {
+export const ParameterScreen = ({ navigation, route }) => {
 
   const { tankId } = route.params;
 
@@ -306,7 +307,6 @@ export const ParameterScreen = ({ route }) => {
   }, [dbChange]);
 
   const finalNitrate = setupData(nitrates, nitrites, ammonia, ph).finalData1
-  console.log(finalNitrate);
   const finalNitrite = setupData(nitrates, nitrites, ammonia, ph).finalData2
   const finalAmmonia = setupData(nitrates, nitrites, ammonia, ph).finalData3
   const finalPh = setupData(nitrates, nitrites, ammonia, ph).finalData4
@@ -330,17 +330,11 @@ export const ParameterScreen = ({ route }) => {
   }
 
   handleParamEntry = (nitrate, nitrite, ammonia, ph) => {
-    console.log(nitrate, nitrite, ammonia, ph)
-    //let date = new Date();
-    //console.log('Current Date: ' + date);
-    
-
     let now = new Date();
     let date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
     date.setDate(date.getDate() + 3);
 
     const addParameter = (parameterName, value) => {
-
       realm.write(() => {
         realm.create('WaterParameter', {
           id: uuid.v4(),
@@ -350,8 +344,7 @@ export const ParameterScreen = ({ route }) => {
           tankId: tankId,
         });
       });
-
-      console.log(`${parameterName}: ${value} added at date: ${date}`);
+      //console.log(`${parameterName}: ${value} added at date: ${date}`);
     };
 
     if (nitrate !== '') addParameter('nitrate', nitrate);
@@ -361,7 +354,12 @@ export const ParameterScreen = ({ route }) => {
   }
 
   return (
-    <View style={styles.body}>
+    <KeyboardAvoidingView 
+      style={styles.body}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      //keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0} // Adjust if necessary
+    >
+      <BackButton navigation={navigation}/>
       <View style={styles.container}>
         <LineChart
           areaChart
@@ -465,6 +463,7 @@ export const ParameterScreen = ({ route }) => {
           visible={modalVisible}
           onRequestClose={handleCloseModal}
         >
+          <KeyboardAvoidingView style={modalStyles.KeyboardAvoidingView}>
           <BlurView style={modalStyles.centeredView} tint={'dark'}>
             <View style={modalStyles.modalView}>
               <Text style={modalStyles.modalTitle}>Add Params:</Text>
@@ -495,7 +494,7 @@ export const ParameterScreen = ({ route }) => {
               <Text style={modalStyles.modalText}>Ph</Text>
               <TextInput
                 style={modalStyles.textInput}
-                keyboardType='numeric'
+                //keyboardType='numeric'
                 placeholder='Enter Ph'
                 placeholderTextColor={Colors.textMarine}
                 onChangeText={setTempPh}
@@ -505,10 +504,11 @@ export const ParameterScreen = ({ route }) => {
               </TouchableOpacity>
             </View>
           </BlurView>
+          </KeyboardAvoidingView>
         </Modal>
 
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -527,6 +527,7 @@ const styles = StyleSheet.create({
       marginTop: 50,
       justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: Colors.backgroundDark
     },
     title: {
       fontSize: 30,
@@ -581,7 +582,7 @@ const modalStyles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   modalView: {
-    height: '55%',
+    height: '1000',
     width: '80%',
     margin: 20,
     backgroundColor: Colors.height3,
@@ -597,6 +598,10 @@ const modalStyles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5
+  },
+  KeyboardAvoidingView: {
+    width: '100%',
+    height: '100%',
   },
   modalTitle: {
     fontSize: 24,
