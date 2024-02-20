@@ -217,8 +217,12 @@ export const ParameterScreen = ({ route }) => {
   }
 
   function addParam(){
-    let date = new Date()
-    date.setDate(date.getDate())
+    
+    //Set date accounting for timezone
+    let now = new Date();
+    let date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+
+    date.setDate(date.getDate() + Math.random() * 100);
 
     let value1 = Math.floor(Math.random() * 25 + 50)
     let value2 = Math.floor(Math.random() * 20 + 30)
@@ -278,16 +282,16 @@ export const ParameterScreen = ({ route }) => {
     //fetch and set params from realm
 
     
-    clearRealm()
+    //clearRealm()
     for (let i=0; i<30; i++) {
-      addParam()
+      //addParam()
     }
     
 
     realm.addListener('change', () => {
       setDbChange(!dbChange);
     })
-    const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
+    const allParams = realm.objects('WaterParameter');
     //console.log(allParams);
 
     const nitrateArray = fetchParameterData(allParams).nitrateArray
@@ -302,6 +306,7 @@ export const ParameterScreen = ({ route }) => {
   }, [dbChange]);
 
   const finalNitrate = setupData(nitrates, nitrites, ammonia, ph).finalData1
+  console.log(finalNitrate);
   const finalNitrite = setupData(nitrates, nitrites, ammonia, ph).finalData2
   const finalAmmonia = setupData(nitrates, nitrites, ammonia, ph).finalData3
   const finalPh = setupData(nitrates, nitrites, ammonia, ph).finalData4
@@ -325,19 +330,17 @@ export const ParameterScreen = ({ route }) => {
   }
 
   handleParamEntry = (nitrate, nitrite, ammonia, ph) => {
+    console.log(nitrate, nitrite, ammonia, ph)
+    //let date = new Date();
+    //console.log('Current Date: ' + date);
     
-    let date = new Date();
-    console.log('Current Date: ' + date);
-    date.setDate(date.getDate()+60);
 
-    //const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
-    //const sortedParameterObjects = allParams.sorted('date', true);
-    //const lastParam = sortedParameterObjects.length > 0 ? sortedParameterObjects[0] : null;
-    //const nextIdBase = lastParam ? lastParam.id : 0;
+    let now = new Date();
+    let date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+    date.setDate(date.getDate() + 3);
 
     const addParameter = (parameterName, value) => {
-      //const nextId = nextIdBase + 1;
-      //addParam();
+
       realm.write(() => {
         realm.create('WaterParameter', {
           id: uuid.v4(),
