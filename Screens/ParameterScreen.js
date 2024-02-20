@@ -280,21 +280,16 @@ export const ParameterScreen = ({ navigation, route }) => {
     }
   };
   useEffect(() => {
-    
     //fetch and set params from realm
-
-    
     //clearRealm()
     for (let i=0; i<30; i++) {
       //addParam()
     }
     
-
     realm.addListener('change', () => {
       setDbChange(!dbChange);
     })
-    const allParams = realm.objects('WaterParameter');
-    //console.log(allParams);
+    const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
 
     const nitrateArray = fetchParameterData(allParams).nitrateArray
     const ammoniaArray = fetchParameterData(allParams).ammoniaArray
@@ -330,12 +325,12 @@ export const ParameterScreen = ({ navigation, route }) => {
     setModalVisible(false);
   }
 
-  handleParamEntry = (nitrate, nitrite, ammonia, ph) => {
+  handleParamEntry = (nitrate, nitrite, ammonia, ph, tankId) => {
     let now = new Date();
     let date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-    date.setDate(date.getDate() + 3);
+    date.setDate(date.getDate() + 6);
 
-    const addParameter = (parameterName, value) => {
+    const addParameter = (parameterName, value, tankId) => {
       realm.write(() => {
         realm.create('WaterParameter', {
           id: uuid.v4(),
@@ -348,10 +343,10 @@ export const ParameterScreen = ({ navigation, route }) => {
       //console.log(`${parameterName}: ${value} added at date: ${date}`);
     };
 
-    if (nitrate !== '') addParameter('nitrate', nitrate);
-    if (nitrite !== '') addParameter('nitrite', nitrite);
-    if (ammonia !== '') addParameter('ammonia', ammonia);
-    if (ph !== '') addParameter('ph', ph);
+    if (nitrate !== '') addParameter('nitrate', nitrate, tankId);
+    if (nitrite !== '') addParameter('nitrite', nitrite, tankId);
+    if (ammonia !== '') addParameter('ammonia', ammonia, tankId);
+    if (ph !== '') addParameter('ph', ph, tankId);
   }
 
   return (
@@ -451,7 +446,6 @@ export const ParameterScreen = ({ navigation, route }) => {
             {parameters.map((param, index) => (
               <LegendItem key={index} color={param.color} text={param.text} />
             ))}
-            
           </View>
 
           <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.plusButton}>
@@ -500,7 +494,7 @@ export const ParameterScreen = ({ navigation, route }) => {
                 placeholderTextColor={Colors.textMarine}
                 onChangeText={setTempPh}
               />
-              <TouchableOpacity onPress={() => handleParamEntry(tempNitrate, tempNitrite, tempAmmonia, tempPh)} style={modalStyles.button}>
+              <TouchableOpacity onPress={() => handleParamEntry(tempNitrate, tempNitrite, tempAmmonia, tempPh, tankId)} style={modalStyles.button}>
                 <Text style={modalStyles.modalText}>Add Entry</Text>
               </TouchableOpacity>
             </View>
