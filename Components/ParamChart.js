@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { Colors } from '../Colors';
 import { LineChart } from 'react-native-gifted-charts';
@@ -94,6 +94,12 @@ export const ParamChart = ({ navigation, tankId }) => {
     { value:20, data: '9 Oct 2023'}, 
     { value:20, data: '10 OC 2023'}
   ]
+
+  useEffect(() => {
+
+    const allParams = realm.objects('WaterParameter');
+
+  }, []);
 
   return (
     <View style={styles2.Container}>
