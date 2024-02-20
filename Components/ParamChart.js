@@ -64,7 +64,7 @@ export const ParamChart = ({ navigation, tankId }) => {
           endFillColor3={parameters[2].color}
           endFillColor4={parameters[3].color}
 
-          height={85}
+          height={100}
           width={chartWidth}
           spacing={15}
           endSpacing={0}
