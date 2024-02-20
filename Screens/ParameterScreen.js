@@ -7,6 +7,7 @@ import realm from '../database/Realm';
 import uuid from 'react-native-uuid';
 import { v4 as uuidv4 } from 'uuid';
 import { BackButton } from '../Components/BackButton';
+import { setupData } from '../functions/ParamSetup';
 
 export const ParameterScreen = ({ navigation, route }) => {
 
@@ -365,8 +366,8 @@ export const ParameterScreen = ({ navigation, route }) => {
           areaChart
           isAnimated
           data={finalNitrate}
-          data2={finalNitrite}
-          data3={finalAmmonia}
+          data2={finalAmmonia}
+          data3={finalNitrite}
           data4={finalPh}
           
           color1={parameters[0].color}

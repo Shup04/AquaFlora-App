@@ -1,4 +1,4 @@
-import exp from "constants"
+
 
 export const fetchParameterData = (allParams) => {
     const nitrateArray = []

@@ -1,14 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { Colors } from '../Colors';
 import { LineChart } from 'react-native-gifted-charts';
 import { Dimensions } from 'react-native';
 import { styles } from 'react-native-gifted-charts/src/LineChart/styles';
+import realm from '../database/Realm';
+import { WaterParameterSchema } from '../database/schemas';
+import { setupData } from '../functions/ParamSetup';
 
 export const ParamChart = ({ navigation, tankId }) => {
 
   const screenWidth = Dimensions.get('window').width;
   const chartWidth = screenWidth * 0.69;
+
+  const [Nitrate, setNitrate] = useState([]);
+  const [Ammonia, setAmmonia] = useState([]);
+  const [Nitrite, setNitrite] = useState([]);
+  const [Ph, setPh] = useState([]);
 
   const lineData2 = [ 
     { value:30, data: '1 Sept 2023', label: 'Sept', labelTextStyle: {color: 'white', width: 50}}, 
@@ -95,9 +103,25 @@ export const ParamChart = ({ navigation, tankId }) => {
     { value:20, data: '10 OC 2023'}
   ]
 
+  const parameters = [
+    { color: '#ff8d4f', text: 'Nitrate' },
+    { color: '#47fcd8', text: 'Nitrite' },
+    { color: '#f9ff59', text: 'Ammonia' },
+    { color: '#b04fff', text: 'Ph' },
+  ];
+
   useEffect(() => {
 
     const allParams = realm.objects('WaterParameter');
+    const data1 = setupData(allParams).finalData1;
+    const data2 = setupData(allParams).finalData2;
+    const data3 = setupData(allParams).finalData3;
+    const data4 = setupData(allParams).finalData4;
+
+    setNitrate(data1);
+    setAmmonia(data2);
+    setNitrite(data3);
+    setPh(data4);
 
   }, []);
 
@@ -107,29 +131,40 @@ export const ParamChart = ({ navigation, tankId }) => {
       <LineChart
           areaChart
           isAnimated
-          data={data}
-          data2={lineData2}
+          data={Nitrate}
+          data2={Ammonia}
+          data3={Nitrite}
+          data4={Ph}
+
+          color1={parameters[0].color}
+          color2={parameters[1].color}
+          color3={parameters[2].color}
+          color4={parameters[3].color}
+          startFillColor1={parameters[0].color}
+          startFillColor2={parameters[1].color}
+          startFillColor3={parameters[2].color}
+          startFillColor4={parameters[3].color}
+          endFillColor1={parameters[0].color}
+          endFillColor2={parameters[1].color}
+          endFillColor3={parameters[2].color}
+          endFillColor4={parameters[3].color}
+
           height={85}
           width={chartWidth}
-          spacing={chartWidth/data.length}
+          spacing={15}
           endSpacing={0}
           initialSpacing={0}
-          color1="lightblue"
-          color2="teal"
           hideDataPoints
-          startFillColor1="lightblue"
-          startFillColor2="teal"
-          endFillColor1="lightblue"
-          endFillColor2="teal"
-          startOpacity={0.5}
-          endOpacity={0.1}
+
+          startOpacity={0.1}
+          endOpacity={0}
           xAxisColor={Colors.textMarine}
           yAxisColor={Colors.textMarine}
           yAxisTextStyle={{color: 'white'}}
           rulesType='solid'
           rulesColor={"#EEEEEE55"}
           verticalLinesColor={"#EEEEEE33"}
-          maxValue={60}
+          maxValue={100}
           noOfSections={2}
         />
         <TouchableOpacity onPress={() => navigation.navigate('Parameters', {tankId})} style={styles2.box}>
