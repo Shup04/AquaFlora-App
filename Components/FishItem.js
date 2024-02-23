@@ -24,8 +24,8 @@ export const FishComponent = ({ item }) => {
             source={{uri:imageUri}}
             />
             <View style={styles.textContainer}>
-            <Text numberOfLines={1} style={styles.buttonTitle}>{item.name}</Text>
-            <Text style={styles.buttonSubtitle}>{item.scientificName}</Text>
+            <Text style={styles.buttonTitle}>{item.name}</Text>
+            <Text style={styles.buttonSubtitle}>{item.scientific_name}</Text>
             </View>
         </TouchableOpacity>
         </View>
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   button: {
-    height: 100,
+    height: 120,
     width: '100%',
     backgroundColor: Colors.height2,
     flexDirection: 'row',
@@ -100,14 +100,14 @@ const styles = StyleSheet.create({
   buttonTitle: {
     color: Colors.textMarine,
     fontWeight: 'bold',
-    fontSize: 8,
-    maxWidth: '100%',
+    fontSize: 18,
+    //maxWidth: '100%',
     //backgroundColor: 'red',
   },
   buttonSubtitle: {
     color: Colors.textMarine,
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 12,
   },
   plusButtonText: {
     color: Colors.textMarine,
