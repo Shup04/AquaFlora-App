@@ -4,12 +4,20 @@ import { FishComponent } from '../Components/FishItem';
 import data from '../Data/fish_data.json';
 
 export const FishContent = ({ navigation }) => {
-  //const [data, setData] = useState([]);
+
+
+  const sortedData = data.sort((a, b) => {
+    // Items with images should come first
+    if (a.image && b.image) return 0; // Both have images, keep original order
+    if (a.image) return -1; // Only 'a' has an image, it comes first
+    return 1; // Only 'b' has an image or neither have, 'b' comes first or equal
+  });
+  
 
   return (
     <View style={styles.Container}>
       <FlatList
-        data={data}
+        data={sortedData}
         keyExtractor={(item, index) => index.toString()} // Assuming 'id' is the unique identifier in your Tank schema
         renderItem={({ item }) => (
           <View>

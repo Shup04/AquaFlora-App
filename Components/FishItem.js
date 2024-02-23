@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   buttonTitle: {
     color: Colors.textMarine,
     fontWeight: 'bold',
-    fontSize: 24,
+    fontSize: 8,
     maxWidth: '100%',
     //backgroundColor: 'red',
   },
