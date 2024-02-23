@@ -14,7 +14,7 @@ export const FishContent = ({ navigation }) => {
         renderItem={({ item }) => (
           <View>
             <FishComponent
-            
+              item = {item}
             />
           </View>
         )}
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '90%',
+    width: '100%',
     height: '100%',
     //backgroundColor: 'white',
   },

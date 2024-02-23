@@ -2,27 +2,34 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { Colors } from '../Colors';
 
+//For the case where the fish item doesnt have an image 
+const DEFAULT_IMAGE_URI = 'https://engineering.fb.com/wp-content/uploads/2016/04/yearinreview.jpg';
 
-export const FishComponent = ({ item, title, subtitle, URI, navigation }) => {
+export const FishComponent = ({ item }) => {
+    const imageUri = item.image ? item.image : DEFAULT_IMAGE_URI;
 
-  const handlePress = (tankId) => {
+    const handlePress = (tankId) => {
     navigation.navigate('Tank', { tankId })
-  };
+    };
+  
 
-  return (
-    <View style={styles.buttonContainer}>
-      <TouchableOpacity 
-        style={styles.button}
-        onPress={() => handlePress(item.id)}
-      >
-
-        <View style={styles.textContainer}>
-          <Text numberOfLines={1} style={styles.buttonTitle}>{title}</Text>
-          <Text style={styles.buttonSubtitle}>{subtitle}</Text>
+    return (
+        <View style={styles.buttonContainer}>
+        <TouchableOpacity 
+            style={styles.button}
+            onPress={() => handlePress(item.id)}
+        >
+            <Image
+            style={styles.image}
+            source={{uri:imageUri}}
+            />
+            <View style={styles.textContainer}>
+            <Text numberOfLines={1} style={styles.buttonTitle}>{item.name}</Text>
+            <Text style={styles.buttonSubtitle}>{item.scientificName}</Text>
+            </View>
+        </TouchableOpacity>
         </View>
-      </TouchableOpacity>
-    </View>
-  );
+    );
 };
 
 export const PlusComponent = ({ navigation, destination }) => {
