@@ -162,7 +162,7 @@ const HomeScreen = ({navigation}) => {
       case 'Dashboard':
         return <RemindersContent />;
       case 'Fish':
-        return <FishContent />;
+        return <FishContent navigation={navigation} />;
       case 'Tanks':        
         return <TanksContent navigation={navigation} item={item}  />;
       case 'Plants':
@@ -372,6 +372,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     display: 'flex',
+    position: 'absolute',
+    bottom: 0,
     flexDirection: 'row',
     padding: 10,
     width: '100%',
