@@ -23,6 +23,7 @@ export const FishContent = ({ navigation }) => {
           <View>
             <FishComponent
               item = {item}
+              navigation = {navigation}
             />
           </View>
         )}
