@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Image, Modal } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Image, Modal, ScrollView } from 'react-native';
 import { Colors } from '../Colors';
 import { BlurView } from 'expo-blur';
 
@@ -43,12 +43,17 @@ export const FishComponent = ({ item, navigation }) => {
           <View style={modalStyles.KeyboardAvoidingView}>
           <BlurView style={modalStyles.centeredView} tint={'dark'}>
             <View style={modalStyles.modalView}>
-              <Image
-              style={modalStyles.image}
-              source={{uri:imageUri}}
-              />
-              <Text style={modalStyles.modalTitle}>{item.name}</Text>
-              <Text style={modalStyles.modalText}>{item.scientific_name}</Text>
+              <View style={{ borderRadius: 8, overflow: 'hidden' }}>
+                <ScrollView>
+                  <Image
+                  style={modalStyles.image}
+                  source={{uri:imageUri}}
+                  />
+                  <Text style={modalStyles.modalTitle}>{item.name}</Text>
+                  <Text style={modalStyles.modalSubtitle}>{item.scientific_name}</Text>
+                  <Text style={modalStyles.modalText}>{item.description}</Text>
+                </ScrollView>
+              </View>
             </View>
           </BlurView>
           </View>
@@ -151,6 +156,7 @@ const modalStyles = StyleSheet.create({
   modalView: {
     height: '75%',
     width: '90%',
+    overflow: 'hidden',
     margin: 20,
     backgroundColor: Colors.height3,
     //backgroundColor: '#FFFFFF',
@@ -175,8 +181,15 @@ const modalStyles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: Colors.textMarine,
-    marginBottom: 15,
+    marginBottom: 0,
     //textAlign: "center",
+  },
+  modalSubtitle: {
+    fontSize: 16,
+    marginBottom: 5,
+    fontWeight: 'bold',
+    //textAlign: "center",
+    color: Colors.textMarine,
   },
   modalText: {
     fontSize: 16,
