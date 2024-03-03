@@ -13,7 +13,6 @@ export const FishContent = ({ navigation }) => {
     return 1; // Only 'b' has an image or neither have, 'b' comes first or equal
   });
   
-
   return (
     <View style={styles.Container}>
       <FlatList

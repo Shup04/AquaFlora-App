@@ -62,24 +62,6 @@ export const FishComponent = ({ item, navigation }) => {
     );
 };
 
-export const PlusComponent = ({ navigation, destination }) => {
-
-  const handlePress = () => {
-    navigation.navigate(destination)
-  };
-
-  return (
-  <View style={styles.plusButtonContainer}>
-    <TouchableOpacity 
-      style={styles.plusButton}
-      onPress={handlePress}
-    >
-      <Text style={styles.plusButtonText}>Create New Tank</Text>
-    </TouchableOpacity>
-  </View>
-  );
-};
-
 const styles = StyleSheet.create({
   buttonContainer: {
     width: '100%',
@@ -154,8 +136,8 @@ const modalStyles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   modalView: {
-    height: '75%',
-    width: '90%',
+    height: '85%',
+    width: '95%',
     overflow: 'hidden',
     margin: 20,
     backgroundColor: Colors.height3,
@@ -180,20 +162,19 @@ const modalStyles = StyleSheet.create({
   modalTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: Colors.textMarine,
-    marginBottom: 0,
-    //textAlign: "center",
+    color: Colors.textWhite,
+    marginTop: 12 ,
   },
   modalSubtitle: {
     fontSize: 16,
-    marginBottom: 5,
+    marginBottom: 12,
     fontWeight: 'bold',
-    //textAlign: "center",
-    color: Colors.textMarine,
+    fontStyle: 'italic',
+    color: Colors.textWhite,
   },
   modalText: {
     fontSize: 16,
-    marginBottom: 5,
+    //marginBottom: 5,
     //textAlign: "center",
     color: Colors.textMarine,
   },
@@ -239,7 +220,6 @@ const modalStyles = StyleSheet.create({
   image: {
     width: '100%',
     height: 200,
-    borderRadius: 8,
-
+    borderRadius: 20,
   }
 });
