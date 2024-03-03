@@ -6,6 +6,7 @@ import { ParamChart } from '../Components/ParamChart';
 import { Dimensions } from 'react-native';
 import { PlusComponent } from '../Components/ItemComponent';
 import { RemindersContent } from '../RemindersContent';
+import { PersonalFishContent } from '../Homepage Content/FishContent';
 
 import realm from '../database/Realm';
 import { TankSchema } from '../database/schemas';
@@ -64,6 +65,9 @@ export const TankScreen = ({ navigation,  route }) => {
 
         <Text style={styles.title}>Reminders: </Text>
         <RemindersContent navigation={navigation} tankId={tankId}></RemindersContent>
+
+        <Text style={styles.title}>Fish: </Text>
+        <PersonalFishContent navigation={navigation} tankId={tankId}></PersonalFishContent>
 
         
       </ScrollView>

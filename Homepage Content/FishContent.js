@@ -1,7 +1,8 @@
 import  React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { FishComponent } from '../Components/FishItem';
 import data from '../Data/fish_data.json';
+import { Colors } from '../Colors';
 
 export const FishContent = ({ navigation }) => {
 
@@ -33,6 +34,49 @@ export const FishContent = ({ navigation }) => {
   );
 };
 
+export const PersonalFishContent = ({ navigation }) => {
+
+
+  
+  return (
+    <View style={styles.Container}>
+      <PlusComponent navigation={navigation} destination={"ReminderCreate"} tankId={0}></PlusComponent>
+      <FlatList
+        data={0}
+        keyExtractor={(item, index) => index.toString()} // Assuming 'id' is the unique identifier in your Tank schema
+        renderItem={({ item }) => (
+          <View>
+            <FishComponent
+              item = {item}
+              navigation = {navigation}
+            />
+          </View>
+        )}
+        numColumns={1}
+        contentContainerStyle={styles.listContainer} // Adjust styles as needed
+      />
+    </View>
+  );
+}
+
+export const PlusComponent = ({ navigation, destination, tankId }) => {
+
+  const handlePress = (tankId) => {
+    navigation.navigate(destination, {tankId: tankId});
+  }; 
+
+  return (
+  <View style={styles.plusButtonContainer}>
+    <TouchableOpacity 
+      style={styles.plusButton}
+      onPress={() => handlePress(tankId)}
+    >
+      <Text style={styles.plusButtonText}>Add New Fish</Text>
+    </TouchableOpacity>
+  </View>
+  );
+};
+
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
@@ -47,4 +91,25 @@ const styles = StyleSheet.create({
     width: '100%',
     minWidth: '100%',
   },
+  plusButtonContainer: {
+    width: '100%',
+    height: 75,
+    alignItems: 'center',
+    padding: 10,
+  },
+  plusButton: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: Colors.height2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+    shadowColor: '#000000',
+    elevation: 3,
+  },
+  plusButtonText: {
+    color: Colors.textMarine,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },  
 });
