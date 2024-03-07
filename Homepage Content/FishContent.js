@@ -1,24 +1,44 @@
 import  React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Modal, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Modal, ScrollView, Image, TextInput } from 'react-native';
 import { FishComponent } from '../Components/FishItem';
 import data from '../Data/fish_data.json';
 import { Colors } from '../Colors';
 import { BlurView } from 'expo-blur';
 
 export const FishContent = ({ navigation }) => {
+  const [searchQuery, setSearchQuery] = useState('');
+  
+  //Moves fish without image to bottom
+  //Also filters by search query
+  const getFilteredAndSortedData = () => {
+    return data.filter(item => 
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) // filter by search query
+    ).sort((a, b) => {
+      // sort logic (keeping your original sorting logic)
+      if (a.image && b.image) return 0;
+      if (a.image) return -1;
+      return 1;
+    });
+  };
+
+  const [displayData, setDisplayData] = useState(getFilteredAndSortedData());
 
 
-  const sortedData = data.sort((a, b) => {
-    // Items with images should come first
-    if (a.image && b.image) return 0; // Both have images, keep original order
-    if (a.image) return -1; // Only 'a' has an image, it comes first
-    return 1; // Only 'b' has an image or neither have, 'b' comes first or equal
-  });
+  // Update displayData whenever the searchQuery changes
+  useEffect(() => {
+    setDisplayData(getFilteredAndSortedData());
+  }, [searchQuery]);
   
   return (
     <View style={styles.Container}>
+      <TextInput
+        style={styles.searchBar}
+        placeholder="Search..."
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+      />
       <FlatList
-        data={sortedData}
+        data={displayData}
         keyExtractor={(item, index) => index.toString()} // Assuming 'id' is the unique identifier in your Tank schema
         renderItem={({ item }) => (
           <View>
@@ -141,6 +161,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },  
+  searchBar: {
+    height: 40,
+    width: '90%',
+    margin: 10,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 5,
+    borderColor: 'gray',
+  },
 });
 
 const modalStyles = StyleSheet.create({
