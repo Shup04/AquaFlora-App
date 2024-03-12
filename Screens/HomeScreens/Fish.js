@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 export const FishScreen = ({ navigation }) => {
   return (
     <View>
-      <Text>Coming Soon</Text>
+      <Text> Fish Coming Soon</Text>
     </View>
   );
 };
