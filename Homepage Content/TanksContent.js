@@ -4,6 +4,8 @@ import { Colors } from '../Colors';
 import { ItemComponent, PlusComponent } from '../Components/ItemComponent';
 import realm from '../database/Realm';
 
+import { ParentStyles } from '../Styles/ParentStyles';
+
 export const TanksContent = ( {navigation } ) => {
   const [data, setData] = React.useState([]);
   //fetch entire tank list from realm
@@ -56,10 +58,10 @@ export const TanksContent = ( {navigation } ) => {
   const keyExtractor = (item) => (item.id ? item.id.toString() : null);
 
   return (
-    <>
-    <View style={{width: '90%'}}>
-      <Text style={styles.header}>My Tanks</Text>
-    </View>
+    <View style={{backgroundColor: 'green'}}>
+      <View style={{width: '90%'}}>
+        <Text style={styles.header}>My Tanks</Text>
+      </View>
 
       <PlusComponent navigation={navigation} destination={'TankCreate'}/>
 
@@ -70,7 +72,7 @@ export const TanksContent = ( {navigation } ) => {
         numColumns={1}
         contentContainerStyle={styles.listContainer} // Adjust styles as needed
       />
-    </>
+    </View>
   );
 };
 
@@ -86,4 +88,9 @@ const styles = StyleSheet.create({
     width: '100%',
     minWidth: '100%',
   },
+  Background: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'green'
+},
 });

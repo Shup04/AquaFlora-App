@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 
 export const DashboardScreen = ({ navigation }) => {
   return (
-    <View>
+    <View style={{backgroundColor: 'green'}}>
       <Text>DashBoard Coming Soon</Text>
     </View>
   );

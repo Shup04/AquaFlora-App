@@ -17,10 +17,18 @@ export const HomeTabs = () => {
         tabBarActiveTintColor: Colors.primary, // Active icon color
         tabBarInactiveTintColor: Colors.secondary, // Inactive icon color
         tabBarStyle: {
-          backgroundColor: Colors.height2, // Tab bar background color
-          borderTopColor: 'transparent', // Hide the top border of the tab bar
-          paddingBottom: 5,
-        },
+            backgroundColor: Colors.height3, // Semi-transparent background
+            position: 'absolute', // Needed to apply custom styles
+            bottom: 5, // Distance from the bottom of the screen
+            left: 5, // Distance from the left edge of the screen
+            right: 5, // Distance from the right edge of the screen
+            elevation: 0, // Remove shadow on Android
+            borderRadius: 8, // Rounded corners
+            height: 60, // Height of the tab bar
+            borderTopWidth: 0, // Remove top border
+            borderColor: "transparent",
+            paddingBottom: 5,
+          },
         tabBarLabelStyle: {
           fontSize: 12, // Adjust the size as needed
           fontWeight: 'bold',
