@@ -58,9 +58,6 @@ export const FishContent = ({ navigation }) => {
 };
 
 export const PersonalFishContent = ({ navigation }) => {
-
-
-  
   return (
     <View style={styles.Container}>
       <PlusComponent navigation={navigation} destination={"ReminderCreate"} tankId={0}></PlusComponent>
