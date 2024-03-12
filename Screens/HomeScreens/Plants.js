@@ -6,7 +6,9 @@ import { ParentStyles } from '../../Styles/ParentStyles';
 export const PlantsScreen = ({ navigation }) => {
   return (
     <View style={ParentStyles.Background}>
-      <Text>Plants Coming Soon</Text>
+      <View style={ParentStyles.Container}>
+        <Text style={ParentStyles.Header}>Plants Coming Soon</Text>
+      </View>
     </View>
   );
 };

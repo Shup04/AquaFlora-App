@@ -6,7 +6,9 @@ import { ParentStyles } from '../../Styles/ParentStyles';
 export const FishScreen = ({ navigation }) => {
   return (
     <View style={ParentStyles.Background}>
-      <Text> Fish Coming Soon</Text>
+      <View style={ParentStyles.Container}>
+        <Text style={ParentStyles.Header}>FishList Coming Soon</Text>
+      </View>
     </View>
   );
 };

@@ -59,22 +59,24 @@ export const TanksScreen = ({ navigation }) => {
   
     return (
       <View style={ParentStyles.Background}>
-      <View style={{width: '90%'}}>
-        <Text style={styles.header}>My Tanks</Text>
-      </View>
-  
-        <PlusComponent navigation={navigation} destination={'TankCreate'}/>
-  
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={keyExtractor} // Assuming 'id' is the unique identifier in your Tank schema
-          numColumns={1}
-          contentContainerStyle={styles.listContainer} // Adjust styles as needed
-        />
+        <View style={ParentStyles.Container}>
+          <View style={{width: '90%'}}>
+            <Text style={styles.header}>My Tanks</Text>
+          </View>
+
+          <PlusComponent navigation={navigation} destination={'TankCreate'}/>
+
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={keyExtractor} // Assuming 'id' is the unique identifier in your Tank schema
+            numColumns={1}
+            contentContainerStyle={styles.listContainer} // Adjust styles as needed
+          />
+        </View>
       </View>
     );
-};
+}; 
 
 const styles = StyleSheet.create({
     header: {
