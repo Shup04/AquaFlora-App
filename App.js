@@ -13,6 +13,11 @@ import { TanksContent } from './Homepage Content/TanksContent';
 import { PlantsContent } from './Homepage Content/PlantsContent';
 import { RemindersContent } from './Homepage Content/RemindersContent';
 
+import { DashboardScreen } from './Screens/HomeScreens/Dashboard';
+import { TanksScreen } from './Screens/HomeScreens/Tanks';
+import { FishScreen } from './Screens/HomeScreens/Fish';
+import { PlantsScreen } from './Screens/HomeScreens/Plants';
+
 import { TankScreen } from './Screens/TankScreen';
 import { TankCreateScreen } from './Screens/TankCreateScreen';
 import { ReminderCreateScreen } from './Screens/ReminderCreateScreen';
@@ -113,47 +118,16 @@ const MyStack = ({ navigation }) => {
           screenOptions={{
             headerShown: false // Set headerShown to false to hide the header
           }}>
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{
-            }}
-          />
-          <Stack.Screen
-            name="H_Dashboard"
-            component={DashboardScreen}
-            options={{
-            }}
-          />
-          <Stack.Screen
-            name="H_Tanks"
-            component={TanksScreen}
-            options={{
-            }}
-          />
-          <Stack.Screen
-            name="H_Fish"
-            component={FishScreen}
-            options={{
-            }}
-          />
-          <Stack.Screen
-            name="H_Plants"
-            component={PlantsScreen}
-            options={{
-            }}
-          />
 
-          <Stack.Screen 
-            name="Tank" 
-            component={TankScreen}
-            options={{
-              headerStyle: {
-                backgroundColor: Colors.primary,
-                headerTintColor: Colors.primary,
-              }
-            }} 
-          />
+          <Stack.Screen name="Home" component={HomeScreen}/>
+
+          {/*Screens for the home page*/}
+          <Stack.Screen name="H_Dashboard" component={DashboardScreen}/>
+          <Stack.Screen name="H_Tanks" component={TanksScreen}/>
+          <Stack.Screen name="H_Fish" component={FishScreen}/>
+          <Stack.Screen name="H_Plants" component={PlantsScreen}/>
+
+          <Stack.Screen name="Tank" component={TankScreen}/>
           <Stack.Screen
             name="Parameters"
             backTo="TankScreen"
