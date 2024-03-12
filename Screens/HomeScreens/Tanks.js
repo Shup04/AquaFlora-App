@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Colors } from 'Colors.js';
+import { View, TouchableOpacity, Text, FlatList, StyleSheet } from 'react-native';
+import {Colors} from '../../Colors';
+import { ItemComponent, PlusComponent } from '../../Components/ItemComponent';
+import realm from '../../database/Realm';
 
 export const TanksScreen = ({ navigation }) => {
     const [data, setData] = React.useState([]);
