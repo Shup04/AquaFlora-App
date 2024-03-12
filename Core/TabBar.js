@@ -8,7 +8,7 @@ import { Colors } from '../Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { FontAwesomeIcon } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
+import { BlurView } from 'expo-blur';
 
 
 const Tab = createBottomTabNavigator();
@@ -16,7 +16,9 @@ const Tab = createBottomTabNavigator();
 export const HomeTabs = () => {
   return (
     <Tab.Navigator 
+    initialRouteName='Tanks'
     screenOptions={({ route }) => ({
+        
         tabBarActiveTintColor: '#888888', // Active icon color
         tabBarInactiveTintColor: '#555555', 
         tabBarStyle: {
@@ -34,13 +36,13 @@ export const HomeTabs = () => {
             let size = focused ? 35 : 30;
       
             if (route.name === 'Dashboard') {
-              iconName = 'home';
+              iconName = focused ? 'home' : 'home-outline';
             } else if (route.name === 'Tanks') {
-              iconName = 'fishbowl';
+              iconName = focused ? 'fishbowl' : 'fishbowl-outline';
             } else if (route.name === 'Fish') {
-              iconName = 'fish';
+              iconName = focused ? 'fish' : 'fish';
             } else if (route.name === 'Plants') {
-              iconName = focused ? 'flower' : 'flower-outline';
+              iconName = focused ? 'chat' : 'chat-outline';
             }
       
             // You can return any component that you like here!

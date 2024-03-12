@@ -122,12 +122,13 @@ const MyStack = ({ navigation }) => {
           {/*<Stack.Screen name="Home" component={HomeScreen}/>*/}
           <Stack.Screen name="Home" component={HomeTabs} />
 
-          {/*Screens for the home page*/}
+          {/*Screens for the home page
           <Stack.Screen name="H_Dashboard" component={DashboardScreen}/>
           <Stack.Screen name="H_Tanks" component={TanksScreen}/>
           <Stack.Screen name="H_Fish" component={FishScreen}/>
           <Stack.Screen name="H_Plants" component={PlantsScreen}/>
-
+          */}
+          
           <Stack.Screen name="Tank" component={TankScreen}/>
           <Stack.Screen
             name="Parameters"
