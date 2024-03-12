@@ -8,4 +8,12 @@ export const ParentStyles = StyleSheet.create({
         height: '100%',
         backgroundColor: Colors.backgroundDark
     },
+    Header: {
+        fontSize: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        color: Colors.textMarine,
+    },
+
   });

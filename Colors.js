@@ -9,8 +9,10 @@ export const Colors = {
     height4: '#383838',
 
     primary: '#bb86fc',
+    primaryPastel: '#dfc4ff',
     primaryVariant: '#3700b3',
     secondary: '#03dac6',
+    secondaryPastel: '#c2f0eb',
     error: '#cf6679',
 
     textWhite: '#edf7f6',

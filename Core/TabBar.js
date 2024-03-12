@@ -17,8 +17,8 @@ export const HomeTabs = () => {
   return (
     <Tab.Navigator 
     screenOptions={({ route }) => ({
-        tabBarActiveTintColor: Colors.primary, // Active icon color
-        tabBarInactiveTintColor: Colors.secondary, // Inactive icon color
+        tabBarActiveTintColor: Colors.primaryPastel, // Active icon color
+        tabBarInactiveTintColor: Colors.secondaryPastel, // Inactive icon color
         tabBarStyle: {
             backgroundColor: Colors.height3, // Semi-transparent background
             position: 'absolute', // Needed to apply custom styles
@@ -57,7 +57,7 @@ export const HomeTabs = () => {
           fontWeight: 'bold',
         },
         tabBarIndicatorStyle: {
-          backgroundColor: Colors.primary, // Color of the indicator (underline)
+          backgroundColor: Colors.primaryPastel, // Color of the indicator (underline)
         },
         headerShown: false, // Optionally hide the header
       })}
