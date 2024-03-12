@@ -35,7 +35,7 @@ import * as Notifications from 'expo-notifications';
 import realm from './database/Realm';
 import { Provider } from 'react-redux';
 import store from './store';
-
+import { HomeTabs } from './Core/TabBar';
 
 //notification handler
 Notifications.setNotificationHandler({
