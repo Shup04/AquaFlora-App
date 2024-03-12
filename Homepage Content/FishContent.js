@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderRadius: 5,
-    borderColor: 'gray',
+    borderColor: Colors.textMarine,
   },
 });
 
