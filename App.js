@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { ImageBackground, Button, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { ImageBackground, Button, StyleSheet, Text, View, 
+  TouchableOpacity, Animated } from 'react-native';
 import ButtonComponent from './Components/ButtonComponent';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -101,6 +102,8 @@ const MyStack = ({ navigation }) => {
     };
   }, [])
 
+  
+
   return (
     //Navigator for ALL pages
     <Provider store={store}>
@@ -116,6 +119,31 @@ const MyStack = ({ navigation }) => {
             options={{
             }}
           />
+          <Stack.Screen
+            name="H_Dashboard"
+            component={DashboardScreen}
+            options={{
+            }}
+          />
+          <Stack.Screen
+            name="H_Tanks"
+            component={TanksScreen}
+            options={{
+            }}
+          />
+          <Stack.Screen
+            name="H_Fish"
+            component={FishScreen}
+            options={{
+            }}
+          />
+          <Stack.Screen
+            name="H_Plants"
+            component={PlantsScreen}
+            options={{
+            }}
+          />
+
           <Stack.Screen 
             name="Tank" 
             component={TankScreen}
@@ -141,6 +169,7 @@ const MyStack = ({ navigation }) => {
             name="ReminderCreate"
             backTo="TankScreen"
             component={ReminderCreateScreen}
+            
           />
 
         </Stack.Navigator>
@@ -152,6 +181,7 @@ const MyStack = ({ navigation }) => {
 const HomeScreen = ({navigation}) => {
 
   const [activeTab, setActiveTab] = useState('Tanks');
+  const position = new Animated.Value(0);
 
   const handleTabChange = (tabName) => {
     setActiveTab(tabName);
@@ -172,6 +202,32 @@ const HomeScreen = ({navigation}) => {
         return null;
     }
   };
+
+  const slideAnimation = {
+    transform: [
+      {
+        translateX: position.interpolate({
+          inputRange: [0, 1],
+          outputRange: [300, 0], // Slide from right (300) to original position (0)
+        }),
+      },
+    ],
+    opacity: position.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1], // Fade in effect
+    }),
+    
+  };
+
+  // For handling content change animatyions
+  useEffect(() => {
+    Animated.timing(position, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+    
+  }, [activeTab]);
 
   return (
     <View style={styles.container}>
@@ -219,8 +275,10 @@ const HomeScreen = ({navigation}) => {
           }}
         />
       </View>
-      
-  {renderContent( navigation={navigation} )}
+
+    <Animated.View style={[slideAnimation, styles.contentHolder]}>
+      {renderContent(( navigation={navigation} ))}
+    </Animated.View>
 
   {/* Menu Bar On home screen */}
   <View style={styles.buttonContainer}>
@@ -399,6 +457,11 @@ const styles = StyleSheet.create({
     color: Colors.textMarine,
     //marginTop: 5,
     //marginLeft: 50,
+  },
+  contentHolder: {
+    width: '100%',
+    height: '100%',
+    //backgroundColor: 'green'
   },
 
   

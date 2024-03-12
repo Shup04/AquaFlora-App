@@ -36,6 +36,8 @@ export const FishContent = ({ navigation }) => {
         placeholder="Search..."
         value={searchQuery}
         onChangeText={setSearchQuery}
+        placeholderTextColor={Colors.textMarine}
+
       />
       <FlatList
         data={displayData}
@@ -163,12 +165,14 @@ const styles = StyleSheet.create({
   },  
   searchBar: {
     height: 40,
-    width: '90%',
+    width: '95%',
     margin: 10,
-    borderWidth: 1,
+    borderWidth: 0,
     padding: 10,
     borderRadius: 5,
     borderColor: Colors.textMarine,
+    color: Colors.textMarine,
+    backgroundColor: Colors.height3
   },
 });
 
