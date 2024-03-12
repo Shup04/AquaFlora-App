@@ -327,9 +327,9 @@ export const ParameterScreen = ({ navigation, route }) => {
 
   handleParamEntry = (nitrate, nitrite, ammonia, ph, tankId) => {
     let now = new Date();
-    let date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-    date.setDate(date.getDate() + 6);
-
+    let date = new Date(now.getFullYear(), now.getMonth(), now.getDate()+3, now.getHours(), now.getMinutes(), now.getSeconds());
+    //date.setDate(date.getDate());
+    
     const addParameter = (parameterName, value, tankId) => {
       realm.write(() => {
         realm.create('WaterParameter', {
@@ -340,13 +340,24 @@ export const ParameterScreen = ({ navigation, route }) => {
           tankId: tankId,
         });
       });
-      //console.log(`${parameterName}: ${value} added at date: ${date}`);
+      console.log(`${parameterName}: ${value} added at date: ${date}`);
     };
+
+    if (tempNitrate !== '') {
+      const nitrateValue = parseFloat(tempNitrate);
+      if (!isNaN(nitrateValue)) {
+        addParameter('nitrate', nitrateValue, tankId);
+      } else {
+        console.error("Invalid input for nitrate");
+      }
+    }
+    
 
     if (nitrate !== '') addParameter('nitrate', nitrate, tankId);
     if (nitrite !== '') addParameter('nitrite', nitrite, tankId);
     if (ammonia !== '') addParameter('ammonia', ammonia, tankId);
     if (ph !== '') addParameter('ph', ph, tankId);
+
   }
 
   return (
@@ -489,7 +500,7 @@ export const ParameterScreen = ({ navigation, route }) => {
               <Text style={modalStyles.modalText}>Ph</Text>
               <TextInput
                 style={modalStyles.textInput}
-                //keyboardType='numeric'
+                keyboardType='numeric'
                 placeholder='Enter Ph'
                 placeholderTextColor={Colors.textMarine}
                 onChangeText={setTempPh}
