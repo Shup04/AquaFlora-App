@@ -114,12 +114,13 @@ const MyStack = ({ navigation }) => {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator 
-          initialRouteName='H_Tanks'
+          initialRouteName="Home"
           screenOptions={{
             headerShown: false // Set headerShown to false to hide the header
           }}>
 
           {/*<Stack.Screen name="Home" component={HomeScreen}/>*/}
+          <Stack.Screen name="Home" component={HomeTabs} />
 
           {/*Screens for the home page*/}
           <Stack.Screen name="H_Dashboard" component={DashboardScreen}/>

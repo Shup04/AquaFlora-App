@@ -1,8 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import DashboardScreen from '../Screens/HomeScreens/Dashboard'; // Adjust the import paths
-import TanksScreen from '../Screens/HomeScreens/Tanks';
-import FishScreen from '../Screens/HomeScreens/Fish';
-import PlantsScreen from '../Screens/HomeScreens/Plants';
+import { DashboardScreen } from '../Screens/HomeScreens/Dashboard'; // Adjust the import paths
+import { FishScreen } from '../Screens/HomeScreens/Fish';
+import { PlantsScreen } from '../Screens/HomeScreens/Plants';
+import { TanksScreen } from '../Screens/HomeScreens/Tanks';
 
 const Tab = createBottomTabNavigator();
 
