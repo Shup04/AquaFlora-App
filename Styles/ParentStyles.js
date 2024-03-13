@@ -15,8 +15,10 @@ export const ParentStyles = StyleSheet.create({
     },
     Header: {
       fontSize: 24,
-      color: Colors.textWhite,
-      fontWeight: 'semibold',
+      fontWeight: 'bold',
+      margin: 10,
+      marginTop: 20,
+      color: Colors.textMarine,
     },
 
   });

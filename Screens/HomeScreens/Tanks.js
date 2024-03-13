@@ -60,18 +60,16 @@ export const TanksScreen = ({ navigation }) => {
     return (
       <View style={ParentStyles.Background}>
         <View style={ParentStyles.Container}>
-          <View style={{width: '90%'}}>
-            <Text style={styles.header}>My Tanks</Text>
-          </View>
+          <Text style={ParentStyles.Header}>My Tanks:</Text>
 
           <PlusComponent navigation={navigation} destination={'TankCreate'}/>
 
           <FlatList
             data={data}
             renderItem={renderItem}
-            keyExtractor={keyExtractor} // Assuming 'id' is the unique identifier in your Tank schema
+            keyExtractor={keyExtractor}
             numColumns={1}
-            contentContainerStyle={styles.listContainer} // Adjust styles as needed
+            contentContainerStyle={styles.listContainer}
           />
         </View>
       </View>

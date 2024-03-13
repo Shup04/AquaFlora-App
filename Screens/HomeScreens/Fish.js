@@ -33,6 +33,7 @@ export const FishScreen = ({ navigation }) => {
   return (
     <View style={ParentStyles.Background}>
       <View style={ParentStyles.Container}>
+        <Text style={ParentStyles.Header}>Fish List:</Text>
         <TextInput
           style={styles.searchBar}
           placeholder="Search..."
