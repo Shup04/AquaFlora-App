@@ -65,7 +65,7 @@ export const ParameterScreen = ({ navigation, route }) => {
 
   }
 
-  function setupData(data1, data2, data3, data4) {
+  function setupData1(data1, data2, data3, data4) {
     const organizedData1 = data1.map(item => {
       return{
         value: item.value,
@@ -130,7 +130,7 @@ export const ParameterScreen = ({ navigation, route }) => {
     }
     
     console.log(organizedData1)
-
+    console.log('penis')
 
     
   }
@@ -275,9 +275,11 @@ export const ParameterScreen = ({ navigation, route }) => {
         const objectsToDelete = realm.objects('WaterParameter');
         realm.delete(objectsToDelete);
       });
+      console.log('Realm cleared');
     } catch (error) {
       console.error(`Error clearing schema 'WaterParameter':`, error);
     }
+    
   };
   useEffect(() => {
     //fetch and set params from realm
@@ -290,6 +292,7 @@ export const ParameterScreen = ({ navigation, route }) => {
       setDbChange(!dbChange);
     })
     const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
+    //console.log(allParams)
 
     const nitrateArray = fetchParameterData(allParams).nitrateArray
     const ammoniaArray = fetchParameterData(allParams).ammoniaArray
@@ -300,12 +303,20 @@ export const ParameterScreen = ({ navigation, route }) => {
     setAmmonia(ammoniaArray)
     setNitrites(nitriteArray)
     setPh(phArray)
+
+    console.log(nitrates)
+
   }, [dbChange]);
 
   const finalNitrate = setupData(nitrates, nitrites, ammonia, ph).finalData1
+  console.log(finalNitrate)
   const finalNitrite = setupData(nitrates, nitrites, ammonia, ph).finalData2
   const finalAmmonia = setupData(nitrates, nitrites, ammonia, ph).finalData3
   const finalPh = setupData(nitrates, nitrites, ammonia, ph).finalData4
+
+  
+  //console.log(nitrates)
+  //console.log(finalNitrate)
   
   const LegendItem = ({ color, text }) => (
     <View style={styles.legendItem}>
@@ -326,8 +337,13 @@ export const ParameterScreen = ({ navigation, route }) => {
   }
 
   handleParamEntry = (nitrate, nitrite, ammonia, ph, tankId) => {
+    setTempNitrate('');
+    setTempNitrite('');
+    setTempAmmonia('');
+    setTempPh('');
+
     let now = new Date();
-    let date = new Date(now.getFullYear(), now.getMonth(), now.getDate()+3, now.getHours(), now.getMinutes(), now.getSeconds());
+    let date = new Date(now.getFullYear(), now.getMonth(), now.getDate()+12, now.getHours(), now.getMinutes(), now.getSeconds());
     //date.setDate(date.getDate());
     
     const addParameter = (parameterName, value, tankId) => {
@@ -342,16 +358,6 @@ export const ParameterScreen = ({ navigation, route }) => {
       });
       console.log(`${parameterName}: ${value} added at date: ${date}`);
     };
-
-    if (tempNitrate !== '') {
-      const nitrateValue = parseFloat(tempNitrate);
-      if (!isNaN(nitrateValue)) {
-        addParameter('nitrate', nitrateValue, tankId);
-      } else {
-        console.error("Invalid input for nitrate");
-      }
-    }
-    
 
     if (nitrate !== '') addParameter('nitrate', nitrate, tankId);
     if (nitrite !== '') addParameter('nitrite', nitrite, tankId);
