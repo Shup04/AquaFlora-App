@@ -97,10 +97,10 @@ export const alignArrays = (array1, array2, array3, array4) => {
     let latestDate = new Date(Math.max.apply(null, dates));
   
     // Fill in the missing dates for both arrays
-    let alignedArray1 = syncDates2(array1, earliestDate, latestDate);
-    let alignedArray2 = syncDates2(array2, earliestDate, latestDate);
-    let alignedArray3 = syncDates2(array3, earliestDate, latestDate);
-    let alignedArray4 = syncDates2(array4, earliestDate, latestDate);
+    let alignedArray1 = syncDates3(array1, earliestDate, latestDate);
+    let alignedArray2 = syncDates3(array2, earliestDate, latestDate);
+    let alignedArray3 = syncDates3(array3, earliestDate, latestDate);
+    let alignedArray4 = syncDates3(array4, earliestDate, latestDate);
     //console.log(array1)
     return { 
       alignedArray1: alignedArray1, 
@@ -144,6 +144,39 @@ export const syncDates2 = (array, startDate, endDate) => {
   //console.log(result)
   return result;
 }
+
+function syncDates3(data) {
+  const sortedData = data.sort((a, b) => new Date(a.date) - new Date(b.date));
+  let result = [];
+
+  for (let i = 0; i < sortedData.length; i++) {
+    const currentEntry = sortedData[i];
+    result.push(currentEntry);
+
+    if (i + 1 < sortedData.length) {
+      const nextEntry = sortedData[i + 1];
+      const currentDate = new Date(currentEntry.date);
+      const nextDate = new Date(nextEntry.date);
+
+      while (currentDate < nextDate) {
+        currentDate.setDate(currentDate.getDate() + 1);
+
+        // Check if the next day is not the day of the next entry
+        if (currentDate < nextDate) {
+          // Clone the current entry and set the new date
+          const interpolatedEntry = { ...currentEntry, date: currentDate.toISOString() };
+          // Remove specific properties if needed
+          delete interpolatedEntry.label;
+          delete interpolatedEntry.labelTextStyle;
+          result.push(interpolatedEntry);
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
 
 export const setupData = (allParams) => {
     const data1 = fetchParameterData(allParams).nitrateArray;
@@ -195,7 +228,7 @@ export const setupData = (allParams) => {
       const filledData2 = fillMissingDates(organizedData2);
       const filledData3 = fillMissingDates(organizedData3);
       const filledData4 = fillMissingDates(organizedData4);
-      //console.log(filledData4)
+      console.log(filledData4)
       //align dates between params
       const syncedData1 = alignArrays(filledData1, filledData2, filledData3, filledData4).alignedArray1
       const syncedData2 = alignArrays(filledData1, filledData2, filledData3, filledData4).alignedArray2
