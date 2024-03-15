@@ -7,7 +7,7 @@ import realm from '../database/Realm';
 import uuid from 'react-native-uuid';
 import { v4 as uuidv4 } from 'uuid';
 import { BackButton } from '../Components/BackButton';
-import { setupData, fetchParameterData } from '../functions/ParamSetup';
+import { setupData, getMonthName } from '../functions/ParamSetup';
 
 export const ParameterScreen = ({ navigation, route }) => {
 
@@ -293,13 +293,12 @@ export const ParameterScreen = ({ navigation, route }) => {
     })
 
     const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
-    const data1 = setupData(allParams).finalData1;
-
+    const data1 = setupData(allParams);
 
     setNitrates(data1.finalData1);
-    //setAmmonia(data1.finalData2);
-    //setNitrites(data1.finalData3);
-    //setPh(data1.finalData4);
+    setAmmonia(data1.finalData2);
+    setNitrites(data1.finalData3);
+    setPh(data1.finalData4);
 
   }, [dbChange]);
   
@@ -328,7 +327,7 @@ export const ParameterScreen = ({ navigation, route }) => {
     setTempPh('');
 
     let now = new Date();
-    let date = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds());
+    let date = new Date(now.getFullYear(), now.getMonth(), now.getDate()+4, now.getHours(), now.getMinutes(), now.getSeconds());
     //date.setDate(date.getDate());
     
     const addParameter = (parameterName, value, tankId) => {
@@ -359,6 +358,7 @@ export const ParameterScreen = ({ navigation, route }) => {
     >
       <BackButton navigation={navigation}/>
       <View style={styles.container}>
+        {console.log(nitrates)}
         <LineChart
           areaChart
           isAnimated
