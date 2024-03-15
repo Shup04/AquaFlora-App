@@ -152,7 +152,7 @@ export const setupData = (allParams) => {
     const data4 = fetchParameterData(allParams).phArray;
 
     //console.log(allParams)
-    //console.log(data1)
+    //console.log(data4)
     //JSON.parse(JSON.stringify(data1))
     const organizedData1 = data1.map(item => {
       return{
@@ -187,7 +187,7 @@ export const setupData = (allParams) => {
       }
     })
 
-    //console.log(organizedData1)
+    //console.log(organizedData4)
 
     try{
       //fill dates between logs
@@ -195,13 +195,13 @@ export const setupData = (allParams) => {
       const filledData2 = fillMissingDates(organizedData2);
       const filledData3 = fillMissingDates(organizedData3);
       const filledData4 = fillMissingDates(organizedData4);
-      //console.log(filledData1)
+      //console.log(filledData4)
       //align dates between params
       const syncedData1 = alignArrays(filledData1, filledData2, filledData3, filledData4).alignedArray1
       const syncedData2 = alignArrays(filledData1, filledData2, filledData3, filledData4).alignedArray2
       const syncedData3 = alignArrays(filledData1, filledData2, filledData3, filledData4).alignedArray3
       const syncedData4 = alignArrays(filledData1, filledData2, filledData3, filledData4).alignedArray4
-      //console.log(syncedData1)
+      //console.log(syncedData4)
       //set month labels
       const finalData1 = setLabels(syncedData1);
       const finalData2 = setLabels(syncedData2);

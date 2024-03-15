@@ -300,6 +300,8 @@ export const ParameterScreen = ({ navigation, route }) => {
     setNitrites(data1.finalData3);
     setPh(data1.finalData4);
 
+    //console.log(data1)
+
   }, [dbChange]);
   
   const LegendItem = ({ color, text }) => (
@@ -327,7 +329,7 @@ export const ParameterScreen = ({ navigation, route }) => {
     setTempPh('');
 
     let now = new Date();
-    let date = new Date(now.getFullYear(), now.getMonth(), now.getDate()+4, now.getHours(), now.getMinutes(), now.getSeconds());
+    let date = new Date(now.getFullYear(), now.getMonth(), now.getDate()+9, now.getHours(), now.getMinutes(), now.getSeconds());
     //date.setDate(date.getDate());
     
     const addParameter = (parameterName, value, tankId) => {
@@ -358,7 +360,7 @@ export const ParameterScreen = ({ navigation, route }) => {
     >
       <BackButton navigation={navigation}/>
       <View style={styles.container}>
-        {console.log(nitrates)}
+
         <LineChart
           areaChart
           isAnimated
