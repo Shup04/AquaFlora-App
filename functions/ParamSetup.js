@@ -26,6 +26,8 @@ export const fetchParameterData = (allParams) => {
       }
     });
 
+    //console.log(nitrateArray)
+
     return { 
       nitrateArray: nitrateArray, 
       ammoniaArray: ammoniaArray, 
@@ -122,7 +124,8 @@ export const setupData = (allParams) => {
     const data2 = fetchParameterData(allParams).ammoniaArray;
     const data3 = fetchParameterData(allParams).nitriteArray;
     const data4 = fetchParameterData(allParams).phArray;
-    
+
+    //console.log(data1)
     const organizedData1 = data1.map(item => {
       return{
         value: item.value,
@@ -155,6 +158,8 @@ export const setupData = (allParams) => {
         labelTextStyle: {color: 'white', width: 50}
       }
     })
+
+    console.log(organizedData1)
 
     try{
       //fill dates between logs

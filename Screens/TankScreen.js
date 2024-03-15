@@ -67,8 +67,8 @@ export const TankScreen = ({ navigation,  route }) => {
         <RemindersContent navigation={navigation} tankId={tankId}></RemindersContent>
 
         <Text style={styles.title}>Fish: </Text>
-        <PersonalFishContent navigation={navigation} tankId={tankId}></PersonalFishContent>
-
+        {/*<PersonalFishContent navigation={navigation} tankId={tankId}></PersonalFishContent>
+        */}
         
       </ScrollView>
     </View>

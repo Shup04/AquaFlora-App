@@ -7,7 +7,7 @@ import realm from '../database/Realm';
 import uuid from 'react-native-uuid';
 import { v4 as uuidv4 } from 'uuid';
 import { BackButton } from '../Components/BackButton';
-import { setupData } from '../functions/ParamSetup';
+import { setupData, fetchParameterData } from '../functions/ParamSetup';
 
 export const ParameterScreen = ({ navigation, route }) => {
 
@@ -29,7 +29,7 @@ export const ParameterScreen = ({ navigation, route }) => {
   const screenWidth = Dimensions.get('window').width;
   const chartWidth = screenWidth * .85;
 
-
+{/* 
   function fetchParameterData(allParams) {
     const nitrateArray = []
     const ammoniaArray = []
@@ -65,7 +65,7 @@ export const ParameterScreen = ({ navigation, route }) => {
 
   }
 
-  function setupData1(data1, data2, data3, data4) {
+  function setupData(data1, data2, data3, data4) {
     const organizedData1 = data1.map(item => {
       return{
         value: item.value,
@@ -268,7 +268,7 @@ export const ParameterScreen = ({ navigation, route }) => {
       });
     });
   }
-
+*/}
   const clearRealm = () => {
     try {
       realm.write(() => {
@@ -291,32 +291,17 @@ export const ParameterScreen = ({ navigation, route }) => {
     realm.addListener('change', () => {
       setDbChange(!dbChange);
     })
+
     const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
-    //console.log(allParams)
+    const data1 = setupData(allParams);
 
-    const nitrateArray = fetchParameterData(allParams).nitrateArray
-    const ammoniaArray = fetchParameterData(allParams).ammoniaArray
-    const nitriteArray = fetchParameterData(allParams).nitriteArray
-    const phArray = fetchParameterData(allParams).phArray
-    
-    setNitrates(nitrateArray)
-    setAmmonia(ammoniaArray)
-    setNitrites(nitriteArray)
-    setPh(phArray)
 
-    console.log(nitrates)
+    setNitrates(data1.finalData1);
+    setAmmonia(data1.finalData2);
+    setNitrites(data1.finalData3);
+    setPh(data1.finalData4);
 
   }, [dbChange]);
-
-  const finalNitrate = setupData(nitrates, nitrites, ammonia, ph).finalData1
-  console.log(finalNitrate)
-  const finalNitrite = setupData(nitrates, nitrites, ammonia, ph).finalData2
-  const finalAmmonia = setupData(nitrates, nitrites, ammonia, ph).finalData3
-  const finalPh = setupData(nitrates, nitrites, ammonia, ph).finalData4
-
-  
-  //console.log(nitrates)
-  //console.log(finalNitrate)
   
   const LegendItem = ({ color, text }) => (
     <View style={styles.legendItem}>
@@ -343,7 +328,7 @@ export const ParameterScreen = ({ navigation, route }) => {
     setTempPh('');
 
     let now = new Date();
-    let date = new Date(now.getFullYear(), now.getMonth(), now.getDate()+12, now.getHours(), now.getMinutes(), now.getSeconds());
+    let date = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds());
     //date.setDate(date.getDate());
     
     const addParameter = (parameterName, value, tankId) => {
@@ -374,13 +359,14 @@ export const ParameterScreen = ({ navigation, route }) => {
     >
       <BackButton navigation={navigation}/>
       <View style={styles.container}>
+        {console.log(nitrates)}
         <LineChart
           areaChart
           isAnimated
-          data={finalNitrate}
-          data2={finalAmmonia}
-          data3={finalNitrite}
-          data4={finalPh}
+          data={nitrates}
+          data2={ammonia}
+          data3={nitrites}
+          data4={ph}
           
           color1={parameters[0].color}
           color2={parameters[1].color}
