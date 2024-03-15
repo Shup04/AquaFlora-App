@@ -97,10 +97,10 @@ export const alignArrays = (array1, array2, array3, array4) => {
     let latestDate = new Date(Math.max.apply(null, dates));
   
     // Fill in the missing dates for both arrays
-    let alignedArray1 = syncDates(array1, earliestDate, latestDate);
-    let alignedArray2 = syncDates(array2, earliestDate, latestDate);
-    let alignedArray3 = syncDates(array3, earliestDate, latestDate);
-    let alignedArray4 = syncDates(array4, earliestDate, latestDate);
+    let alignedArray1 = syncDates2(array1, earliestDate, latestDate);
+    let alignedArray2 = syncDates2(array2, earliestDate, latestDate);
+    let alignedArray3 = syncDates2(array3, earliestDate, latestDate);
+    let alignedArray4 = syncDates2(array4, earliestDate, latestDate);
     //console.log(array1)
     return { 
       alignedArray1: alignedArray1, 
@@ -120,6 +120,31 @@ export const syncDates = (array, startDate, endDate) => {
     return result;
 }
 
+export const syncDates2 = (array, startDate, endDate) => {
+  let result = [];
+  let lastValue = array.length > 0 ? array[0].value : 0; // Start with the first value or 0 if array is empty
+  for (let dt = new Date(startDate); dt <= endDate; dt = new Date(dt.setDate(dt.getDate() + 1))) {
+    // Find an item for the current date
+    let item = array.find(i => {
+      const iDate = new Date(i.date);
+      return iDate.getFullYear() === dt.getFullYear() &&
+            iDate.getMonth() === dt.getMonth() &&
+            iDate.getDate() === dt.getDate();
+    });
+
+    if (item) {
+      // If an item exists for this date, use its value and update lastValue
+      result.push({ date: new Date(dt), value: item.value });
+      lastValue = item.value;
+    } else {
+      // If no item exists for this date, use lastValue
+      result.push({ date: new Date(dt), value: lastValue });
+    }
+  }
+  //console.log(result)
+  return result;
+}
+
 export const setupData = (allParams) => {
     const data1 = fetchParameterData(allParams).nitrateArray;
     const data2 = fetchParameterData(allParams).ammoniaArray;
@@ -127,7 +152,7 @@ export const setupData = (allParams) => {
     const data4 = fetchParameterData(allParams).phArray;
 
     //console.log(allParams)
-    console.log(data1)
+    //console.log(data1)
     //JSON.parse(JSON.stringify(data1))
     const organizedData1 = data1.map(item => {
       return{
