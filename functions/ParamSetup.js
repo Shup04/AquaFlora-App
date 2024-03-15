@@ -101,7 +101,7 @@ export const alignArrays = (array1, array2, array3, array4) => {
     let alignedArray2 = syncDates(array2, earliestDate, latestDate);
     let alignedArray3 = syncDates(array3, earliestDate, latestDate);
     let alignedArray4 = syncDates(array4, earliestDate, latestDate);
-  
+    //console.log(array1)
     return { 
       alignedArray1: alignedArray1, 
       alignedArray2: alignedArray2,
@@ -116,6 +116,7 @@ export const syncDates = (array, startDate, endDate) => {
       let item = array.find(i => i.date.getTime() === dt.getTime());
       result.push(item ? item : { date: new Date(dt), value: 0 });
     }
+    //console.log(result)
     return result;
 }
 
@@ -125,7 +126,9 @@ export const setupData = (allParams) => {
     const data3 = fetchParameterData(allParams).nitriteArray;
     const data4 = fetchParameterData(allParams).phArray;
 
-    //console.log(data1)
+    //console.log(allParams)
+    console.log(data1)
+    //JSON.parse(JSON.stringify(data1))
     const organizedData1 = data1.map(item => {
       return{
         value: item.value,
@@ -159,7 +162,7 @@ export const setupData = (allParams) => {
       }
     })
 
-    console.log(organizedData1)
+    //console.log(organizedData1)
 
     try{
       //fill dates between logs
@@ -167,13 +170,13 @@ export const setupData = (allParams) => {
       const filledData2 = fillMissingDates(organizedData2);
       const filledData3 = fillMissingDates(organizedData3);
       const filledData4 = fillMissingDates(organizedData4);
-
+      //console.log(filledData1)
       //align dates between params
       const syncedData1 = alignArrays(filledData1, filledData2, filledData3, filledData4).alignedArray1
       const syncedData2 = alignArrays(filledData1, filledData2, filledData3, filledData4).alignedArray2
       const syncedData3 = alignArrays(filledData1, filledData2, filledData3, filledData4).alignedArray3
       const syncedData4 = alignArrays(filledData1, filledData2, filledData3, filledData4).alignedArray4
-
+      //console.log(syncedData1)
       //set month labels
       const finalData1 = setLabels(syncedData1);
       const finalData2 = setLabels(syncedData2);
