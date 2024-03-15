@@ -471,7 +471,8 @@ export const ParameterScreen = ({ navigation, route }) => {
                 style={modalStyles.textInput}
                 keyboardType='numeric'
                 placeholder='Enter Nitrate'
-                placeholderTextColor={Colors.textMarine}
+                color={'#DDDDDD'}
+                placeholderTextColor={'#BBBBBB'}
                 onChangeText={setTempNitrate}
               />
               <Text style={modalStyles.modalText}>Nitrite</Text>
@@ -479,7 +480,8 @@ export const ParameterScreen = ({ navigation, route }) => {
                 style={modalStyles.textInput}
                 keyboardType='numeric'
                 placeholder='Enter Nitrite'
-                placeholderTextColor={Colors.textMarine}
+                color={'#DDDDDD'}
+                placeholderTextColor={'#BBBBBB'}
                 onChangeText={setTempNitrite}
               />
               <Text style={modalStyles.modalText}>Ammonia</Text>
@@ -487,7 +489,8 @@ export const ParameterScreen = ({ navigation, route }) => {
                 style={modalStyles.textInput}
                 keyboardType='numeric'
                 placeholder='Enter Ammonia'
-                placeholderTextColor={Colors.textMarine}
+                color={'#DDDDDD'}
+                placeholderTextColor={'#BBBBBB'}
                 onChangeText={setTempAmmonia}
               />
               <Text style={modalStyles.modalText}>Ph</Text>
@@ -495,7 +498,8 @@ export const ParameterScreen = ({ navigation, route }) => {
                 style={modalStyles.textInput}
                 keyboardType='numeric'
                 placeholder='Enter Ph'
-                placeholderTextColor={Colors.textMarine}
+                color={'#DDDDDD'}
+                placeholderTextColor={'#BBBBBB'}
                 onChangeText={setTempPh}
               />
               <TouchableOpacity onPress={() => handleParamEntry(tempNitrate, tempNitrite, tempAmmonia, tempPh, tankId)} style={modalStyles.button}>

@@ -33,7 +33,7 @@ export const TanksScreen = ({ navigation }) => {
       const interval = setInterval(() => {
         const newData = fetchTankDataFromRealm();
         setData(newData);
-      }, 2000);
+      }, 200);
   
       return () => {
         clearInterval(interval);
