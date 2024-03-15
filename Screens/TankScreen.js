@@ -20,6 +20,7 @@ const chartWidth = screenWidth * 0.75; // 80% of screen width
 export const TankScreen = ({ navigation,  route }) => {
   const { tankId } = route.params;
   const [tankURI, setTankURI] = useState('');
+  const [status, setStatus] = useState('Good');
 
   useEffect(() => {
     const fetchData = () => {
@@ -30,11 +31,41 @@ export const TankScreen = ({ navigation,  route }) => {
       if (tank && tank.URI) {
         setTankURI(tank.URI);
       }
+      
     };
 
-    fetchData();
+    const getStatus = () => {
+      //get params for status check
+      const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
+      const lastNitrate = allParams.filtered('parameterName = "nitrate"').sorted('date', true)[0];
+      const lastAmmonia = allParams.filtered('parameterName = "ammonia"').sorted('date', true)[0];
+      const lastNitrite = allParams.filtered('parameterName = "nitrite"').sorted('date', true)[0];
+      const lastPh = allParams.filtered('parameterName = "ph"').sorted('date', true)[0];
 
-    // Fetch data every 5 seconds (adjust the interval as needed)
+      console.log(lastNitrate)
+      if (lastNitrate.value > 70){
+        setStatus('Bad');
+      } 
+
+      else if (lastNitrite.value > 70){
+        setStatus('Bad');
+      }
+
+      else if (lastAmmonia.value > 70){
+        setStatus('Bad');
+      }
+
+      else if (lastPh.value > 30){
+        setStatus('Bad');
+      } else {setStatus('Good')}
+    }
+
+    getStatus();
+    fetchData();
+    
+    
+
+    // Fetch data every 5 seconds
     const intervalId = setInterval(fetchData, 5000);
 
     // Clean up the interval when the component unmounts or the dependency changes
@@ -59,6 +90,7 @@ export const TankScreen = ({ navigation,  route }) => {
             }}
           />
         )}
+        <Text style={styles.subTitle}>Status: {status} </Text>
 
         <Text style={styles.title}>Param Chart: </Text>
         <ParamChart navigation={navigation} tankId={tankId}/>
@@ -106,6 +138,13 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     marginTop: 20,
     marginBottom: 30,
+  },
+  subTitle: {
+    fontSize: 24,
+    width: '90%',
+    color: Colors.textWhite,
+    fontWeight: 'normal',
+    marginTop: 20,
   },
   BlurView: {
     width: '100%',
