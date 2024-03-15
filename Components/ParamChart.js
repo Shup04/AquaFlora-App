@@ -26,7 +26,6 @@ export const ParamChart = ({ navigation, tankId }) => {
   ];
 
   useEffect(() => {
-    {/* 
     const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
     const data1 = setupData(allParams).finalData1;
     const data2 = setupData(allParams).finalData2;
@@ -37,7 +36,6 @@ export const ParamChart = ({ navigation, tankId }) => {
     setAmmonia(data2);
     setNitrite(data3);
     setPh(data4);
-*/}
   }, []);
 
   return (
@@ -46,7 +44,10 @@ export const ParamChart = ({ navigation, tankId }) => {
       <LineChart
           areaChart
           isAnimated
-          
+          data={Nitrate}
+          data2={Ammonia}
+          data3={Nitrite}
+          data4={Ph}
           color1={parameters[0].color}
           color2={parameters[1].color}
           color3={parameters[2].color}
