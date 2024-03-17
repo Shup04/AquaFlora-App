@@ -79,17 +79,19 @@ export const TankScreen = ({ navigation,  route }) => {
       
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <BackButton navigation={navigation}/>
+        
           {tankURI && (//only render image if tankURI was fetched.
             <Image
               source={{ uri: tankURI}}
               style={{
                 width: '100%',
-                height: 175,
+                height: 250,
                 resizeMode: 'cover',
+                //marginTop: -30
               }}
             />
           )}
+          <BackButton navigation={navigation}/>
           <Text style={styles.subTitle}>Status: {status} </Text>
 
           <Text style={styles.title}>Param Chart: </Text>
