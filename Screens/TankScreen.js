@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Image, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, Image, View, Text, StyleSheet, Animated } from 'react-native';
 import { Colors } from '../Colors';
 import { BackButton } from '../Components/BackButton';
 import { ParamChart } from '../Components/ParamChart';
@@ -14,6 +14,7 @@ import { TankSchema } from '../database/schemas';
 import { BlurView } from 'expo-blur';
 import { StatusBar } from 'react-native';
 import { ParentStyles } from '../Styles/ParentStyles';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const screenWidth = Dimensions.get('window').width;
 const chartWidth = screenWidth * 0.75; // 80% of screen width
@@ -23,6 +24,15 @@ export const TankScreen = ({ navigation,  route }) => {
   const { tankId } = route.params;
   const [tankURI, setTankURI] = useState('');
   const [status, setStatus] = useState('Good');
+
+  const scrollY = new Animated.Value(0);
+
+  // Interpolate the scroll value to an opacity value
+  const headerOpacity = scrollY.interpolate({
+    inputRange: [0, 100], // Adjust these numbers to control when the fade starts and ends
+    outputRange: [0, 0.7],
+    extrapolate: 'clamp', // This ensures the opacity doesn't go below 0 or above 1
+  });
 
   useEffect(() => {
     const fetchData = () => {
@@ -75,10 +85,23 @@ export const TankScreen = ({ navigation,  route }) => {
   return (
   <View style={ParentStyles.Background}>
     <View style={[ParentStyles.Container, {paddingTop: 0}]}>
+
+      <View style={styles.Header}>
+        <Animated.View style={[styles.headerBackground, { opacity: headerOpacity }]} />
+        <MaterialCommunityIcons name="arrow-left-bold-circle" size={50} color={Colors.primaryPastel}/>
+      </View>
+      
       
       
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <ScrollView 
+          contentContainerStyle={styles.scrollContainer}
+          scrollEventThrottle={16} // Defines how often the scroll event is fired
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+            { useNativeDriver: false } // Set to true if you're only animating opacity or transform for better performance
+          )}
+        >
         
           {tankURI && (//only render image if tankURI was fetched.
             <Image
@@ -121,6 +144,20 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? 60 : 0,
     paddingBottom: 60
   },
+  Header: {
+    position: 'absolute',
+    zIndex: 1,
+    top: 30,
+    width: '100%',
+    height: 100,
+    //backgroundColor: Colors.height1,
+    paddingTop: 30,
+    paddingHorizontal: 10,
+  },
+  headerBackground: {
+    ...StyleSheet.absoluteFillObject, // This will fill the parent's dimensions
+    backgroundColor: Colors.height1,
+  },  
   container: {
     width: '100%',
     height: '100%',
@@ -158,4 +195,5 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: 'green',
   },
+  
 });
