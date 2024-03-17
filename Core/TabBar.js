@@ -3,7 +3,8 @@ import { DashboardScreen } from '../Screens/HomeScreens/Dashboard'; // Adjust th
 import { FishScreen } from '../Screens/HomeScreens/Fish';
 import { PlantsScreen } from '../Screens/HomeScreens/Plants';
 import { TanksScreen } from '../Screens/HomeScreens/Tanks';
-
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import { Colors } from '../Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { FontAwesomeIcon } from '@expo/vector-icons';
@@ -18,19 +19,33 @@ export const HomeTabs = () => {
     <Tab.Navigator 
     initialRouteName='Tanks'
     screenOptions={({ route }) => ({
-        
+        headerShown: false,
+        tabBarShowLabel: false,
         tabBarActiveTintColor: '#888888', // Active icon color
         tabBarInactiveTintColor: '#555555', 
+
         tabBarStyle: {
-            backgroundColor: Colors.height3, // Semi-transparent background
-            position: 'absolute', // Needed to apply custom styles
-            elevation: 0, // Remove shadow on Android
-            borderRadius: 8, // Rounded corners
-            height: 60, // Height of the tab bar
-            borderTopWidth: 0, // Remove top border
-            borderColor: "transparent",
-            paddingBottom: 5,
+            position: 'absolute',
+            elevation: 0, 
+            borderRadius: 8,
+            height: 60,
+            borderTopWidth: 0,
           },
+          tabBarBackground: () => (
+            <BlurView 
+              intensity={60} 
+              tint='dark'
+              style={{
+                ...StyleSheet.absoluteFillObject,
+                borderTopLeftRadius: 8,
+                borderTopRightRadius: 8,
+                overflow: 'hidden',
+                backgroundColor: 'transparent'
+              }}
+
+            />
+
+          ),
           tabBarIcon: ({ focused, color }) => {
             let iconName = 'fish';
             let size = focused ? 35 : 30;
@@ -51,15 +66,7 @@ export const HomeTabs = () => {
             fontSize: 20, // Adjust the size as needed
             color: Colors.textMarine, // Color of the icon
           },
-          tabBarLabelStyle: {
-            //fontSize: 12, // Adjust the size as needed
-            //fontWeight: 'bold',
-          },
-        tabBarIndicatorStyle: {
-          backgroundColor: Colors.primaryPastel, // Color of the indicator (underline)
-        },
-        headerShown: false,
-        tabBarShowLabel: false,
+
       })}
       >
       <Tab.Screen name="Dashboard" component={DashboardScreen} />
