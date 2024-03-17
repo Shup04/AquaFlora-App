@@ -8,29 +8,11 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { Colors, TanksColors } from './Colors';
 import { BlurView } from 'expo-blur';
 
-import { FishContent } from './Homepage Content/FishContent';
-import { TanksContent } from './Homepage Content/TanksContent';
-import { PlantsContent } from './Homepage Content/PlantsContent';
-import { RemindersContent } from './Homepage Content/RemindersContent';
-
-import { DashboardScreen } from './Screens/HomeScreens/Dashboard';
-import { TanksScreen } from './Screens/HomeScreens/Tanks';
-import { FishScreen } from './Screens/HomeScreens/Fish';
-import { PlantsScreen } from './Screens/HomeScreens/Plants';
-
 import { TankScreen } from './Screens/TankScreen';
 import { TankCreateScreen } from './Screens/TankCreateScreen';
 import { ReminderCreateScreen } from './Screens/ReminderCreateScreen';
 import { ParameterScreen } from './Screens/ParameterScreen';
 
-import DefaultPFP from './assets/MiscImages/defaultPFP.png';
-import SettingsIcon from './assets/MiscImages/settings.png';
-import DashboardIcon from './assets/MiscImages/dashboard.png';
-import TanksIcon from './assets/MiscImages/tanks.png';
-import FishIcon from './assets/MiscImages/fish.png';
-import PlantsIcon from './assets/MiscImages/plants.png';
-
-import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import realm from './database/Realm';
 import { Provider } from 'react-redux';
@@ -107,11 +89,10 @@ const MyStack = ({ navigation }) => {
     };
   }, [])
 
-  
-
   return (
     //Navigator for ALL pages
     <Provider store={store}>
+      <StatusBar backgroundColor={'transparent'} />
       <NavigationContainer>
         <Stack.Navigator 
           initialRouteName="Home"
@@ -154,201 +135,6 @@ const MyStack = ({ navigation }) => {
   );
 };
 
-const HomeScreen = ({navigation}) => {
-
-  const [activeTab, setActiveTab] = useState('Tanks');
-  const position = new Animated.Value(0);
-
-  const handleTabChange = (tabName) => {
-    setActiveTab(tabName);
-  };
-
-  const renderContent = ({navigation, item}) => {
-    switch (activeTab) {
-      case 'Dashboard':
-        return <RemindersContent />;
-      case 'Fish':
-        return <FishContent navigation={navigation} />;
-      case 'Tanks':        
-        return <TanksContent navigation={navigation} item={item}  />;
-      case 'Plants':
-        return <PlantsContent />;
-      
-      default:
-        return null;
-    }
-  };
-
-  const slideAnimation = {
-    transform: [
-      {
-        translateX: position.interpolate({
-          inputRange: [0, 1],
-          outputRange: [300, 0], // Slide from right (300) to original position (0)
-        }),
-      },
-    ],
-    opacity: position.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, 1], // Fade in effect
-    }),
-    
-  };
-
-  // For handling content change animatyions
-  useEffect(() => {
-    Animated.timing(position, {
-      toValue: 1,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-    
-  }, [activeTab]);
-
-  return (
-    <View style={styles.container}>
-      <StatusBar style="light" />
-      <View style={styles.flexHoz}>
-        <ButtonComponent
-          //onPress={() => showList(1)}
-          imageLink={DefaultPFP}
-          style={{
-            width: 50,
-            height: 50,
-            marginLeft: 0,
-            marginRight: 10,
-          }}
-          imageStyle={{
-            height: '90%',
-            width: '90%',
-          }}
-          textStyle={{
-            fontSize: 20,
-            color: Colors.text,
-          }}
-        />
-        <View>
-          <Text style={styles.header1}>Hi Bradley!</Text>
-          <Text style={styles.header2}>Your tanks are all healthy.</Text>
-        </View>
-        <ButtonComponent
-          imageLink={SettingsIcon}
-          style={{
-            width: 50,
-            height: 50,
-            marginRight: 0,
-            marginLeft: 'auto',
-            
-          }}
-          imageStyle={{
-            height: '90%',
-            width: '90%',
-            tintColor: Colors.textMarine,
-          }}
-          textStyle={{
-            fontSize: 20,
-            color: Colors.text,
-          }}
-        />
-      </View>
-
-    <Animated.View style={[slideAnimation, styles.contentHolder]}>
-      {renderContent(( navigation={navigation} ))}
-    </Animated.View>
-
-  {/* Menu Bar On home screen */}
-  <View style={styles.buttonContainer}>
-
-        <ButtonComponent
-          imageLink={DashboardIcon}
-          title="Dashboard"
-          onPress={() => handleTabChange('Dashboard')}
-          style={{
-            width: '25%',
-            height: '100%',
-            alignItems: 'center',
-          }}
-          imageStyle={{
-            width: 30,
-            height: 30,
-            tintColor: Colors.textMarine,
-          }}
-          textStyle={{
-            fontSize: 13,
-            fontWeight: '400',
-            marginTop: 5,
-            color: Colors.textMarine,
-          }}
-        />
-        <ButtonComponent
-          imageLink={TanksIcon}
-          title="Tanks"
-          onPress={() => handleTabChange('Tanks')}
-          style={{
-            width: '25%',
-            height: '100%',
-            alignItems: 'center',
-          }}
-          imageStyle={{
-            width: 30,
-            height: 30,
-            tintColor: Colors.textMarine,
-          }}
-          textStyle={{
-            fontSize: 13,
-            fontWeight: '400',
-            marginTop: 5,
-            color: Colors.textMarine,
-          }}
-        />
-        <ButtonComponent
-          imageLink={FishIcon}
-          title="Fish"
-          onPress={() => handleTabChange('Fish')}
-          style={{
-            width: '25%',
-            height: '100%',
-            alignItems: 'center',
-          }}
-          imageStyle={{
-            width: 30,
-            height: 30,
-            tintColor: Colors.textMarine,
-          }}
-          textStyle={{
-            fontSize: 13,
-            fontWeight: '400',
-            marginTop: 5,
-            color: Colors.textMarine,
-          }}
-        />
-        <ButtonComponent
-          imageLink={PlantsIcon}
-          title="Plants"
-          onPress={() => handleTabChange('Plants')}
-          style={{
-            width: '25%',
-            height: '100%',
-            alignItems: 'center',
-          }}
-          imageStyle={{
-            width: 30,
-            height: 30,
-            tintColor: Colors.textMarine,
-          }}
-          textStyle={{
-            fontSize: 13,
-            fontWeight: '400',
-            marginTop: 5,
-            color: Colors.textMarine,
-          }}
-        />
-
-
-      </View>
-    </View>
-  );
-};
 
 //push notif token
 {/*
@@ -386,62 +172,5 @@ async function registerForPushNotificationAsync() {
   }
 }
 */}
-
-
-
-const styles = StyleSheet.create({
-  header: {
-    height: Platform.OS === 'android' ? 50 : 40,
-    width: '100%',
-    backgroundColor: Colors.primary,
-    marginBottom: 20,
-  },
-  container: {
-    flex: 1,
-    alignItems: 'flex-start',
-    backgroundColor: Colors.backgroundDark,
-    alignItems: 'center',
-    width: '100%',
-    paddingTop: Platform.OS === 'android' ? 60 : 0,
-  },
-  buttonContainer: {
-    display: 'flex',
-    position: 'absolute',
-    bottom: 0,
-    flexDirection: 'row',
-    padding: 10,
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: Colors.height2,
-  },
-  flexHoz: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '90%',
-    height: 35,
-    
-  },
-  header1: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: Colors.textMarine,
-  },
-  header2: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: Colors.textMarine,
-    //marginTop: 5,
-    //marginLeft: 50,
-  },
-  contentHolder: {
-    width: '100%',
-    height: '100%',
-    //backgroundColor: 'green'
-  },
-
-  
-});
-
 
 export default MyStack;

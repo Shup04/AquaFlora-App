@@ -12,6 +12,8 @@ import realm from '../database/Realm';
 import { TankSchema } from '../database/schemas';
 
 import { BlurView } from 'expo-blur';
+import { StatusBar } from 'react-native';
+import { ParentStyles } from '../Styles/ParentStyles';
 
 const screenWidth = Dimensions.get('window').width;
 const chartWidth = screenWidth * 0.75; // 80% of screen width
@@ -37,18 +39,22 @@ export const TankScreen = ({ navigation,  route }) => {
     const getStatus = () => {
       //get params for status check
       const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
-      const lastNitrate = allParams.filtered('parameterName = "nitrate"').sorted('date', true)[0];
-      const lastAmmonia = allParams.filtered('parameterName = "ammonia"').sorted('date', true)[0];
-      const lastNitrite = allParams.filtered('parameterName = "nitrite"').sorted('date', true)[0];
-      const lastPh = allParams.filtered('parameterName = "ph"').sorted('date', true)[0];
-      const highestParam = Math.max(lastNitrate.value, lastAmmonia.value, lastNitrite.value, lastPh.value);
-
-      if (highestParam > 75){
-        setStatus('Bad');
-      } else if(highestParam > 50){
-        setStatus('Fair');
-      } else { 
-        setStatus('Good');
+      if(allParams != ''){
+        const lastNitrate = allParams.filtered('parameterName = "nitrate"').sorted('date', true)[0];
+        const lastAmmonia = allParams.filtered('parameterName = "ammonia"').sorted('date', true)[0];
+        const lastNitrite = allParams.filtered('parameterName = "nitrite"').sorted('date', true)[0];
+        const lastPh = allParams.filtered('parameterName = "ph"').sorted('date', true)[0];
+        const highestParam = Math.max(lastNitrate.value, lastAmmonia.value, lastNitrite.value, lastPh.value);
+  
+        if (highestParam > 75){
+          setStatus('Bad');
+        } else if(highestParam > 50){
+          setStatus('Fair');
+        } else { 
+          setStatus('Good');
+        }
+      } else {
+        setStatus('No Logged Data');
       }
     }
 
@@ -67,36 +73,38 @@ export const TankScreen = ({ navigation,  route }) => {
   }, [tankId]);
 
   return (
-  <View style={styles.body}>
-    <BackButton navigation={navigation}/>
-    
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {tankURI && (//only render image if tankURI was fetched.
-          <Image
-            source={{ uri: tankURI}}
-            style={{
-              width: '100%',
-              height: 175,
-              resizeMode: 'cover',
-            }}
-          />
-        )}
-        <Text style={styles.subTitle}>Status: {status} </Text>
+  <View style={ParentStyles.Background}>
+    <View style={[ParentStyles.Container, {paddingTop: 0}]}>
+      
+      
+      <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <BackButton navigation={navigation}/>
+          {tankURI && (//only render image if tankURI was fetched.
+            <Image
+              source={{ uri: tankURI}}
+              style={{
+                width: '100%',
+                height: 175,
+                resizeMode: 'cover',
+              }}
+            />
+          )}
+          <Text style={styles.subTitle}>Status: {status} </Text>
 
-        <Text style={styles.title}>Param Chart: </Text>
-        <ParamChart navigation={navigation} tankId={tankId}/>
+          <Text style={styles.title}>Param Chart: </Text>
+          <ParamChart navigation={navigation} tankId={tankId}/>
 
-        <Text style={styles.title}>Reminders: </Text>
-        <RemindersContent navigation={navigation} tankId={tankId}></RemindersContent>
+          <Text style={styles.title}>Reminders: </Text>
+          <RemindersContent navigation={navigation} tankId={tankId}></RemindersContent>
 
-        <Text style={styles.title}>Fish: </Text>
-        {/*<PersonalFishContent navigation={navigation} tankId={tankId}></PersonalFishContent>
-        */}
-        
-      </ScrollView>
+          <Text style={styles.title}>Fish: </Text>
+          {/*<PersonalFishContent navigation={navigation} tankId={tankId}></PersonalFishContent>
+          */}
+          
+        </ScrollView>
+      </View>
     </View>
-    
   </View>
   );
 }

@@ -44,8 +44,7 @@ export const HomeTabs = () => {
             } else if (route.name === 'Plants') {
               iconName = focused ? 'chat' : 'chat-outline';
             }
-      
-            // You can return any component that you like here!
+
             return <MaterialCommunityIcons name={iconName} size={size} color={color} />
           },
           tabBarIconStyle: {
