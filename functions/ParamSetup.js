@@ -228,7 +228,7 @@ export const setupData = (allParams) => {
       const filledData2 = fillMissingDates(organizedData2);
       const filledData3 = fillMissingDates(organizedData3);
       const filledData4 = fillMissingDates(organizedData4);
-      console.log(filledData4)
+      //console.log(filledData4)
       //align dates between params
       const syncedData1 = alignArrays(filledData1, filledData2, filledData3, filledData4).alignedArray1
       const syncedData2 = alignArrays(filledData1, filledData2, filledData3, filledData4).alignedArray2

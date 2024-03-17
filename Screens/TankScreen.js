@@ -41,23 +41,15 @@ export const TankScreen = ({ navigation,  route }) => {
       const lastAmmonia = allParams.filtered('parameterName = "ammonia"').sorted('date', true)[0];
       const lastNitrite = allParams.filtered('parameterName = "nitrite"').sorted('date', true)[0];
       const lastPh = allParams.filtered('parameterName = "ph"').sorted('date', true)[0];
+      const highestParam = Math.max(lastNitrate.value, lastAmmonia.value, lastNitrite.value, lastPh.value);
 
-      console.log(lastNitrate)
-      if (lastNitrate.value > 70){
+      if (highestParam > 75){
         setStatus('Bad');
-      } 
-
-      else if (lastNitrite.value > 70){
-        setStatus('Bad');
+      } else if(highestParam > 50){
+        setStatus('Fair');
+      } else { 
+        setStatus('Good');
       }
-
-      else if (lastAmmonia.value > 70){
-        setStatus('Bad');
-      }
-
-      else if (lastPh.value > 30){
-        setStatus('Bad');
-      } else {setStatus('Good')}
     }
 
     getStatus();
