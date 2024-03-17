@@ -86,7 +86,7 @@ export const TankScreen = ({ navigation,  route }) => {
   <View style={ParentStyles.Background}>
     <View style={[ParentStyles.Container, {paddingTop: 0}]}>
 
-      <View intensity={1} style={styles.Header}>
+      <View style={styles.Header}>
         <Animated.View style={[styles.headerBackground, { opacity: headerOpacity }]} />
         <BackButton navigation={navigation}/>
       </View>
@@ -149,8 +149,7 @@ const styles = StyleSheet.create({
     top: 30,
     width: '100%',
     height: 100,
-    //backgroundColor: Colors.height1,
-    paddingTop: 30,
+    paddingTop: 40,
     paddingHorizontal: 10,
   },
   headerBackground: {
