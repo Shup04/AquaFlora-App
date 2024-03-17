@@ -22,6 +22,8 @@ const chartWidth = screenWidth * 0.75; // 80% of screen width
 
 export const TankScreen = ({ navigation,  route }) => {
   const { tankId } = route.params;
+  const { tankName } = route.params;
+  console.log(route.params)
   const [tankURI, setTankURI] = useState('');
   const [status, setStatus] = useState('Good');
 
@@ -108,13 +110,14 @@ export const TankScreen = ({ navigation,  route }) => {
               source={{ uri: tankURI}}
               style={{
                 width: '100%',
-                height: 250,
+                height: 275,
                 resizeMode: 'cover',
                 //marginTop: -30
               }}
             />
           )}
-          <Text style={styles.subTitle}>Status: {status} </Text>
+          <Text style={styles.title}> {tankName} </Text>
+          <Text style={styles.title}>Status: {status} </Text>
 
           <Text style={styles.title}>Param Chart: </Text>
           <ParamChart navigation={navigation} tankId={tankId}/>
@@ -169,12 +172,11 @@ const styles = StyleSheet.create({
     paddingBottom: 60,
   },
   title: {
-    fontSize: 30,
+    fontSize: 24,
     width: '90%',
     color: Colors.textWhite,
     fontWeight: 'normal',
     marginTop: 20,
-    marginBottom: 30,
   },
   subTitle: {
     fontSize: 24,

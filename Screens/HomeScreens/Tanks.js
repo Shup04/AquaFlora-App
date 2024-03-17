@@ -48,8 +48,9 @@ export const TanksScreen = ({ navigation }) => {
           title={item.title}
           subtitle={item.subtitle}
           navigation={navigation} 
-          item={item}
           URI={item.URI}
+          item={item}
+          
         />
       );
     };
