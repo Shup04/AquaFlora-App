@@ -3,6 +3,7 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Colors } from '../Colors';
 import BackArrow from '../assets/MiscImages/backArrow.png';
 import { navigation } from '@react-navigation/native';
+import { Feather } from '@expo/vector-icons';
 
 export const BackButton = ({ navigation }) => {
 
@@ -15,7 +16,7 @@ export const BackButton = ({ navigation }) => {
         style={styles.button}
         onPress={handlePress}
       >
-        <Text style={styles.textStyle}>&lt; Back</Text>
+        <Feather name="arrow-left-circle" size={45} color='#aaaaaa' style={{backgroundColor: '#111111aa', borderRadius: 100}}/>
       </TouchableOpacity>
     
   );
@@ -24,7 +25,7 @@ export const BackButton = ({ navigation }) => {
 const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
-    marginLeft: 20,
+    //marginLeft: 20,
   },
   icon: {
     width: 40,

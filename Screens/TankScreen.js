@@ -86,9 +86,9 @@ export const TankScreen = ({ navigation,  route }) => {
   <View style={ParentStyles.Background}>
     <View style={[ParentStyles.Container, {paddingTop: 0}]}>
 
-      <View style={styles.Header}>
+      <View intensity={1} style={styles.Header}>
         <Animated.View style={[styles.headerBackground, { opacity: headerOpacity }]} />
-        <MaterialCommunityIcons name="arrow-left-bold-circle" size={50} color={Colors.primaryPastel}/>
+        <BackButton navigation={navigation}/>
       </View>
       
       
@@ -114,7 +114,6 @@ export const TankScreen = ({ navigation,  route }) => {
               }}
             />
           )}
-          <BackButton navigation={navigation}/>
           <Text style={styles.subTitle}>Status: {status} </Text>
 
           <Text style={styles.title}>Param Chart: </Text>
