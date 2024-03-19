@@ -15,6 +15,8 @@ import { BlurView } from 'expo-blur';
 import { StatusBar } from 'react-native';
 import { ParentStyles } from '../Styles/ParentStyles';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import AppLoading from 'expo-app-loading';
+
 
 const screenWidth = Dimensions.get('window').width;
 const chartWidth = screenWidth * 0.75; // 80% of screen width

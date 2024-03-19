@@ -19,6 +19,21 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { HomeTabs } from './Core/TabBar';
 
+import AppLoading from 'expo-app-loading';
+import {
+  useFonts,
+  Inter_100Thin,
+  Inter_200ExtraLight,
+  Inter_300Light,
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_600SemiBold,
+  Inter_700Bold,
+  Inter_800ExtraBold,
+  Inter_900Black,
+} from '@expo-google-fonts/inter';
+
+
 //notification handler
 Notifications.setNotificationHandler({
   handleNotification: async (notification) => {
@@ -69,6 +84,19 @@ Notifications.setNotificationHandler({
 const Stack = createNativeStackNavigator();
 const MyStack = ({ navigation }) => {
 
+  // If fondts are loaded in
+  let [fontsLoaded] = useFonts({
+    Inter_100Thin,
+    Inter_200ExtraLight,
+    Inter_300Light,
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_600SemiBold,
+    Inter_700Bold,
+    Inter_800ExtraBold,
+    Inter_900Black,
+  });
+
   //Reqest notification permissions
   useEffect(() => {
 
@@ -89,50 +117,55 @@ const MyStack = ({ navigation }) => {
     };
   }, [])
 
-  return (
-    //Navigator for ALL pages
-    <Provider store={store}>
-      <StatusBar backgroundColor={'transparent'} />
-      <NavigationContainer>
-        <Stack.Navigator 
-          initialRouteName="Home"
-          screenOptions={{
-            headerShown: false // Set headerShown to false to hide the header
-          }}>
+  if (!fontsLoaded) {
+    // Replace this with splash screen loading
+    return <AppLoading />;
+  } else {
+    return (
+      //Navigator for ALL pages
+      <Provider store={store}>
+        <StatusBar backgroundColor={'transparent'} />
+        <NavigationContainer>
+          <Stack.Navigator 
+            initialRouteName="Home"
+            screenOptions={{
+              headerShown: false // Set headerShown to false to hide the header
+            }}>
 
-          {/*<Stack.Screen name="Home" component={HomeScreen}/>*/}
-          <Stack.Screen name="Home" component={HomeTabs} />
+            {/*<Stack.Screen name="Home" component={HomeScreen}/>*/}
+            <Stack.Screen name="Home" component={HomeTabs} />
 
-          {/*Screens for the home page
-          <Stack.Screen name="H_Dashboard" component={DashboardScreen}/>
-          <Stack.Screen name="H_Tanks" component={TanksScreen}/>
-          <Stack.Screen name="H_Fish" component={FishScreen}/>
-          <Stack.Screen name="H_Plants" component={PlantsScreen}/>
-          */}
-          
-          <Stack.Screen name="Tank" component={TankScreen}/>
-          <Stack.Screen
-            name="Parameters"
-            backTo="TankScreen"
-            component={ParameterScreen}
-          />
-
-          <Stack.Screen
-            name="TankCreate"
-            backTo="HomeScreen"
-            component={TankCreateScreen}
-          />
-          <Stack.Screen
-            name="ReminderCreate"
-            backTo="TankScreen"
-            component={ReminderCreateScreen}
+            {/*Screens for the home page
+            <Stack.Screen name="H_Dashboard" component={DashboardScreen}/>
+            <Stack.Screen name="H_Tanks" component={TanksScreen}/>
+            <Stack.Screen name="H_Fish" component={FishScreen}/>
+            <Stack.Screen name="H_Plants" component={PlantsScreen}/>
+            */}
             
-          />
+            <Stack.Screen name="Tank" component={TankScreen}/>
+            <Stack.Screen
+              name="Parameters"
+              backTo="TankScreen"
+              component={ParameterScreen}
+            />
 
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
-  );
+            <Stack.Screen
+              name="TankCreate"
+              backTo="HomeScreen"
+              component={TankCreateScreen}
+            />
+            <Stack.Screen
+              name="ReminderCreate"
+              backTo="TankScreen"
+              component={ReminderCreateScreen}
+              
+            />
+
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    );
+  }
 };
 
 

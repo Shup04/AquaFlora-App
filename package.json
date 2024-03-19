@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/inter": "^0.2.3",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/react-native-fontawesome": "^0.3.0",
     "@react-native-picker/picker": "2.4.10",
@@ -21,11 +22,13 @@
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "expo": "^49.0.21",
+    "expo-app-loading": "^2.1.1",
     "expo-blur": "~12.4.1",
     "expo-checkbox": "^2.5.0",
     "expo-dev-client": "~2.4.12",
     "expo-device": "~5.4.0",
     "expo-file-system": "^15.6.0",
+    "expo-font": "~11.4.0",
     "expo-image-picker": "~14.3.2",
     "expo-notifications": "~0.20.1",
     "expo-status-bar": "~1.6.0",
