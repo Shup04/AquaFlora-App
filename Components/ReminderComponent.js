@@ -5,6 +5,8 @@ import { BlurView } from 'expo-blur';
 import realm from '../database/Realm';
 import * as Notifications from 'expo-notifications';
 
+import { ParentStyles, ButtonStyles } from '../Styles/ParentStyles';
+
 //item is the reminder object.
 export const ReminderComponent = ({ item, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -90,7 +92,7 @@ export const ReminderComponent = ({ item, navigation }) => {
         delayLongPress={500}
       >
         <View style={styles.textContainer}>
-          <Text style={styles.buttonTitle}>{item.title}</Text>
+          <Text style={ParentStyles.SubHeader}>{item.title}</Text>
         </View>
       </TouchableOpacity>
 
@@ -139,14 +141,14 @@ export const PlusComponent = ({ navigation, destination, tankId }) => {
   }; 
 
   return (
-  <View style={styles.plusButtonContainer}>
+  <>
     <TouchableOpacity 
-      style={styles.plusButton}
+      style={ButtonStyles.PlusButton}
       onPress={() => handlePress(tankId)}
     >
-      <Text style={styles.plusButtonText}>Create New Reminder</Text>
+      <Text style={ParentStyles.SubHeader}>Create New Reminder</Text>
     </TouchableOpacity>
-  </View>
+  </>
   );
 };
 
@@ -157,28 +159,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
   },
-  plusButtonContainer: {
-    width: '100%',
-    height: 75,
-    alignItems: 'center',
-    padding: 10,
-  },
+
   button: {
     height: 70,
     width: '100%',
     backgroundColor: Colors.height2,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    borderRadius: 8,
-    shadowColor: '#000000',
-    elevation: 3,
-  },
-  plusButton: {
-    height: '100%',
-    width: '100%',
-    backgroundColor: Colors.height2,
-    justifyContent: 'center',
-    alignItems: 'center',
     borderRadius: 8,
     shadowColor: '#000000',
     elevation: 3,
