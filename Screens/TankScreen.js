@@ -15,7 +15,18 @@ import { BlurView } from 'expo-blur';
 import { StatusBar } from 'react-native';
 import { ParentStyles } from '../Styles/ParentStyles';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import AppLoading from 'expo-app-loading';
+import {
+  useFonts,
+  Inter_100Thin,
+  Inter_200ExtraLight,
+  Inter_300Light,
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_600SemiBold,
+  Inter_700Bold,
+  Inter_800ExtraBold,
+  Inter_900Black,
+} from '@expo-google-fonts/inter';
 
 
 const screenWidth = Dimensions.get('window').width;
@@ -23,7 +34,7 @@ const chartWidth = screenWidth * 0.75; // 80% of screen width
 
 
 export const TankScreen = ({ navigation,  route }) => {
-  const { tankId } = route.params;
+  const { tank } = route.params;
   const { tankName } = route.params;
   console.log(route.params)
   const [tankURI, setTankURI] = useState('');
@@ -41,7 +52,8 @@ export const TankScreen = ({ navigation,  route }) => {
   useEffect(() => {
     const fetchData = () => {
       // Query for the tank with the given id
-      const tank = realm.objectForPrimaryKey('Tank', tankId);
+      console.log(tank)
+      const tank = realm.objectForPrimaryKey('Tank', tank.id);
 
       // Set the tank URI in state
       if (tank && tank.URI) {
@@ -52,7 +64,7 @@ export const TankScreen = ({ navigation,  route }) => {
 
     const getStatus = () => {
       //get params for status check
-      const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
+      const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tank.id}`);
       if(allParams != ''){
         const lastNitrate = allParams.filtered('parameterName = "nitrate"').sorted('date', true)[0];
         const lastAmmonia = allParams.filtered('parameterName = "ammonia"').sorted('date', true)[0];
@@ -84,7 +96,7 @@ export const TankScreen = ({ navigation,  route }) => {
     return () => {
       clearInterval(intervalId);
     };
-  }, [tankId]);
+  }, [tank]);
 
   return (
   <View style={ParentStyles.Background}>
@@ -122,10 +134,10 @@ export const TankScreen = ({ navigation,  route }) => {
           <Text style={styles.title}>Status: {status} </Text>
 
           <Text style={styles.title}>Param Chart: </Text>
-          <ParamChart navigation={navigation} tankId={tankId}/>
+          <ParamChart navigation={navigation} tankId={tank.id}/>
 
           <Text style={styles.title}>Reminders: </Text>
-          <RemindersContent navigation={navigation} tankId={tankId}></RemindersContent>
+          <RemindersContent navigation={navigation} tankId={tank.id}></RemindersContent>
 
           <Text style={styles.title}>Fish: </Text>
           {/*<PersonalFishContent navigation={navigation} tankId={tankId}></PersonalFishContent>
@@ -156,6 +168,7 @@ const styles = StyleSheet.create({
     height: 100,
     paddingTop: 40,
     paddingHorizontal: 10,
+
   },
   headerBackground: {
     ...StyleSheet.absoluteFillObject, // This will fill the parent's dimensions
@@ -179,6 +192,7 @@ const styles = StyleSheet.create({
     color: Colors.textWhite,
     fontWeight: 'normal',
     marginTop: 20,
+    fontFamily: 'Inter_400Regular',
   },
   subTitle: {
     fontSize: 24,
@@ -186,6 +200,7 @@ const styles = StyleSheet.create({
     color: Colors.textWhite,
     fontWeight: 'normal',
     marginTop: 20,
+    fontFamily: 'Inter_400Regular',
   },
   BlurView: {
     width: '100%',

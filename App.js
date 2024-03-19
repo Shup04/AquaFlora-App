@@ -119,7 +119,7 @@ const MyStack = ({ navigation }) => {
 
   if (!fontsLoaded) {
     // Replace this with splash screen loading
-    return <AppLoading />;
+    //return <AppLoading />;
   } else {
     return (
       //Navigator for ALL pages
