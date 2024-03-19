@@ -74,6 +74,7 @@ export const TankScreen = ({ navigation,  route }) => {
         const lastPh = allParams.filtered('parameterName = "ph"').sorted('date', true)[0];
         const highestParam = Math.max(lastNitrate.value, lastAmmonia.value, lastNitrite.value, lastPh.value);
   
+        console.log(highestParam)
         if (highestParam > 75){
           setStatus('Bad');
         } else if(highestParam > 50){
