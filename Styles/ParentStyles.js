@@ -35,7 +35,7 @@ export const ParentStyles = StyleSheet.create({
     SubHeader: {
       fontSize: 18,
       color: Colors.textMarine,
-      fontFamily: 'Inter_400Regular',
+      fontFamily: 'Inter_500Medium',
     },
     Title: {
       fontSize: 28,
@@ -56,5 +56,33 @@ export const ParentStyles = StyleSheet.create({
       color: Colors.textWhite,
       fontFamily: 'Inter_400Regular',
     },
-
   });
+
+export const ButtonStyles = StyleSheet.create({
+  Button: {
+    height: 100,
+    width: '95%',
+    alignSelf: 'center',
+    marginVertical: 10,
+    backgroundColor: Colors.height2,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    borderRadius: 8,
+    shadowColor: '#000000',
+    elevation: 5,
+  },
+  PlusButton: {
+    height: 55,
+    width: '95%',
+    alignSelf: 'center',
+    backgroundColor: Colors.height2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+    shadowColor: '#000000',
+    elevation: 5,
+    marginVertical: 10,
+  },
+
+});

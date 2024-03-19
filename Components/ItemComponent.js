@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { Colors } from '../Colors';
-import { ParentStyles } from '../Styles/ParentStyles';
+import { ParentStyles, ButtonStyles } from '../Styles/ParentStyles';
 
 export const ItemComponent = ({ item, title, subtitle, URI, navigation }) => {
 
@@ -10,9 +10,9 @@ export const ItemComponent = ({ item, title, subtitle, URI, navigation }) => {
   };
 
   return (
-    <View style={styles.buttonContainer}>
+    <>
       <TouchableOpacity 
-        style={styles.button}
+        style={ButtonStyles.Button}
         onPress={() => handlePress(item.id)}
       >
         <Image
@@ -26,7 +26,7 @@ export const ItemComponent = ({ item, title, subtitle, URI, navigation }) => {
           <Text style={ParentStyles.SubHeader}>{subtitle}</Text>
         </View>
       </TouchableOpacity>
-    </View>
+    </>
   );
 };
 
@@ -37,14 +37,14 @@ export const PlusComponent = ({ navigation, destination }) => {
   };
 
   return (
-  <View style={styles.plusButtonContainer}>
+  <>
     <TouchableOpacity 
-      style={styles.plusButton}
+      style={ButtonStyles.PlusButton}
       onPress={handlePress}
     >
-      <Text style={styles.plusButtonText}>Create New Tank</Text>
+      <Text style={ParentStyles.SubHeader}>Create New Tank</Text>
     </TouchableOpacity>
-  </View>
+  </>
   );
 };
 
@@ -56,12 +56,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
   },
-  plusButtonContainer: {
-    width: '100%',
-    height: 75,
-    alignItems: 'center',
-    padding: 10,
-  },
+
   button: {
     height: 100,
     width: '100%',
@@ -73,16 +68,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000000',
     elevation: 5,
   },
-  plusButton: {
-    height: '100%',
-    width: '100%',
-    backgroundColor: Colors.height2,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 8,
-    shadowColor: '#000000',
-    elevation: 5,
-  },
+
   image: {
     height: '100%',
     width: '50%',
@@ -93,7 +79,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 12,
     width: '45%',
-    //backgroundColor:'yellow'
   },
   buttonSubtitle: {
     color: Colors.textMarine,
