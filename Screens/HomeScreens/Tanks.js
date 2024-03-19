@@ -61,7 +61,7 @@ export const TanksScreen = ({ navigation }) => {
     return (
       <View style={ParentStyles.Background}>
         <View style={ParentStyles.Container}>
-          <Text style={ParentStyles.Header}>My Tanks:</Text>
+          <Text style={[ParentStyles.Header, styles.title]}>My Tanks:</Text>
 
           <PlusComponent navigation={navigation} destination={'TankCreate'}/>
 
@@ -78,12 +78,10 @@ export const TanksScreen = ({ navigation }) => {
 }; 
 
 const styles = StyleSheet.create({
-    header: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      margin: 10,
+    title: {
+      width: '95%',
+      alignSelf: 'center',
       marginTop: 20,
-      color: Colors.textMarine,
     },
     listContainer: {
       width: '100%',

@@ -17,10 +17,9 @@ import {
 
 export const ParentStyles = StyleSheet.create({
     Background: {
-        width: '100%',
-        height: '100%',
-        //marginTop: -30,
-        backgroundColor: Colors.backgroundDark
+      width: '100%',
+      height: '100%',
+      backgroundColor: Colors.backgroundDark
     },
     Container: {
       width: '100%',
@@ -30,15 +29,11 @@ export const ParentStyles = StyleSheet.create({
     },
     Header: {
       fontSize: 24,
-      margin: 10,
-      marginTop: 20,
       color: Colors.textMarine,
       fontFamily: 'Inter_500Medium',
     },
     SubHeader: {
       fontSize: 18,
-      margin: 10,
-      marginTop: 20,
       color: Colors.textMarine,
       fontFamily: 'Inter_400Regular',
     },

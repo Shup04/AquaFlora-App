@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { Colors } from '../Colors';
-
+import { ParentStyles } from '../Styles/ParentStyles';
 
 export const ItemComponent = ({ item, title, subtitle, URI, navigation }) => {
 
@@ -22,8 +22,8 @@ export const ItemComponent = ({ item, title, subtitle, URI, navigation }) => {
           }}
         />
         <View style={styles.textContainer}>
-          <Text numberOfLines={1} style={styles.buttonTitle}>{title}</Text>
-          <Text style={styles.buttonSubtitle}>{subtitle}</Text>
+          <Text numberOfLines={1} style={[ParentStyles.Header, styles.title]}>{title}</Text>
+          <Text style={ParentStyles.SubHeader}>{subtitle}</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -95,12 +95,8 @@ const styles = StyleSheet.create({
     width: '45%',
     //backgroundColor:'yellow'
   },
-  buttonTitle: {
-    color: Colors.textMarine,
-    fontWeight: 'bold',
-    fontSize: 24,
-    maxWidth: '100%',
-    //backgroundColor: 'red',
+  title: {
+
   },
   buttonSubtitle: {
     color: Colors.textMarine,

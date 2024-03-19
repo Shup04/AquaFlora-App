@@ -33,7 +33,7 @@ export const FishScreen = ({ navigation }) => {
   return (
     <View style={ParentStyles.Background}>
       <View style={ParentStyles.Container}>
-        <Text style={ParentStyles.Header}>Fish List:</Text>
+        <Text style={[ParentStyles.Header, styles.title]}>Fish List:</Text>
         <TextInput
           style={styles.searchBar}
           placeholder="Search..."
@@ -70,6 +70,11 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     //backgroundColor: 'white',
+  },
+  title: {
+    width: '95%',
+    alignSelf: 'center',
+    marginTop: 20,
   },
   listContainer: {
     width: '100%',
