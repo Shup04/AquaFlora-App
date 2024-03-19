@@ -22,7 +22,7 @@ export const ItemComponent = ({ item, title, subtitle, URI, navigation }) => {
           }}
         />
         <View style={styles.textContainer}>
-          <Text numberOfLines={1} style={[ParentStyles.Header, styles.title]}>{title}</Text>
+          <Text numberOfLines={1} style={ParentStyles.Header}>{title}</Text>
           <Text style={ParentStyles.SubHeader}>{subtitle}</Text>
         </View>
       </TouchableOpacity>
@@ -49,26 +49,6 @@ export const PlusComponent = ({ navigation, destination }) => {
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    width: '100%',
-    maxWidth: '100%',
-    //backgroundColor: 'green',
-    alignItems: 'center',
-    padding: 10,
-  },
-
-  button: {
-    height: 100,
-    width: '100%',
-    backgroundColor: Colors.height2,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    borderRadius: 8,
-    shadowColor: '#000000',
-    elevation: 5,
-  },
-
   image: {
     height: '100%',
     width: '50%',
@@ -79,15 +59,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 12,
     width: '45%',
-  },
-  buttonSubtitle: {
-    color: Colors.textMarine,
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-  plusButtonText: {
-    color: Colors.textMarine,
-    fontSize: 20,
-    fontWeight: 'bold',
-  },  
+  }, 
 });
