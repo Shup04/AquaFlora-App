@@ -95,9 +95,6 @@ const styles = StyleSheet.create({
     width: '45%',
     //backgroundColor:'yellow'
   },
-  title: {
-
-  },
   buttonSubtitle: {
     color: Colors.textMarine,
     fontWeight: 'bold',

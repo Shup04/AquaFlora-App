@@ -36,10 +36,10 @@ const chartWidth = screenWidth * 0.75; // 80% of screen width
 export const TankScreen = ({ navigation,  route }) => {
   const { tankId } = route.params;
   const [tankURI, setTankURI] = useState('');
-  const [tankName, setTankName] = useState('');
+  const [tank, setTank] = useState([]);
 
   const [status, setStatus] = useState('Good');
-  const [tank, setTank] = useState('');
+ 
 
   const scrollY = new Animated.Value(0);
 
@@ -58,8 +58,8 @@ export const TankScreen = ({ navigation,  route }) => {
       if (tank && tank.URI) {
         setTankURI(tank.URI);
       }
-      if (tank && tank.name) {
-        setTankName(tank.name);
+      if (tank) {
+        setTank(tank);
       }
       
     };
@@ -133,8 +133,10 @@ export const TankScreen = ({ navigation,  route }) => {
               }}
             />
           )}
-          <Text style={styles.title}> {tankName} </Text>
-          <Text style={styles.title}>Status: {status} </Text>
+          <Text style={ParentStyles.Title}>{tank.name} </Text>
+          <Text style={ParentStyles.SubTitle}>Tank Size: {tank.size} </Text>
+          <Text style={ParentStyles.SubTitle}>Status: {status} </Text>
+          <Text style={ParentStyles.Text}>{tank.desc} </Text>
 
           <Text style={styles.title}>Param Chart: </Text>
           <ParamChart navigation={navigation} tankId={tankId}/>

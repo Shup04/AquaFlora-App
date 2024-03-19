@@ -37,5 +37,24 @@ export const ParentStyles = StyleSheet.create({
       color: Colors.textMarine,
       fontFamily: 'Inter_400Regular',
     },
+    Title: {
+      fontSize: 28,
+      width: '90%',
+      color: Colors.textWhite,
+      marginTop: 20,
+      fontFamily: 'Inter_500Medium',
+    },
+    SubTitle: {
+      fontSize: 18,
+      width: '90%',
+      color: Colors.textWhite,
+      fontFamily: 'Inter_400Regular',
+    },
+    Text: {
+      fontSize: 14,
+      width: '90%',
+      color: Colors.textWhite,
+      fontFamily: 'Inter_400Regular',
+    },
 
   });
