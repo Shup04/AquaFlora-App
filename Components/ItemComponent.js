@@ -5,15 +5,15 @@ import { Colors } from '../Colors';
 
 export const ItemComponent = ({ item, title, subtitle, URI, navigation }) => {
 
-  const handlePress = (tank) => {
-    navigation.navigate('Tank', { tank })
+  const handlePress = (tankId) => {
+    navigation.navigate('Tank', { tankId })
   };
 
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity 
         style={styles.button}
-        onPress={() => handlePress(item)}
+        onPress={() => handlePress(item.id)}
       >
         <Image
           style={styles.image}

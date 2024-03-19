@@ -34,11 +34,12 @@ const chartWidth = screenWidth * 0.75; // 80% of screen width
 
 
 export const TankScreen = ({ navigation,  route }) => {
-  const { tank } = route.params;
-  const { tankName } = route.params;
-  console.log(route.params)
+  const { tankId } = route.params;
   const [tankURI, setTankURI] = useState('');
+  const [tankName, setTankName] = useState('');
+
   const [status, setStatus] = useState('Good');
+  const [tank, setTank] = useState('');
 
   const scrollY = new Animated.Value(0);
 
@@ -52,19 +53,20 @@ export const TankScreen = ({ navigation,  route }) => {
   useEffect(() => {
     const fetchData = () => {
       // Query for the tank with the given id
-      console.log(tank)
-      const tank = realm.objectForPrimaryKey('Tank', tank.id);
+      const tank = realm.objectForPrimaryKey('Tank', tankId);
 
-      // Set the tank URI in state
       if (tank && tank.URI) {
         setTankURI(tank.URI);
+      }
+      if (tank && tank.name) {
+        setTankName(tank.name);
       }
       
     };
 
     const getStatus = () => {
       //get params for status check
-      const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tank.id}`);
+      const allParams = realm.objects('WaterParameter').filtered(`tankId = ${tankId}`);
       if(allParams != ''){
         const lastNitrate = allParams.filtered('parameterName = "nitrate"').sorted('date', true)[0];
         const lastAmmonia = allParams.filtered('parameterName = "ammonia"').sorted('date', true)[0];
@@ -96,7 +98,7 @@ export const TankScreen = ({ navigation,  route }) => {
     return () => {
       clearInterval(intervalId);
     };
-  }, [tank]);
+  }, [tankId]);
 
   return (
   <View style={ParentStyles.Background}>
@@ -134,10 +136,10 @@ export const TankScreen = ({ navigation,  route }) => {
           <Text style={styles.title}>Status: {status} </Text>
 
           <Text style={styles.title}>Param Chart: </Text>
-          <ParamChart navigation={navigation} tankId={tank.id}/>
+          <ParamChart navigation={navigation} tankId={tankId}/>
 
           <Text style={styles.title}>Reminders: </Text>
-          <RemindersContent navigation={navigation} tankId={tank.id}></RemindersContent>
+          <RemindersContent navigation={navigation} tankId={tankId}></RemindersContent>
 
           <Text style={styles.title}>Fish: </Text>
           {/*<PersonalFishContent navigation={navigation} tankId={tankId}></PersonalFishContent>
