@@ -18,7 +18,7 @@ export const TanksScreen = ({ navigation }) => {
         const dataFromRealm = tankArray.map((tank) => ({
           id: tank.id,
           title: tank.name,
-          subtitle: `Size: ${tank.size}`,
+          subtitle: `${tank.size}g`,
           URI: tank.URI,
         }));
     

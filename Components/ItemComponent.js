@@ -22,8 +22,8 @@ export const ItemComponent = ({ item, title, subtitle, URI, navigation }) => {
           }}
         />
         <View style={styles.textContainer}>
-          <Text numberOfLines={1} style={ParentStyles.Header}>{title}</Text>
-          <Text style={ParentStyles.SubHeader}>{subtitle}</Text>
+          <Text numberOfLines={2} style={ParentStyles.SubHeader}>{title}</Text>
+          <Text numberOfLoines={1} style={ParentStyles.Text}>{subtitle}</Text>
         </View>
       </TouchableOpacity>
     </>
