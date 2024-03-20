@@ -329,7 +329,7 @@ export const ParameterScreen = ({ navigation, route }) => {
     setTempPh('');
 
     let now = new Date();
-    let date = new Date(now.getFullYear(), now.getMonth(), now.getDate()+9, now.getHours(), now.getMinutes(), now.getSeconds());
+    let date = new Date(now.getFullYear(), now.getMonth(), now.getDate()+18, now.getHours(), now.getMinutes(), now.getSeconds());
     //date.setDate(date.getDate());
     
     const addParameter = (parameterName, value, tankId) => {
